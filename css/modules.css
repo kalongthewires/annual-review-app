@@ -1,0 +1,129 @@
+/* ==========================================================================
+   Global Variables
+   ========================================================================== */
+/**
+ * ## Global Spaces
+ */
+/**
+ * ## Global Widths
+ */
+/**
+ * ## Global Colors
+ */
+/* ==========================================================================
+   Global Mixins
+   ========================================================================== */
+/* ==========================================================================
+   Global Variables
+   ========================================================================== */
+/**
+ * ## Global Spaces
+ */
+/**
+ * ## Global Widths
+ */
+/**
+ * ## Global Colors
+ */
+/* ==========================================================================
+   Module/Page Specific CSS: Contains CSS that is not global
+   Examples: "About Page Only" CSS or a non-reusable component
+   ========================================================================== */
+.home .about {
+  float: left;
+  margin-right: 3%;
+  width: 63%; }
+.home .signin {
+  float: right;
+  margin-left: 3%;
+  width: 30%; }
+  .home .signin input {
+    width: 90%; }
+  .home .signin input[type='submit'] {
+    width: auto; }
+
+.add-post, .edit {
+  clear: both;
+  overflow: auto; }
+  .add-post .button, .edit .button {
+    float: right; }
+  .add-post textarea, .edit textarea {
+    width: 99%; }
+  .add-post .cancel, .edit .cancel {
+    float: right;
+    font-family: "Noto Sans", sans-serif;
+    margin: 20px 10px 0; }
+
+.add-post {
+  margin-top: 20px; }
+
+#posts {
+  font-family: "Noto Sans", sans-serif;
+  font-size: 16px;
+  line-height: 1.65em;
+  margin-top: 20px;
+  word-wrap: break-word; }
+  #posts .post {
+    background-color: #792d4d;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #fefefe;
+    margin-bottom: 15px;
+    padding: 2%;
+    width: 32%; }
+  #posts .invert {
+    background: #fefefe;
+    border: 1px dashed #f94b06;
+    color: #792d4d;
+    font-size: 22px; }
+    #posts .invert a {
+      color: #792d4d; }
+  #posts .post-content {
+    margin: 10px 0; }
+  #posts .post-meta, #posts .post-footer {
+    font-size: 12px; }
+  #posts a {
+    color: #fefefe; }
+
+.profile .avatar {
+  display: block;
+  max-height: 350px;
+  padding: 20px 0 10px; }
+.profile .row {
+  clear: both;
+  font-size: 18px;
+  overflow: auto;
+  padding: 10px 0; }
+.profile .label {
+  float: left;
+  font-weight: bold;
+  width: 150px; }
+.profile .first_name, .profile .last_name, .profile .email {
+  float: left; }
+.profile .bio {
+  clear: both;
+  padding-top: 10px; }
+
+.profile-edit label {
+  font-weight: bold;
+  margin-top: 15px; }
+.profile-edit input {
+  margin-bottom: 15px; }
+.profile-edit textarea {
+  height: 250px;
+  width: 500px; }
+
+.users {
+  padding-top: 20px; }
+  .users h4 {
+    margin-bottom: 0;
+    margin-top: 10px; }
+  .users ul {
+    border: 1px dotted #efefef;
+    overflow: auto;
+    padding: 20px 0; }
+  .users li {
+    list-style-type: none; }
+  .users .user {
+    float: left;
+    margin: 14px 29px; }
