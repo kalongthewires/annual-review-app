@@ -1,11 +1,10 @@
 $(document).ready(function(){
-	
+	var storage_key = 'goalslist';
+
 	// function for testing is a string is blank
 	function isBlank(str) {
 	    return (!str || /^\s*$/.test(str));
 	}
-
-	var storage_key = 'goalslist';
 
 	// display goals entered previously
 	if (localStorage && storage_key in localStorage){
@@ -57,6 +56,11 @@ $(document).ready(function(){
 
 	/* APPLY SETTINGS --------------------------------------------------------------- */
 	var settings;
+
+	// show-hide settings form
+	$('#settings-toggle').click(function(){
+		$('#settings-form').toggle();
+	});
 
 	$('#settings-form').submit(function(){
 		settings = {
