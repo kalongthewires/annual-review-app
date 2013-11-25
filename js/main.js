@@ -143,7 +143,7 @@ $(document).ready(function(){
 			addCategory();
 		}
 
-		for (var i = 1; i <= categoryCount+1; i++){
+		for (var i = 1; i <= categoryCount; i++){
 			console.log(i);
 			settings['cat-title-' + i] = $('#cat-' + i).val();
 		}
