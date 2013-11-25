@@ -39,71 +39,18 @@
             <label for="theme">Theme</label>
             <input type="text" name="theme" id="theme" />
 
-            <label for="cat-1">Category 1:</label>
-            <input type="text" name="cat-1" id="cat-1" placeholder="e.g. Health" />
+            <div id="form-categories">
 
-            <label for="cat-2">Category 2:</label>
-            <input type="text" name="cat-2" id="cat-2" placeholder="e.g. Personal Finance" />
-
-            <label for="cat-3">Category 3:</label>
-            <input type="text" name="cat-3" id="cat-3" placeholder="e.g. Travel" />
-
-            <label for="cat-4">Category 4:</label>
-            <input type="text" name="cat-4" id="cat-4" placeholder="e.g. Career" />
+            </div>
 
             <a href="#" id="add-cat">+ Add another category</a>
-
+            
             <input type="submit" value="Save" name="save" id="save" />
 
         </form>
 
-        <section id="cat-section-1">
-
-            <h2 id="cat-title-1">Category 1</h2>
-
-            <div class="goals">
-
-            </div><!-- end goals -->
-
-            <input type="text" name="new-goal" class="new-goal" placeholder="Enter a new goal" />
-
-        </section>
-
-        <section id="cat-section-2">
-        
-            <h2 id="cat-title-2">Category 2</h2>
-
-            <div class="goals">
-
-            </div><!-- end goals -->
-
-            <input type="text" name="new-goal" class="new-goal" placeholder="Enter a new goal" />
-
-        </section>
-
-        <section id="cat-section-3">
-
-            <h2 id="cat-title-3">Category 3</h2>
-
-            <div class="goals">
-
-            </div><!-- end goals -->
-
-            <input type="text" name="new-goal" class="new-goal" placeholder="Enter a new goal" />
-
-        </section>
-
-        <section id="cat-section-4">
-
-            <h2 id="cat-title-4">Category 4</h2>
-
-            <div class="goals">
-
-            </div><!-- end goals -->
-
-            <input type="text" name="new-goal" class="new-goal" placeholder="Enter a new goal" />
-
-        </section>
+        <div id="categories">
+        </div>
 
         <footer>
 
@@ -113,10 +60,22 @@
 
     </div>
 
+    <script id="category-template" type="text/x-handlebars-template" />
+
+        <section id="{{sectionID}}">
+            <h2 id="{{titleID}}">{{categoryName}}</h2>
+            <div class="goals"></div>
+            <input type="text" name="new-goal" class="new-goal" placeholder="Enter a new goal" />
+        </section>
+
+    </script>
+
     <script id="goal-template" type="text/x-handlebars-template">
 
         <div class="goal">
             <h3>{{goal}}</h3>
+            {{deadline}}
+            <p>{{notes}}</p>
             <button class="delete">x</button>
         </div>
 

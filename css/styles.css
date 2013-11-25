@@ -433,3 +433,8 @@ input[type='submit'] {
    ========================================================================== */
 #settings-form {
   display: none; }
+
+.goal {
+  border-bottom: 1px dotted #666;
+  margin-bottom: 10px;
+  padding: 10px 0; }
