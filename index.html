@@ -29,7 +29,7 @@
         
         </header>
 
-        <a href="#" id="settings-toggle">Settings</a>
+        <button id="settings-toggle">Display Settings</button>
 
         <form method="post" id="settings-form">
 
@@ -113,7 +113,17 @@
 
     </div>
 
+    <script id="goal-template" type="text/x-handlebars-template">
+
+        <div class="goal">
+            <h3>{{goal}}</h3>
+            <button class="delete">x</button>
+        </div>
+
+    </script>
+
     <script src="/js/jquery.min.js"></script>
+    <script src="/js/handlebars-v1.1.2.js"></script>
     <script src="/js/main.js"></script>
 </body>
 </html>

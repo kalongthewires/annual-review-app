@@ -1,27 +1,10 @@
 $(document).ready(function(){
-	var storage_key = 'goalslist';
-	var goals = {},
-		settings = {};
+	var storageKey = 'goalslist';
+	var goals = {};
+	var goalTemplate = Handlebars.compile($('#goal-template').html());
 
-	// function for testing is a string is blank
-	function isBlank(str) {
-	    return (!str || /^\s*$/.test(str));
-	}
-
-	// display goals entered previously
-	if (localStorage && storage_key in localStorage){
-		var stored_goals = JSON.parse(localStorage.getItem(storage_key));
-
-		if (stored_goals){
-			for (key in stored_goals){
-				(stored_goals[key] && !isBlank(stored_goals[key]) && stored_goals[key] !== "undefined") ? 
-					$('#' + key + ' .goals').html(stored_goals[key]) : "";
-			}
-		}
-
-		getSettings();
-		displaySettings();
-	}
+	displaySettings();
+	displayStoredGoals();
 
 	// enable click outside to create new goal
 	$('.new-goal').focusout(function(){
@@ -35,39 +18,54 @@ $(document).ready(function(){
 		}	
 	});
 
-	function createGoal(input_node, parent_node){
-		var new_goal = $(input_node).val();
+	function createGoal(inputNode, parentNode){
+		var newGoal = $(inputNode).val();
 
-		if (!isBlank(new_goal)){
+		if (!isBlank(newGoal)){
 			// add the goal to the list
-			var delete_button = '<a href="" class="delete">x</a>'
-			var parent = $(parent_node).attr('id');
-			$('#' + parent + ' .goals').append('<div class="goal"><h3>' + new_goal + '</h3>' + delete_button + '</div>');
+			var parentID = $(parentNode).attr('id');
+			$('#' + parentID + ' .goals').append(goalTemplate({goal : newGoal}));
 
 			// clear the text input box
-			$(input_node).val("");
+			$(inputNode).val("");
 
-			goals = {
-							'cat-section-1': $('#cat-section-1 .goals').html(),
-							'cat-section-2': $('#cat-section-2 .goals').html(),
-							'cat-section-3': $('#cat-section-3 .goals').html(),
-							'cat-section-4': $('#cat-section-4 .goals').html()
-						}
-
-			localStorage.setItem(storage_key, JSON.stringify(goals));
+			localStorage.setItem(storageKey, JSON.stringify(setGoals()));
+			location.reload(true); // so can delete goal
 		}
 	}
 
+	function setGoals(){
+		return {	
+					'cat-section-1': $('#cat-section-1 .goals').html(),
+					'cat-section-2': $('#cat-section-2 .goals').html(),
+					'cat-section-3': $('#cat-section-3 .goals').html(),
+					'cat-section-4': $('#cat-section-4 .goals').html()
+				};
+	}
+
+	// delete goal
 	$('.delete').click(function(){
 		$(this).parent().remove();
-		setStorage[storage_key] = JSON.stringify(goals);
+		localStorage.setItem(storageKey, JSON.stringify(setGoals()));
 	});
 
-	/* APPLY SETTINGS --------------------------------------------------------------- */
+	function displayStoredGoals(){
+		if (localStorage && storageKey in localStorage){
+			var storedGoals = JSON.parse(localStorage.getItem(storageKey));
+			
+			if (storedGoals){
+				for (key in storedGoals){
+					(storedGoals[key] && !isBlank(storedGoals[key]) && storedGoals[key] !== "undefined") ? $('#' + key + ' .goals').html(storedGoals[key]) : "";
+				}
+			}
+		}
+	}
 
 	// show-hide settings form
 	$('#settings-toggle').click(function(){
-		$('#settings-form').toggle();
+		$('#settings-form').toggle(function(){
+			$('#settings-toggle').text($(this).is(':visible') ? "Hide Settings" : "Show Settings");
+		});
 	});
 
 	$('#settings-form').submit(function(){
@@ -81,19 +79,25 @@ $(document).ready(function(){
 					}
 		
 		localStorage.setItem('settings', JSON.stringify(settings));
-
 		displaySettings();
+
 		return false;
 	});
 
-	function getSettings(){
-		settings = JSON.parse(localStorage.getItem('settings'));
+	function isBlank(str) {
+	    return (!str || /^\s*$/.test(str));
 	}
 
 	function displaySettings(){
-		if (settings){
-			for (key in settings){
-				(settings[key] && !isBlank(settings[key]) && settings[key] !== "undefined") ? $('#' + key).text(settings[key]) : "";
+		if (localStorage && 'settings' in localStorage){
+			var settings = JSON.parse(localStorage.getItem('settings'));
+
+			if (settings){
+				for (key in settings){
+					if (settings[key] && !isBlank(settings[key]) && settings[key] !== "undefined"){
+						$('#' + key).text(settings[key]);
+					}
+				}
 			}
 		}
 	}
