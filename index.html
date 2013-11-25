@@ -18,24 +18,62 @@
 
     <div class="full-container">
     
+        <form method="post" id="settings-form">
+
+            <label for="year">Year</label>
+            <input type="text" name="year" id="year" />
+
+            <label for="theme">Theme</label>
+            <input type="text" name="theme" id="theme" />
+
+            <label for="cat-1">Category 1:</label>
+            <input type="text" name="cat-1" id="cat-1" placeholder="e.g. Health" />
+
+            <label for="cat-2">Category 2:</label>
+            <input type="text" name="cat-2" id="cat-2" placeholder="e.g. Personal Finance" />
+
+            <label for="cat-3">Category 3:</label>
+            <input type="text" name="cat-3" id="cat-3" placeholder="e.g. Travel" />
+
+            <label for="cat-4">Category 4:</label>
+            <input type="text" name="cat-4" id="cat-4" placeholder="e.g. Career" />
+
+            <a href="#" id="add-cat">+ Add another category</a>
+
+            <input type="submit" value="Save" name="save" id="save" />
+
+        </form>
+
         <header class="site-header">
 
-            <h1 class="site-title"><a href="/">Annual Review Tracker</a></h1>
-            <small>Inspired by <a href="http://chrisguillebeau.com/3x5/how-to-conduct-your-own-annual-review/">Chris Guillebeau's Annual Review</a></small>
+            <hgroup>
+
+                <h1 class="site-title"><a href="/">Annual Review Tracker <span id="title-year"></span></a></h1>
+                <h2 id="year-theme"></h2>
+
+            </hgroup>
         
         </header>
 
-        <form method="post" id="goal-form">
-
-            <label for="goal-input">Enter a goal:</label>
-            <input type="text" name="goal-input" id="goal-input" />
-            <input type="submit" value="Add Goal" name="submit" id="add-goal" />
-
-        </form>
+        <h2 id="cat-title-1">Category 1</h2>
 
         <div id="goals">
 
         </div><!-- end goals -->
+
+        <input type="text" name="new-goal" id="new-goal" placeholder="Enter a new goal" />
+
+        <h2 id="cat-title-2">Category 2</h2>
+
+        <h2 id="cat-title-3">Category 3</h2>
+
+        <h2 id="cat-title-4">Category 4</h2>
+
+        <footer>
+
+            <small>Inspired by <a href="http://chrisguillebeau.com/3x5/how-to-conduct-your-own-annual-review/">Chris Guillebeau's Annual Review</a></small>
+
+        </footer>
 
     </div>
 
