@@ -83,7 +83,7 @@
 
                 <input type="text" name="deadline" id="deadline-input" placeholder="Deadline" />
 
-                <textarea placeholder="Additional Notes"></textarea>
+                <textarea id="goal-notes" placeholder="Additional Notes"></textarea>
 
                 <select id="category-select">
 
@@ -137,6 +137,9 @@
             <h3>{{goal}}</h3>
             {{deadline}}
             <p>{{notes}}</p>
+            {{#if loggingEnabled}}
+                <a class="add-log-entry" href="#">Add Log Entry</a>
+            {{/if}}
             <button class="delete">x</button>
         </div>
 

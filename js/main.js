@@ -99,11 +99,22 @@
 	// add a new goal to a category
 	$('#goal-form').submit(function(){
 		var newGoal = $('#new-goal').val(),
+			deadline = $('#deadline-input').val(),
+			notes = $('#goal-notes').val(),
 			categorySection = $('#category-select option:selected').val();
+
+		var loggingEnabled = $('#enable-logging').prop('checked');
+		var runningTotalEnabled = $('#keep-running-total').prop('checked');
 
 		if (!isBlank(newGoal)){ //TODO error checking for blank category and blank new goals on submit
 			// append goal to selected category
-			$('#' + categorySection + ' .goals').append(goalTemplate({goal : newGoal}));
+			var goalsContainer = $('#' + categorySection + ' .goals')
+			goalsContainer.append(goalTemplate({
+												goal: newGoal,
+												deadline: deadline,
+												notes: notes,
+												loggingEnabled: loggingEnabled
+											}));
 
 			// clear the text input box
 			$('#new-goal').val("");
