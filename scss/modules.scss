@@ -8,6 +8,28 @@
 
    #settings-form {
         display: none;
+
+        label, input {
+            display: inline;
+        }
+
+        #form-categories {
+            label, input {
+                display: block;
+            }
+        }
+
+        #theme {
+            width: 100%;
+        }
+
+        #year {
+            margin-left: 10px;
+        }
+
+        #save {
+            display: block;
+        }
    }
 
    .goal {

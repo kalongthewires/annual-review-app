@@ -13,7 +13,6 @@ $(document).ready(function(){
 		var settings = JSON.parse(localStorage.getItem('settings'));
 		if (settings && settings['categoryCount'] !== undefined){
 			defaultCatCount = settings['categoryCount'];
-			console.log(defaultCatCount);
 		}
 	}
 
@@ -33,7 +32,7 @@ $(document).ready(function(){
 		var catNum = categoryCount+1;
 
 		// add category input field to settings form
-		$('#form-categories').append('<label for="cat-' + catNum + '"">Category ' + catNum + '</label>' + 
+		$('#form-categories').append('<label for="cat-' + catNum + '"">Goal Category ' + catNum + '</label>' + 
                 '<input type="text" name="cat-' + catNum + '" id="cat-' + catNum + '" placeholder="e.g. Health, Career, Finances" />');
 	}
 

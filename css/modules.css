@@ -31,6 +31,16 @@
    ========================================================================== */
 #settings-form {
   display: none; }
+  #settings-form label, #settings-form input {
+    display: inline; }
+  #settings-form #form-categories label, #settings-form #form-categories input {
+    display: block; }
+  #settings-form #theme {
+    width: 100%; }
+  #settings-form #year {
+    margin-left: 10px; }
+  #settings-form #save {
+    display: block; }
 
 .goal {
   border-bottom: 1px dotted #666;

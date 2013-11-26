@@ -31,20 +31,29 @@
 
         <button id="settings-toggle">Display Settings</button>
 
+        <section id="settings-section">
+
         <form method="post" id="settings-form">
 
-            <label for="year">Year</label>
-            <input type="text" name="year" id="year" />
+            <p class="instructions">Fill in the information below to get started tracking your goals. Don't worry, you can always
+                change these later.</p>
 
-            <label for="theme">Theme</label>
-            <input type="text" name="theme" id="theme" />
+            <div>
+                <label for="year">Year: </label>
+                <input type="text" name="year" id="year" />
+            </div>
+
+            <div>
+                <label for="theme">Theme</label>
+                <input type="text" name="theme" id="theme" placeholder="2013 is the year of the [insert text].  This time next year, [most important outcome]."/>
+            </div>
 
             <div id="form-categories">
 
             </div>
 
             <a href="#" id="add-cat">+ Add another category</a>
-            
+
             <input type="submit" value="Save" name="save" id="save" />
 
         </form>
