@@ -437,10 +437,13 @@ input[type='submit'] {
     display: inline; }
   #settings-form #form-categories label, #settings-form #form-categories input {
     display: block; }
+  #settings-form #form-categories input {
+    width: 230px; }
   #settings-form #theme {
     width: 100%; }
   #settings-form #year {
-    margin-left: 10px; }
+    margin-left: 10px;
+    width: 100px; }
   #settings-form #save {
     display: block; }
 

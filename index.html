@@ -29,34 +29,36 @@
         
         </header>
 
-        <button id="settings-toggle">Display Settings</button>
-
         <section id="settings-section">
 
-        <form method="post" id="settings-form">
+            <button id="settings-toggle">Display Settings</button>
 
-            <p class="instructions">Fill in the information below to get started tracking your goals. Don't worry, you can always
-                change these later.</p>
+            <form method="post" id="settings-form">
 
-            <div>
-                <label for="year">Year: </label>
-                <input type="text" name="year" id="year" />
-            </div>
+                <p class="instructions">Fill in the information below to get started tracking your goals. Don't worry, you can always
+                    change these later.</p>
 
-            <div>
-                <label for="theme">Theme</label>
-                <input type="text" name="theme" id="theme" placeholder="2013 is the year of the [insert text].  This time next year, [most important outcome]."/>
-            </div>
+                <div>
+                    <label for="year">Year: </label>
+                    <input type="text" name="year" id="year" />
+                </div>
 
-            <div id="form-categories">
+                <div>
+                    <label for="theme">Theme</label>
+                    <input type="text" name="theme" id="theme" placeholder="2013 is the year of the [insert text].  This time next year, [most important outcome]."/>
+                </div>
 
-            </div>
+                <div id="form-categories">
 
-            <a href="#" id="add-cat">+ Add another category</a>
+                </div>
 
-            <input type="submit" value="Save" name="save" id="save" />
+                <a href="#" id="add-cat">+ Add another category</a>
 
-        </form>
+                <input type="submit" value="Save" name="save" id="save" />
+
+            </form>
+
+        </section>
 
         <div id="categories">
         </div>
