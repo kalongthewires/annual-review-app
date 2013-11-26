@@ -1,10 +1,10 @@
-$(document).ready(function(){
+ $(document).ready(function(){
 	var STORAGE_KEY = 'goalslist';
 
 	var goalTemplate = Handlebars.compile($('#goal-template').html()),
 		categoryTemplate = Handlebars.compile($('#category-template').html());
 	var categoryCount = 0, 
-		defaultCatCount = 4;
+		startingCatCount = 4;
 
 
 	/* INIT ----------------------------------------------------*/
@@ -12,7 +12,7 @@ $(document).ready(function(){
 	if (localStorage && 'settings' in localStorage){
 		var settings = JSON.parse(localStorage.getItem('settings'));
 		if (settings && settings['categoryCount'] !== undefined){
-			defaultCatCount = settings['categoryCount'];
+			startingCatCount = settings['categoryCount'];
 		}
 	}
 
@@ -21,29 +21,50 @@ $(document).ready(function(){
 	displayStoredGoals();
 
 	function createDefaultCategories(){
-		for (var i = 1; i <= defaultCatCount; i++){
+		for (var i = 1; i <= startingCatCount; i++){
+			categoryCount++;
 			addCategoryFormField();
 			addCategory();
-			categoryCount++;
 		}
 	}
 
 	function addCategoryFormField(){
-		var catNum = categoryCount+1;
-
 		// add category input field to settings form
-		$('#form-categories').append('<label for="cat-' + catNum + '"">Goal Category ' + catNum + '</label>' + 
-                '<input type="text" name="cat-' + catNum + '" id="cat-' + catNum + '" placeholder="e.g. Health, Career, Finances" />');
+		$('#form-categories').append('<label for="cat-' + categoryCount + '"">Goal Category ' + categoryCount + '</label>' + 
+                '<input type="text" name="cat-' + categoryCount + '" id="cat-' + categoryCount + '" placeholder="e.g. Health, Career, Finances" />');
 	}
 
 	function addCategory(){
-		var catNum = categoryCount+1;
-
 		$('#categories').append(categoryTemplate({
-			sectionID: 'cat-section-' + catNum,
-			titleID: 'cat-title-' + catNum,
-			categoryName: 'Category ' + catNum
+			sectionID: 'cat-section-' + categoryCount,
+			titleID: 'cat-title-' + categoryCount,
+			categoryName: 'Category ' + categoryCount
 		}));
+	}
+
+	function displaySettings(){
+		// get settings from local storage and display
+		if (localStorage && 'settings' in localStorage){
+			var settings = JSON.parse(localStorage.getItem('settings'));
+
+			if (settings){
+				for (key in settings){
+					if (settings[key] && !isBlank(settings[key]) && settings[key] !== "undefined"){
+						$('#' + key).text(settings[key]);
+					}
+				}
+			}
+		}
+
+		// clear goals category select menu
+		$('#category-select').html("");
+
+		// add categories to the goals category select menu
+		for (var i = 1; i <= categoryCount; i++){
+			var catTitle = $('#cat-title-' + i).text();
+
+			$('#category-select').append('<option value="cat-section-' + i + '">' + catTitle + '</option>');
+		}
 	}
 
 	function displayStoredGoals(){
@@ -58,56 +79,41 @@ $(document).ready(function(){
 		}
 	}
 
-	function displaySettings(){
-		if (localStorage && 'settings' in localStorage){
-			var settings = JSON.parse(localStorage.getItem('settings'));
-
-			if (settings){
-				for (key in settings){
-					if (settings[key] && !isBlank(settings[key]) && settings[key] !== "undefined"){
-						$('#' + key).text(settings[key]);
-					}
-				}
-			}
-		}
-	}
-
 	/* ADD/REMOVE GOALS -----------------------------------------------*/
 
-	// enable click outside to create new goal
-	$('.new-goal').focusout(function(){
-		createGoal(this, $(this).parent());
+	// show-hide settings form
+	$('.goals-toggle').click(function(){
+		$('#goal-form').toggle("slow");
 	});
 
-	// enable press enter to create new goal
-	$('.new-goal').keyup(function(e){
-		if(e.keyCode == 13){
-			createGoal(this, $(this).parent());
-		}	
-	});
+	$('#goal-form .cancel').click(function(){
+		$('#goal-form').hide("slow");
+	})
 
-	function createGoal(inputNode, parentNode){
-		var newGoal = $(inputNode).val();
+	// add a new goal to a category
+	$('#goal-form').submit(function(){
+		var newGoal = $('#new-goal').val(),
+			categorySection = $('#category-select option:selected').val();
 
-		if (!isBlank(newGoal)){
-			// add the goal to the list
-			var parentID = $(parentNode).attr('id');
-			$('#' + parentID + ' .goals').append(goalTemplate({goal : newGoal}));
+		if (!isBlank(newGoal)){ //TODO error checking for blank category and blank new goals on submit
+			// append goal to selected category
+			$('#' + categorySection + ' .goals').append(goalTemplate({goal : newGoal}));
 
 			// clear the text input box
-			$(inputNode).val("");
+			$('#new-goal').val("");
 
 			localStorage.setItem(STORAGE_KEY, JSON.stringify(setGoals()));
-			location.reload(true); // so can delete goal
+			location.reload(true); // so can delete goal without manually reloading the page first
 		}
-	}
+
+		return false;
+	});
 
 	function setGoals(){
 		var goals = {};
 		for (var i = 1; i <= categoryCount; i++){
 			goals['cat-section-' + i] = $('#cat-section-' + i + ' .goals').html();
 		}
-		console.log(goals);
 		return goals;
 	}
 
@@ -120,15 +126,18 @@ $(document).ready(function(){
 	/* SETTINGS FORM ------------------------------------------*/
 
 	// show-hide settings form
-	$('#settings-toggle').click(function(){
-		$('#settings-form').toggle(function(){
-			$('#settings-toggle').text($(this).is(':visible') ? "Hide Settings" : "Display Settings");
-		});
+	$('.settings-toggle').click(function(){
+		$('#settings-form').toggle("slow");
 	});
+
+	$('#settings-form .cancel').click(function(){
+		$('#settings-form').hide("slow");
+	})
 
 	// Add category to settings form
 	$('#add-cat').click(function(){
-		addCategoryFormField();	
+		categoryCount++;
+		addCategoryFormField();
 	})
 
 	// submit settings form changes
@@ -138,19 +147,27 @@ $(document).ready(function(){
 						'year-theme': $('#theme').val()
 					}
 		
-		for (var i = defaultCatCount-1; i < categoryCount; i++){
+		// create any added categories
+		for (var i = startingCatCount; i < categoryCount; i++){
 			addCategory();
+			console.log("adding additional cats" + i + "cat count " + categoryCount);
+			startingCatCount = categoryCount;
 		}
 
+		// add all categories to settings object
 		for (var i = 1; i <= categoryCount; i++){
 			console.log(i);
 			settings['cat-title-' + i] = $('#cat-' + i).val();
 		}
 
-		settings['categoryCount'] = categoryCount+1;
+		// add total number of categories to settings object
+		settings['categoryCount'] = categoryCount;
 
+		// save settings object
 		localStorage.setItem('settings', JSON.stringify(settings));
 		displaySettings();
+
+		$('#settings-form').hide("slow");
 
 		return false;
 	});

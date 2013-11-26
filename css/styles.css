@@ -431,21 +431,34 @@ input[type='submit'] {
    Module/Page Specific CSS: Contains CSS that is not global
    Examples: "About Page Only" CSS or a non-reusable component
    ========================================================================== */
-#settings-form {
-  display: none; }
-  #settings-form label, #settings-form input {
-    display: inline; }
-  #settings-form #form-categories label, #settings-form #form-categories input {
-    display: block; }
-  #settings-form #form-categories input {
-    width: 230px; }
-  #settings-form #theme {
-    width: 100%; }
-  #settings-form #year {
-    margin-left: 10px;
-    width: 100px; }
-  #settings-form #save {
-    display: block; }
+#settings-section {
+  background-color: #efefef;
+  padding: 10px; }
+  #settings-section .settings-toggle {
+    cursor: pointer; }
+  #settings-section #settings-form {
+    display: none; }
+    #settings-section #settings-form label, #settings-section #settings-form input {
+      display: inline; }
+    #settings-section #settings-form #form-categories label, #settings-section #settings-form #form-categories input {
+      display: block; }
+    #settings-section #settings-form #form-categories input {
+      width: 230px; }
+    #settings-section #settings-form #theme {
+      width: 100%; }
+    #settings-section #settings-form #year {
+      margin-left: 10px;
+      width: 100px; }
+    #settings-section #settings-form #save {
+      display: block; }
+
+#goals-section {
+  background-color: #cbcbcb;
+  padding: 10px; }
+  #goals-section .goals-toggle {
+    cursor: pointer; }
+  #goals-section #goal-form {
+    display: none; }
 
 .goal {
   border-bottom: 1px dotted #666;

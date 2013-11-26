@@ -6,39 +6,62 @@
    Examples: "About Page Only" CSS or a non-reusable component
    ========================================================================== */
 
-   #settings-form {
-        display: none;
-
-        label, input {
-            display: inline;
+    #settings-section {
+        background-color: #efefef;
+        padding: 10px;
+   
+        .settings-toggle {
+            cursor: pointer;
         }
 
-        #form-categories {
+        #settings-form {
+            display: none;
+
             label, input {
+                display: inline;
+            }
+
+            #form-categories {
+                label, input {
+                    display: block;
+                }
+
+                input {
+                    width: 230px;
+                }
+            }
+
+            #theme {
+                width: 100%;
+            }
+
+            #year {
+                margin-left: 10px;
+                width: 100px;
+            }
+
+            #save {
                 display: block;
             }
-
-            input {
-                width: 230px;
-            }
         }
 
-        #theme {
-            width: 100%;
+    }
+
+    #goals-section {
+        background-color: #cbcbcb;
+        padding: 10px;
+
+        .goals-toggle {
+            cursor: pointer;
         }
 
-        #year {
-            margin-left: 10px;
-            width: 100px;
+        #goal-form {
+            display: none;
         }
+    }
 
-        #save {
-            display: block;
-        }
-   }
-
-   .goal {
+    .goal {
         border-bottom: 1px dotted #666;
         margin-bottom: 10px;
         padding: 10px 0;
-   }
+    }
