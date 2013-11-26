@@ -116,11 +116,14 @@
 												loggingEnabled: loggingEnabled
 											}));
 
-			// clear the text input box
+			// clear the text input boxes
 			$('#new-goal').val("");
+			$('#deadline-input').val("");
+			$('#goal-notes').val("");
 
 			localStorage.setItem(STORAGE_KEY, JSON.stringify(setGoals()));
-			location.reload(true); // so can delete goal without manually reloading the page first
+			
+			$('#goal-form').hide("slow");
 		}
 
 		return false;
@@ -135,8 +138,36 @@
 	}
 
 	// delete goal
-	$('.delete').click(function(){
+	$(document).on('click', '.delete', function(){
 		$(this).parent().remove();
+		localStorage.setItem(STORAGE_KEY, JSON.stringify(setGoals()));
+	});
+
+	$(document).on('click', '.deadline, .goal-title, .notes', function(){
+		var fieldClass = $(this).attr('class');
+		var currentValue = $(this).text();
+
+		if (fieldClass === 'notes'){
+			$(this).replaceWith('<textarea id="new-' + fieldClass + '" autofocus>' + currentValue + '</textarea>');
+		} else {
+			$(this).replaceWith("<input type='text' name='new-" + fieldClass + "' id='new-" + fieldClass + "' value='" + currentValue + "' autofocus/>");
+		}
+	});
+
+	$(document).on('blur', '#new-deadline, #new-goal-title, #new-notes', function(){
+		var newVal = $(this).val(),
+			inputID = $(this).attr('id');
+
+		if (inputID === 'new-deadline'){
+			// replace with the original html
+			$(this).replaceWith('<div class="deadline">' + newVal + '</div>');
+		} else if (inputID === 'new-goal-title'){
+			$(this).replaceWith('<h3 class="goal-title">' + newVal + '</h3>');
+		} else if (inputID === 'new-notes'){
+			$(this).replaceWith('<p class="notes">' + newVal + '</p>');
+		}
+
+		// save edits
 		localStorage.setItem(STORAGE_KEY, JSON.stringify(setGoals()));
 	});
 

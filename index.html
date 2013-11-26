@@ -134,9 +134,9 @@
     <script id="goal-template" type="text/x-handlebars-template">
 
         <div class="goal">
-            <h3>{{goal}}</h3>
-            {{deadline}}
-            <p>{{notes}}</p>
+            <h3 class="goal-title">{{goal}}</h3>
+            <div class="deadline">{{deadline}}</div>
+            <p class="notes">{{notes}}</p>
             {{#if loggingEnabled}}
                 <a class="add-log-entry" href="#">Add Log Entry</a>
             {{/if}}
