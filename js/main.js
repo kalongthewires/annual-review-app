@@ -48,22 +48,28 @@
 			var settings = JSON.parse(localStorage.getItem('settings'));
 
 			if (settings){
+				var i = 0;
 				for (key in settings){
 					if (settings[key] && !isBlank(settings[key]) && settings[key] !== "undefined"){
 						$('#' + key).text(settings[key]);
 					}
 				}
 			}
-		}
+			
+			// clear goals category select menu
+			$('#category-select').html("");
 
-		// clear goals category select menu
-		$('#category-select').html("");
+			for (var i = 1; i <= categoryCount; i++){
+				var catTitle = $('#cat-title-' + i).text();
 
-		// add categories to the goals category select menu
-		for (var i = 1; i <= categoryCount; i++){
-			var catTitle = $('#cat-title-' + i).text();
-
-			$('#category-select').append('<option value="cat-section-' + i + '">' + catTitle + '</option>');
+				// add category to the goals category select menu
+				$('#category-select').append('<option value="cat-section-' + i + '">' + catTitle + '</option>');
+				// populate the settings form input field for the category with the category name
+				$('#cat-' + i).val(catTitle);
+			}
+			// populate the remaining settings form input fields with stored data
+			$('#year').val(settings['review-year']);
+			$('#theme').val(settings['review-theme']);
 		}
 	}
 
@@ -143,20 +149,18 @@
 	// submit settings form changes
 	$('#settings-form').submit(function(){
 		settings = {
-						'title-year': $('#year').val(),
-						'year-theme': $('#theme').val()
+						'review-year': $('#year').val(),
+						'review-theme': $('#theme').val()
 					}
 		
 		// create any added categories
 		for (var i = startingCatCount; i < categoryCount; i++){
 			addCategory();
-			console.log("adding additional cats" + i + "cat count " + categoryCount);
 			startingCatCount = categoryCount;
 		}
 
 		// add all categories to settings object
 		for (var i = 1; i <= categoryCount; i++){
-			console.log(i);
 			settings['cat-title-' + i] = $('#cat-' + i).val();
 		}
 
