@@ -233,12 +233,14 @@
 		var mm = currentDate.getMonth()+1;
 		var yyyy = currentDate.getFullYear();
 
+		var parentGoal = $(this).parent();
+
 		// strike out the goal title
-		$('.goal-title').css('text-decoration', 'line-through');
+		$('.goal-title', parentGoal).css('text-decoration', 'line-through');
 		
 		// display date completed
-		if (isBlank($('.date').text())){
-			$('.date').text(mm + '/' + dd + '/' + yyyy);
+		if (isBlank($('.date', parentGoal).text())){
+			$('.date', parentGoal).text(mm + '/' + dd + '/' + yyyy);
 		}
 
 		// change the button class
@@ -251,11 +253,13 @@
 
 	// undo goal completion
 	$(document).on('click', '.undo-complete', function(){
+		var parentGoal = $(this).parent();
+
 		// remove strikethrough line
-		$('.goal-title').css('text-decoration', 'none');
+		$('.goal-title', parentGoal).css('text-decoration', 'none');
 
 		// remove date completed
-		$('.date').text("");
+		$('.date', parentGoal).text("");
 
 		// change the button class
 		$(this).removeClass('undo-complete');
@@ -264,6 +268,8 @@
 		// save changes
 		localStorage.setItem(STORAGE_KEY, JSON.stringify(setGoals()));
 	});
+
+
 
 	/* HELPER METHODS ---------------------------------------------*/
 
