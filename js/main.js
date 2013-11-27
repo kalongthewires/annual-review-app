@@ -143,9 +143,15 @@
 		localStorage.setItem(STORAGE_KEY, JSON.stringify(setGoals()));
 	});
 
+	// click to edit goal information
 	$(document).on('click', '.deadline, .goal-title, .notes', function(){
 		var fieldClass = $(this).attr('class');
 		var currentValue = $(this).text();
+
+		// prevent completed goals from being edited
+		if ($('.goal-title').css('text-decoration') === 'line-through'){
+			return;
+		}
 
 		if (fieldClass === 'notes'){
 			$(this).replaceWith('<textarea id="new-' + fieldClass + '" autofocus>' + currentValue + '</textarea>');
@@ -154,6 +160,7 @@
 		}
 	});
 
+	// save goal information
 	$(document).on('blur', '#new-deadline, #new-goal-title, #new-notes', function(){
 		var newVal = $(this).val(),
 			inputID = $(this).attr('id');
@@ -218,7 +225,45 @@
 		return false;
 	});
 
-	/* DELETE CATEGORIES ------------------------------------------*/
+	// complete a goal
+	$(document).on('click', '.complete', function(){
+		// get current date to display
+		var currentDate = new Date();
+		var dd = currentDate.getDate();
+		var mm = currentDate.getMonth()+1;
+		var yyyy = currentDate.getFullYear();
+
+		// strike out the goal title
+		$('.goal-title').css('text-decoration', 'line-through');
+		
+		// display date completed
+		if (isBlank($('.date').text())){
+			$('.date').text(mm + '/' + dd + '/' + yyyy);
+		}
+
+		// change the button class
+		$(this).addClass('undo-complete');
+		$(this).removeClass('complete');
+
+		// save changes
+		localStorage.setItem(STORAGE_KEY, JSON.stringify(setGoals()));
+	});
+
+	// undo goal completion
+	$(document).on('click', '.undo-complete', function(){
+		// remove strikethrough line
+		$('.goal-title').css('text-decoration', 'none');
+
+		// remove date completed
+		$('.date').text("");
+
+		// change the button class
+		$(this).removeClass('undo-complete');
+		$(this).addClass('complete');
+
+		// save changes
+		localStorage.setItem(STORAGE_KEY, JSON.stringify(setGoals()));
+	});
 
 	/* HELPER METHODS ---------------------------------------------*/
 
