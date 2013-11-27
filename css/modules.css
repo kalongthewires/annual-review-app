@@ -57,6 +57,8 @@
     cursor: pointer; }
   #goals-section #goal-form {
     display: none; }
+  #goals-section #unit-container {
+    display: none; }
 
 #log-section {
   background-color: #898989;

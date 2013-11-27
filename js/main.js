@@ -103,10 +103,44 @@
 	}
 
 	function displayLog(){
+		// display saved log entries
 		if (localStorage && LOG_KEY in localStorage){
 			$('#log-content').html(localStorage.getItem(LOG_KEY));
 		}
+
+		// show total # goals completed
 		$('#total-completed').html(goalsCompleted);
+
+		// show log entry counts for each goal with logging enabled
+		displayLogEntryCounts();
+		displaySums();
+	}
+
+	function displayLogEntryCounts(){
+		$('.log-goal').each(function(){
+			var numEntries = 0;
+
+			$('li', this).each(function(){
+				numEntries++;
+			});
+
+			$('.total-logged', this).text('Total logged: ' + numEntries);
+		});
+	}
+
+	function displaySums(){
+		$('.log-goal').each(function(){
+			var sum = 0;
+
+			// calculate the sum
+			$('li', this).each(function(){
+				sum += parseFloat($(this).text());
+			});
+
+			// display the sum with correct units
+			var unit = $(this).attr('data-unit');
+			$('.sum', this).text('Total ' + unit + ' completed: ' + sum);
+		});
 	}
 
 	/* ADD/REMOVE GOALS -----------------------------------------------*/
@@ -120,6 +154,11 @@
 		$('#goal-form').hide("slow");
 	})
 
+	// show the units input if Sum Log Entries is checked
+	$('#sum-entries').change(function(){
+		$('#unit-container').toggle();
+	});
+
 	// add a new goal to a category
 	$('#goal-form').submit(function(){
 		var newGoal = $('#new-goal').val(),
@@ -127,12 +166,13 @@
 			notes = $('#goal-notes').val(),
 			categorySection = $('#category-select option:selected').val();
 
-		var loggingEnabled = $('#enable-logging').prop('checked');
-		var runningTotalEnabled = $('#keep-running-total').prop('checked');
+		var loggingEnabled = $('#enable-logging').prop('checked'),
+			sumEntriesEnabled= $('#sum-entries').prop('checked');
+
+		sumEntriesEnabled ? (unit = $('#unit').val()) : "";
 
 		if (!isBlank(newGoal)){ //TODO error checking for blank category and blank new goals on submit
 			goalsIndex++;
-			console.log(goalsIndex);
 
 			// append goal to selected category
 			var goalsContainer = $('#' + categorySection + ' .goals')
@@ -142,7 +182,8 @@
 												deadline: deadline,
 												notes: notes,
 												loggingEnabled: loggingEnabled,
-												index: goalsIndex
+												index: goalsIndex,
+												unit: unit
 											}));
 
 			// clear the text input boxes
@@ -159,11 +200,21 @@
 		if (loggingEnabled){
 			$('#log-content').append(logGoalTemplate({
 														goal: newGoal,
-														index: goalsIndex
+														index: goalsIndex,
+														sumEntriesEnabled: sumEntriesEnabled,
+														unit: unit
 													}));
 
 			// save the log
 			localStorage.setItem(LOG_KEY, $('#log-content').html());
+
+			// display initial logged entries count
+			displayLogEntryCounts();
+
+			// display initial sum of entered log values
+			if (sumEntriesEnabled){
+				displaySums();
+			}
 		}
 
 		return false;
@@ -326,9 +377,10 @@
 		var parentGoal = $(this).parent();
 
 		// prevent actions from occurring twice
-		if(!$.trim( $('.logging', parentGoal).html() ).length){
+		if(!$.trim( $('.logging', parentGoal).html()).length){
+			var unit = parentGoal.attr('data-unit');
 			// create input box and save button
-			$('.logging', parentGoal).append(logEntryTemplate());
+			$('.logging', parentGoal).append(logEntryTemplate({unit: unit}));
 		}
 	});
 
@@ -344,19 +396,27 @@
 
 		if (!isBlank(text)){
 			$('#log-goal-' + parentGoalIndex + ' .log-list').append('<li>' + text + '</li>');
-			console.log('#log-goal-' + parentGoalIndex + ' .log-list');
+
 			// save the log
 			localStorage.setItem(LOG_KEY, $('#log-content').html());
+		}
+
+
+		// display initial logged entries count
+		displayLogEntryCounts();
+
+		// display initial sum if sum entries is enabled
+		if ($('#log-goal-' + parentGoalIndex).hasClass("sum-entries")){
+			displaySums();
 		}
 
 		removeLogInputField(parent);
 	});
 
 	function removeLogInputField(parent){
-		$('.input-label', parent).remove();
-		$('.log-input', parent).remove();
-		$('.save-log-entry', parent).remove();
-		$('.cancel', parent).remove();
+		$(parent).children().each(function(){
+			$(this).remove();
+		});
 	}
 
 	/* DISPLAY LOG ---------------------------------------------*/
