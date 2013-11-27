@@ -6,7 +6,9 @@
 		logEntryTemplate = Handlebars.compile($('#log-entry-template').html()),
 		logGoalTemplate = Handlebars.compile($('#log-goal-template').html()),
 		categoryTemplate = Handlebars.compile($('#category-template').html());
+
 	var goalsIndex = 0,
+		goalsCompleted = 0,
 		categoryCount = 0, 
 		startingCatCount = 4;
 
@@ -88,10 +90,13 @@
 			
 			if (storedGoals){
 				for (key in storedGoals){
-					(key !== 'index' && storedGoals[key] && !isBlank(storedGoals[key]) && storedGoals[key] !== "undefined") ? $('#' + key + ' .goals').html(storedGoals[key]) : "";
+					(storedGoals[key] && !isBlank(storedGoals[key]) && storedGoals[key] !== "undefined") ? $('#' + key + ' .goals').html(storedGoals[key]) : "";
 				}
 				if (!isBlank(storedGoals['index'])){
 					goalsIndex = storedGoals['index'];
+				}
+				if (!isBlank(storedGoals['numCompleted'])){
+					goalsCompleted = storedGoals['numCompleted'];
 				}
 			}
 		}
@@ -101,6 +106,7 @@
 		if (localStorage && LOG_KEY in localStorage){
 			$('#log-content').html(localStorage.getItem(LOG_KEY));
 		}
+		$('#total-completed').html(goalsCompleted);
 	}
 
 	/* ADD/REMOVE GOALS -----------------------------------------------*/
@@ -169,6 +175,7 @@
 			goals['cat-section-' + i] = $('#cat-section-' + i + ' .goals').html();
 		}
 		goals['index'] = goalsIndex;
+		goals['numCompleted'] = goalsCompleted;
 		return goals;
 	}
 
@@ -222,13 +229,13 @@
 
 	$('#settings-form .cancel').click(function(){
 		$('#settings-form').hide("slow");
-	})
+	});
 
 	// Add category to settings form
 	$('#add-cat').click(function(){
 		categoryCount++;
 		addCategoryFormField();
-	})
+	});
 
 	// submit settings form changes
 	$('#settings-form').submit(function(){
@@ -282,6 +289,11 @@
 		$(this).addClass('undo-complete');
 		$(this).removeClass('complete');
 
+		goalsCompleted++;
+
+		// display new total completed in log panel
+		$('#total-completed').html(goalsCompleted);
+
 		// save changes
 		localStorage.setItem(STORAGE_KEY, JSON.stringify(setGoals()));
 	});
@@ -299,6 +311,10 @@
 		// change the button class
 		$(this).removeClass('undo-complete');
 		$(this).addClass('complete');
+
+		goalsCompleted--;
+		// display new total completed in log panel
+		$('#total-completed').html(goalsCompleted);
 
 		// save changes
 		localStorage.setItem(STORAGE_KEY, JSON.stringify(setGoals()));
