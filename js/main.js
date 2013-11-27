@@ -1,24 +1,33 @@
  $(document).ready(function(){
-	var STORAGE_KEY = 'goalslist';
+	var STORAGE_KEY = 'goalslist',
+		LOG_KEY = 'log';
 
 	var goalTemplate = Handlebars.compile($('#goal-template').html()),
+		logEntryTemplate = Handlebars.compile($('#log-entry-template').html()),
+		logGoalTemplate = Handlebars.compile($('#log-goal-template').html()),
 		categoryTemplate = Handlebars.compile($('#category-template').html());
-	var categoryCount = 0, 
+	var goalsIndex = 0,
+		categoryCount = 0, 
 		startingCatCount = 4;
 
 
 	/* INIT ----------------------------------------------------*/
 
-	if (localStorage && 'settings' in localStorage){
-		var settings = JSON.parse(localStorage.getItem('settings'));
-		if (settings && settings['categoryCount'] !== undefined){
-			startingCatCount = settings['categoryCount'];
-		}
-	}
-
+	setCategoryCount();
 	createDefaultCategories();
 	displaySettings();
 	displayStoredGoals();
+	displayLog();
+
+	// set categoryCount to saved count
+	function setCategoryCount(){
+		if (localStorage && 'settings' in localStorage){
+			var settings = JSON.parse(localStorage.getItem('settings'));
+			if (settings && settings['categoryCount'] !== undefined){
+				startingCatCount = settings['categoryCount'];
+			}
+		}	
+	}
 
 	function createDefaultCategories(){
 		for (var i = 1; i <= startingCatCount; i++){
@@ -79,9 +88,18 @@
 			
 			if (storedGoals){
 				for (key in storedGoals){
-					(storedGoals[key] && !isBlank(storedGoals[key]) && storedGoals[key] !== "undefined") ? $('#' + key + ' .goals').html(storedGoals[key]) : "";
+					(key !== 'index' && storedGoals[key] && !isBlank(storedGoals[key]) && storedGoals[key] !== "undefined") ? $('#' + key + ' .goals').html(storedGoals[key]) : "";
+				}
+				if (!isBlank(storedGoals['index'])){
+					goalsIndex = storedGoals['index'];
 				}
 			}
+		}
+	}
+
+	function displayLog(){
+		if (localStorage && LOG_KEY in localStorage){
+			$('#log-content').html(localStorage.getItem(LOG_KEY));
 		}
 	}
 
@@ -107,13 +125,18 @@
 		var runningTotalEnabled = $('#keep-running-total').prop('checked');
 
 		if (!isBlank(newGoal)){ //TODO error checking for blank category and blank new goals on submit
+			goalsIndex++;
+			console.log(goalsIndex);
+
 			// append goal to selected category
 			var goalsContainer = $('#' + categorySection + ' .goals')
+
 			goalsContainer.append(goalTemplate({
 												goal: newGoal,
 												deadline: deadline,
 												notes: notes,
-												loggingEnabled: loggingEnabled
+												loggingEnabled: loggingEnabled,
+												index: goalsIndex
 											}));
 
 			// clear the text input boxes
@@ -126,6 +149,17 @@
 			$('#goal-form').hide("slow");
 		}
 
+		// add the goal title to the log section, if logging enabled
+		if (loggingEnabled){
+			$('#log-content').append(logGoalTemplate({
+														goal: newGoal,
+														index: goalsIndex
+													}));
+
+			// save the log
+			localStorage.setItem(LOG_KEY, $('#log-content').html());
+		}
+
 		return false;
 	});
 
@@ -134,6 +168,7 @@
 		for (var i = 1; i <= categoryCount; i++){
 			goals['cat-section-' + i] = $('#cat-section-' + i + ' .goals').html();
 		}
+		goals['index'] = goalsIndex;
 		return goals;
 	}
 
@@ -269,7 +304,50 @@
 		localStorage.setItem(STORAGE_KEY, JSON.stringify(setGoals()));
 	});
 
+	/* GOAL LOGGING ---------------------------------------------*/
 
+	$(document).on('click', '.add-log-entry', function(){
+		var parentGoal = $(this).parent();
+
+		// prevent actions from occurring twice
+		if(!$.trim( $('.logging', parentGoal).html() ).length){
+			// create input box and save button
+			$('.logging', parentGoal).append(logEntryTemplate());
+		}
+	});
+
+	$(document).on('click', '.logging .cancel', function(){
+		removeLogInputField($(this).parent());
+	});
+
+	$(document).on('click', '.save-log-entry', function(){
+		var parent = $(this).parent();
+		var parentGoalID = parent.parent().attr('id');
+		var parentGoalIndex = parentGoalID.substring(5);
+		var text = $('.log-input', parent).val();
+
+		if (!isBlank(text)){
+			$('#log-goal-' + parentGoalIndex + ' .log-list').append('<li>' + text + '</li>');
+			console.log('#log-goal-' + parentGoalIndex + ' .log-list');
+			// save the log
+			localStorage.setItem(LOG_KEY, $('#log-content').html());
+		}
+
+		removeLogInputField(parent);
+	});
+
+	function removeLogInputField(parent){
+		$('.input-label', parent).remove();
+		$('.log-input', parent).remove();
+		$('.save-log-entry', parent).remove();
+		$('.cancel', parent).remove();
+	}
+
+	/* DISPLAY LOG ---------------------------------------------*/
+
+	$('#log-toggle').click(function(){
+		$('#log-content').toggle("slow");
+	});
 
 	/* HELPER METHODS ---------------------------------------------*/
 

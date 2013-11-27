@@ -111,6 +111,25 @@
 
         </section>
 
+        <section id="log-section">
+
+            <h2 id="log-toggle">View Log and Statistics</h2>
+
+            <div id="log-content">
+
+            
+                <ul>
+                    <li>Goals Completed: </li>
+                </ul>
+
+                <div id="log-entries">
+
+                </div>
+
+            </div>
+
+        </section>
+
         <div id="categories">
         </div>
 
@@ -131,9 +150,25 @@
 
     </script>
 
+    <script id="log-entry-template" type="text/x-handlebars-template">
+
+        <label class="input-label">I completed:</label>
+        <input type="text" name="log-input" class="log-input" placeholder="e.g. Pride and Prejudice by Jane Austen" autofocus/>
+        <input type="submit" value="Save" name="save-log-entry" class="save-log-entry" />
+        <a href="#" class="cancel">Cancel</a>
+
+    </script>
+
+    <script id="log-goal-template" type="text/x-handlebars-template">
+        <div class="log-goal" id="log-goal-{{index}}">
+            <h3>{{goal}}</h3>
+            <ul class="log-list"></ul>
+        </div>
+    </script>
+
     <script id="goal-template" type="text/x-handlebars-template">
 
-        <div class="goal">
+        <div class="goal" id="goal-{{index}}">
             <h3 class="goal-title">{{goal}}</h3>
             <div class="deadline">{{deadline}}</div>
             <div class="completed-date">Completed: <span class="date"></span></div>
@@ -141,6 +176,8 @@
             
             {{#if loggingEnabled}}
             <a class="add-log-entry" href="#">Add Log Entry</a>
+            <div class="logging">
+            </div>
             {{/if}}
 
             <button class="delete">x</button>

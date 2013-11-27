@@ -58,6 +58,14 @@
   #goals-section #goal-form {
     display: none; }
 
+#log-section {
+  background-color: #898989;
+  padding: 10px; }
+  #log-section .log-toggle {
+    cursor: pointer; }
+  #log-section #log-content {
+    display: none; }
+
 .goal {
   border-bottom: 1px dotted #666;
   margin-bottom: 10px;

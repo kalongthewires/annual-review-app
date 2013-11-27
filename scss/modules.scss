@@ -60,6 +60,19 @@
         }
     }
 
+    #log-section {
+        background-color: #898989;
+        padding: 10px;
+
+        .log-toggle {
+            cursor: pointer;
+        }        
+
+        #log-content {
+            display: none;
+        }
+    }
+
     .goal {
         border-bottom: 1px dotted #666;
         margin-bottom: 10px;
