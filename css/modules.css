@@ -30,17 +30,23 @@
    Examples: "About Page Only" CSS or a non-reusable component
    ========================================================================== */
 #settings-section {
-  background-color: #efefef;
-  padding: 10px; }
+  background-color: #d76623;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 20px; }
   #settings-section .settings-toggle {
     cursor: pointer; }
   #settings-section #settings-form {
     display: none; }
     #settings-section #settings-form label, #settings-section #settings-form input {
       display: inline; }
+    #settings-section #settings-form label {
+      font-weight: bold; }
+    #settings-section #settings-form div {
+      margin: 10px 0; }
     #settings-section #settings-form #form-categories label, #settings-section #settings-form #form-categories input {
       display: block; }
     #settings-section #settings-form #form-categories input {
+      margin-bottom: 20px;
       width: 230px; }
     #settings-section #settings-form #theme {
       width: 100%; }
@@ -48,27 +54,203 @@
       margin-left: 10px;
       width: 100px; }
     #settings-section #settings-form #save {
-      display: block; }
+      background-color: #cbcbcb;
+      border: none;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      -ms-border-radius: 3px;
+      -o-border-radius: 3px;
+      border-radius: 3px;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      color: black;
+      margin: 20px 0 3px;
+      padding: 5px 15px;
+      text-shadow: none;
+      -webkit-transition-property: background;
+      -moz-transition-property: background;
+      -o-transition-property: background;
+      transition-property: background;
+      -webkit-transition-duration: 0.3s;
+      -moz-transition-duration: 0.3s;
+      -o-transition-duration: 0.3s;
+      transition-duration: 0.3s;
+      display: block;
+      font-weight: bold; }
 
 #goals-section {
   background-color: #cbcbcb;
-  padding: 10px; }
+  border-bottom: 1px solid #ddd;
+  padding: 10px 20px; }
   #goals-section .goals-toggle {
     cursor: pointer; }
   #goals-section #goal-form {
     display: none; }
+  #goals-section label {
+    font-weight: bold; }
+  #goals-section input[type="text"], #goals-section select, #goals-section textarea {
+    margin-bottom: 20px;
+    width: 250px; }
+  #goals-section textarea {
+    height: 100px; }
+  #goals-section div {
+    clear: both;
+    overflow: auto; }
+  #goals-section #goal-form {
+    margin-top: 20px; }
+  #goals-section label[for="new-goal"],
+  #goals-section label[for="deadline-input"],
+  #goals-section #new-goal, #goals-section #deadline-input {
+    float: left; }
+  #goals-section label[for="new-goal"],
+  #goals-section label[for="deadline-input"] {
+    width: 75px; }
+  #goals-section .instructions {
+    font-size: 15px; }
+  #goals-section label[for="enable-logging"],
+  #goals-section label[for="sum-entries"],
+  #goals-section #sum-entries, #goals-section #enable-logging,
+  #goals-section #unit, #goals-section label[for="unit"] {
+    display: inline; }
+  #goals-section #enable-logging {
+    margin-right: 20px; }
   #goals-section #unit-container {
-    display: none; }
+    display: none;
+    margin-top: 20px; }
+  #goals-section #unit {
+    margin-left: 20px; }
+  #goals-section #add-goal {
+    background-color: #14a588;
+    border: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    color: black;
+    margin: 15px 0 3px;
+    padding: 5px 15px;
+    text-shadow: none;
+    -webkit-transition-property: background;
+    -moz-transition-property: background;
+    -o-transition-property: background;
+    transition-property: background;
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    font-weight: bold; }
 
 #log-section {
-  background-color: #898989;
-  padding: 10px; }
+  background-color: #4a586b;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 20px; }
   #log-section .log-toggle {
     cursor: pointer; }
   #log-section #log-content {
     display: none; }
+  #log-section #stats {
+    color: #fefefe;
+    list-style-type: none;
+    padding-left: 0; }
+  #log-section .log-goal {
+    background-color: #efefef;
+    padding: 10px;
+    border-radius: 2px;
+    margin: 20px 0; }
 
-.goal {
-  border-bottom: 1px dotted #666;
-  margin-bottom: 10px;
-  padding: 10px 0; }
+#categories {
+  padding: 20px; }
+  #categories h2 {
+    border-bottom: 1px dashed #888; }
+  #categories h3 {
+    float: left;
+    margin-right: 20px; }
+  #categories .goal {
+    margin-bottom: 10px;
+    padding: 10px 0; }
+  #categories .delete {
+    font-weight: bold; }
+  #categories button {
+    background-color: #14a588;
+    border: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    color: black;
+    margin: 10px 0 0 5px;
+    padding: 3px 7px;
+    text-shadow: none;
+    -webkit-transition-property: background;
+    -moz-transition-property: background;
+    -o-transition-property: background;
+    transition-property: background;
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    float: right;
+    width: 30px; }
+  #categories .deadline, #categories .completed-date {
+    float: left;
+    font-size: .95em;
+    font-style: italic;
+    margin-top: 10px; }
+  #categories .completed-date {
+    clear: both;
+    margin-top: 0; }
+  #categories .notes {
+    clear: both; }
+  #categories .add-log-entry {
+    font-size: .95em; }
+  #categories .logging {
+    clear: both;
+    font-size: .95em;
+    overflow: auto; }
+    #categories .logging label, #categories .logging .log-input, #categories .logging .unit {
+      float: left;
+      margin-right: 10px;
+      margin-top: 5px; }
+    #categories .logging label {
+      font-weight: bold; }
+    #categories .logging .log-input {
+      margin-right: 5px; }
+    #categories .logging .save-log-entry, #categories .logging .cancel {
+      float: right;
+      margin-top: 5px; }
+    #categories .logging .save-log-entry {
+      background-color: #d76623;
+      border: none;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      -ms-border-radius: 3px;
+      -o-border-radius: 3px;
+      border-radius: 3px;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      color: #fefefe;
+      margin: 3px 0 0;
+      padding: 5px 15px;
+      text-shadow: none;
+      -webkit-transition-property: background;
+      -moz-transition-property: background;
+      -o-transition-property: background;
+      transition-property: background;
+      -webkit-transition-duration: 0.3s;
+      -moz-transition-duration: 0.3s;
+      -o-transition-duration: 0.3s;
+      transition-duration: 0.3s; }
+    #categories .logging .save-log-entry:hover {
+      background: rgba(20, 165, 136, 0.9); }
+    #categories .logging .cancel {
+      margin-right: 5px; }

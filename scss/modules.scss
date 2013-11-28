@@ -7,8 +7,9 @@
    ========================================================================== */
 
     #settings-section {
-        background-color: #efefef;
-        padding: 10px;
+        background-color: $orange;
+        border-bottom: 1px solid #ddd;
+        padding: 10px $default-spacing;
    
         .settings-toggle {
             cursor: pointer;
@@ -21,12 +22,21 @@
                 display: inline;
             }
 
+            label {
+                font-weight: bold;
+            }
+
+            div {
+                margin: 10px 0;
+            }
+
             #form-categories {
                 label, input {
                     display: block;
                 }
 
                 input {
+                    margin-bottom: 20px;
                     width: 230px;
                 }
             }
@@ -41,15 +51,18 @@
             }
 
             #save {
+                @include button(#000, $purple-gray, 5px 15px, 20px 0 3px);
                 display: block;
+                font-weight: bold;
             }
         }
 
     }
 
     #goals-section {
-        background-color: #cbcbcb;
-        padding: 10px;
+        background-color: $purple-gray;
+        border-bottom: 1px solid #ddd;
+        padding: 10px $default-spacing;
 
         .goals-toggle {
             cursor: pointer;
@@ -59,14 +72,73 @@
             display: none;
         }
 
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"], select, textarea {
+            margin-bottom: 20px;
+            width: 250px;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        div {
+            clear: both;
+            overflow: auto;
+        }
+
+        #goal-form {
+            margin-top: $default-spacing;
+        }
+
+        label[for="new-goal"],
+        label[for="deadline-input"],
+        #new-goal, #deadline-input {
+            float: left;
+        }
+
+        label[for="new-goal"],
+        label[for="deadline-input"]{
+            width: 75px;
+        }
+
+        .instructions {
+            font-size: 15px;
+        }
+
+        label[for="enable-logging"],
+        label[for="sum-entries"],
+        #sum-entries, #enable-logging, 
+        #unit, label[for="unit"] {
+            display: inline;
+        }
+
+        #enable-logging {
+            margin-right: $default-spacing ;
+        }
+
         #unit-container {
             display: none;
+            margin-top: $default-spacing;
+        }
+
+        #unit {
+            margin-left: $default-spacing;
+        }
+
+        #add-goal {
+            @include button(#000, $light-blue-green, 5px 15px, 15px 0 3px);
+            font-weight: bold;
         }
     }
 
     #log-section {
-        background-color: #898989;
-        padding: 10px;
+        background-color: $gray-blue;
+        border-bottom: 1px solid #ddd;
+        padding: 10px $default-spacing;
 
         .log-toggle {
             cursor: pointer;
@@ -75,10 +147,103 @@
         #log-content {
             display: none;
         }
+
+        #stats {
+            color: #fefefe;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .log-goal {
+            background-color: #efefef;
+            padding: 10px;
+            border-radius: 2px;
+            margin: 20px 0;
+        }
     }
 
-    .goal {
-        border-bottom: 1px dotted #666;
-        margin-bottom: 10px;
-        padding: 10px 0;
+    #categories {
+        padding: $default-spacing;
+
+        h2 {
+            border-bottom: 1px dashed #888;
+        }
+
+        h3 {
+            float: left;
+            margin-right: 20px;
+        }
+
+        .goal {
+            margin-bottom: 10px;
+            padding: 10px 0;
+        }
+
+        .delete {
+            font-weight: bold;
+        }
+
+        button {
+            @include button(#000, $light-blue-green, 3px 7px, 10px 0 0 5px);
+            float: right;
+            width: 30px;
+        }
+
+        .deadline, .completed-date {
+            float: left;
+            font-size: .95em;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        .completed-date {
+            clear: both;   
+            margin-top: 0;
+        }
+
+        .notes {
+            clear: both;
+        }
+
+        .add-log-entry {
+            font-size: .95em;
+        }
+
+        .logging {
+            clear: both;
+            font-size: .95em;
+            overflow: auto;
+
+            label, .log-input, .unit {
+                float: left;
+                margin-right: 10px;
+                margin-top: 5px;
+            }
+
+            label {
+                font-weight: bold;
+            }
+
+            .log-input {
+                margin-right: 5px;
+            }
+
+            .save-log-entry, .cancel {
+                float: right;
+                margin-top: 5px;
+            }
+
+            .save-log-entry {
+                @include button(#fefefe, $orange, 5px 15px, 3px 0 0);
+            }
+
+            .save-log-entry:hover{
+                background: rgba(20, 165, 136, .9);
+            }
+
+            .cancel {
+                margin-right: 5px;
+            }
+        }
+
     }

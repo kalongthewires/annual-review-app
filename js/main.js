@@ -162,7 +162,7 @@
 	// add a new goal to a category
 	$('#goal-form').submit(function(){
 		var newGoal = $('#new-goal').val(),
-			deadline = $('#deadline-input').val(),
+			deadline = 'Deadline: ' + $('#deadline-input').val(),
 			notes = $('#goal-notes').val(),
 			categorySection = $('#category-select option:selected').val();
 
@@ -332,8 +332,8 @@
 		$('.goal-title', parentGoal).css('text-decoration', 'line-through');
 		
 		// display date completed
-		if (isBlank($('.date', parentGoal).text())){
-			$('.date', parentGoal).text(mm + '/' + dd + '/' + yyyy);
+		if (isBlank($('.completed-date', parentGoal).text())){
+			$('.completed-date', parentGoal).text('Completed: ' + mm + '/' + dd + '/' + yyyy);
 		}
 
 		// change the button class
@@ -357,7 +357,7 @@
 		$('.goal-title', parentGoal).css('text-decoration', 'none');
 
 		// remove date completed
-		$('.date', parentGoal).text("");
+		$('.completed-date', parentGoal).text("");
 
 		// change the button class
 		$(this).removeClass('undo-complete');
@@ -394,8 +394,11 @@
 		var parentGoalIndex = parentGoalID.substring(5);
 		var text = $('.log-input', parent).val();
 
+		var dataUnit = $('#' + parentGoalID).attr('data-unit');
+		var unit = !isBlank(dataUnit) ? dataUnit : "";
+
 		if (!isBlank(text)){
-			$('#log-goal-' + parentGoalIndex + ' .log-list').append('<li>' + text + '</li>');
+			$('#log-goal-' + parentGoalIndex + ' .log-list').append('<li>' + text + ' ' + unit + '</li>');
 
 			// save the log
 			localStorage.setItem(LOG_KEY, $('#log-content').html());
@@ -421,7 +424,7 @@
 
 	/* DISPLAY LOG ---------------------------------------------*/
 
-	$('#log-toggle').click(function(){
+	$('.log-toggle').click(function(){
 		$('#log-content').toggle("slow");
 	});
 

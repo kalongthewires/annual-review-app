@@ -10,6 +10,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     
+    <link href='http://fonts.googleapis.com/css?family=Fenix|Roboto:400,700,400italic' rel='stylesheet' type='text/css'>
+
     <link rel="stylesheet" href="/css/styles.css" />
     				
 </head>
@@ -18,135 +20,155 @@
 
     <div class="full-container">
 
-        <header class="site-header">
+        <div class="container">
 
-            <nav class="menu">
+            <header class="site-header">
 
-                <ul>
+                <nav class="site-nav">
 
-                    <li><a href="#" class="settings-toggle">Settings</a></li>
-                    <li><a href="#" class="goals-toggle">Add Goal</a></li>
+                    <ul>
 
-                </ul>
+                        <li><a href="#" class="settings-toggle">Settings</a></li>
+                        <li><a href="#" class="goals-toggle">Add Goal</a></li>
+                        <li><a href="#" class="log-toggle">View Log and Statistics</a></li>
 
-            </nav>
+                    </ul>
 
-            <hgroup>
+                </nav>
 
-                <h1 class="site-title"><a href="/">Annual Review Tracker <span id="review-year"></span></a></h1>
-                <h2 id="review-theme"></h2>
+                <hgroup>
 
-            </hgroup>
-        
-        </header>
+                    <h1 class="site-title"><a href="/">Annual Review <span id="review-year"></span></a></h1>
+                    <h2 id="review-theme"></h2>
 
-        <section id="settings-section">
+                </hgroup>
+            
+            </header>
 
-            <h2 class="settings-toggle">Settings</h2>
+            <section id="settings-section">
 
-            <form method="post" id="settings-form">
+                <h2 class="settings-toggle">Settings</h2>
 
-                <p class="instructions">Fill in the information below to get started tracking your goals. Don't worry, you can always
-                    change these later.</p>
+                <form method="post" id="settings-form">
 
-                <div>
-                    <label for="year">Year: </label>
-                    <input type="text" name="year" id="year" />
+                    <p class="instructions">Fill in the information below to get started tracking your goals!</p>
+
+                    <div>
+                        <label for="year">Year: </label>
+                        <input type="text" name="year" id="year" />
+                    </div>
+
+                    <div>
+                        <label for="theme">Theme</label>
+                        <input type="text" name="theme" id="theme" placeholder="2013 is the year of the [insert text].  This time next year, [most important outcome]."/>
+                    </div>
+
+                    <div id="form-categories">
+
+                    </div>
+
+                    <a href="#" id="add-cat">+ Add another category</a>
+
+                    <input type="submit" value="Save" name="save" id="save" />
+
+                    <a href="#" class="cancel">Cancel</a>
+
+                </form>
+
+            </section>
+
+            <section id="goals-section">
+
+                <h2 class="goals-toggle">Add Goal</h2>
+
+                <form method="post" id="goal-form">
+
+                    <div>
+
+                        <label for="new-goal">Goal:</label>
+
+                        <input type="text" name="new-goal" id="new-goal" placeholder="Enter a measurable goal" />
+
+                    </div>
+
+                    <div>
+
+                        <label for="deadline-input">Deadline:</label>
+
+                        <input type="text" name="deadline-input" id="deadline-input" placeholder="e.g. 12/31/2013, Ongoing" />
+
+                    </div>
+
+                    <label for="goal-notes">Notes:</label>
+
+                    <textarea id="goal-notes" placeholder="Additional Notes"></textarea>
+
+                    <label for="category-select">Choose the goal's category:</label>
+
+                    <select id="category-select">
+
+                    </select>
+
+                    <p class="instructions">
+                        Enable logging if you'd like to keep track of your steps towards goal completion. For example, you could 
+                        log the book titles of every book you read or the number of miles you walk. For the latter example, 
+                        you could also choose "Sum Log Entries" to keep a tally of the total number of miles you've walked so far.
+                    </p>
+
+                    <label for="enable-logging">Enable Logging</label>
+
+                    <input type="checkbox" name="enable-logging" id="enable-logging" />
+
+                    <label for="sum-entries">Sum Log Entries</label>
+
+                    <input type="checkbox" name="sum-entries" id="sum-entries" />
+
+                    <div id="unit-container">
+
+                        <label for="unit">Unit of Measurement:</label>
+
+                        <input type="text" name="unit" id="unit" placeholder="e.g. miles, books, etc."/>
+
+                    </div>
+
+                    <input type="submit" value="Add Goal" name="add-goal" id="add-goal" />
+
+                    <a href="#" class="cancel">Cancel</a>
+
+                </form>
+
+            </section>
+
+            <section id="log-section">
+
+                <h2 class="log-toggle">View Log and Statistics</h2>
+
+                <div id="log-content">
+
+                    <ul id="stats">
+                        <li># Goals Completed: <span id="total-completed"></span></li>
+                    </ul>
+
+                    <div id="log-entries">
+
+                    </div>
+
                 </div>
 
-                <div>
-                    <label for="theme">Theme</label>
-                    <input type="text" name="theme" id="theme" placeholder="2013 is the year of the [insert text].  This time next year, [most important outcome]."/>
-                </div>
+            </section>
 
-                <div id="form-categories">
-
-                </div>
-
-                <a href="#" id="add-cat">+ Add another category</a>
-
-                <input type="submit" value="Save" name="save" id="save" />
-
-                <a href="#" class="cancel">Cancel</a>
-
-            </form>
-
-        </section>
-
-        <section id="goals-section">
-
-            <h2 class="goals-toggle">Add Goal</h2>
-
-            <form method="post" id="goal-form">
-
-                <input type="text" name="new-goal" id="new-goal" placeholder="Enter a measurable goal" />
-
-                <input type="text" name="deadline" id="deadline-input" placeholder="Deadline" />
-
-                <textarea id="goal-notes" placeholder="Additional Notes"></textarea>
-
-                <select id="category-select">
-
-                </select>
-
-                <p class="instructions">
-                    Enable logging if you'd like to keep track of your steps towards goal completion. For example, you could 
-                    log the book titles of every book you read or the number of miles you walk. For the latter example, 
-                    choose "Keep a Running Total" to keep a tally of the total number of miles you've walked so far.
-                </p>
-
-                <label for="enable-logging">Enable Logging</label>
-
-                <input type="checkbox" name="enable-logging" id="enable-logging" />
-
-                <label for="sum-entries">Sum Log Entries</label>
-
-                <input type="checkbox" name="sum-entries" id="sum-entries" />
-
-                <div id="unit-container">
-
-                    <label for="unit">Unit of Measurement</label>
-
-                    <input type="text" name="unit" id="unit" placeholder="e.g. miles, books, etc."/>
-
-                </div>
-
-                <input type="submit" value="Add Goal" name="add-goal" id="add-goal" />
-
-                <a href="#" class="cancel">Cancel</a>
-
-            </form>
-
-        </section>
-
-        <section id="log-section">
-
-            <h2 id="log-toggle">View Log and Statistics</h2>
-
-            <div id="log-content">
-
-                <ul>
-                    <li>Goals Completed: <span id="total-completed"></span></li>
-                </ul>
-
-                <div id="log-entries">
-
-                </div>
-
+            <div id="categories">
             </div>
 
-        </section>
+            <footer>
 
-        <div id="categories">
-        </div>
+                <small>Inspired by <a href="http://chrisguillebeau.com/3x5/how-to-conduct-your-own-annual-review/">Chris Guillebeau's Annual Review</a> and Annual Review Spreadsheet.</small>
 
-        <footer>
+            </footer>
 
-            <small>Inspired by <a href="http://chrisguillebeau.com/3x5/how-to-conduct-your-own-annual-review/">Chris Guillebeau's Annual Review</a></small>
+        </div><!-- end container -->
 
-        </footer>
-
-    </div>
+    </div><!-- end full-container -->
 
     <script id="category-template" type="text/x-handlebars-template" />
 
@@ -159,9 +181,9 @@
 
     <script id="log-entry-template" type="text/x-handlebars-template">
 
-        <h4>I completed:</h4>
+        <label class="input-label">I completed:</label>
         <input type="text" name="log-input" class="log-input" placeholder="e.g. Pride and Prejudice by Jane Austen" autofocus/>
-        <label class="input-lable">{{unit}}</label>
+        <div class="unit">{{unit}}</div>
         <input type="submit" value="Save" name="save-log-entry" class="save-log-entry" />
         <a href="#" class="cancel">Cancel</a>
 
@@ -181,7 +203,11 @@
         <div class="goal" id="goal-{{index}}" data-unit="{{unit}}">
             <h3 class="goal-title">{{goal}}</h3>
             <div class="deadline">{{deadline}}</div>
-            <div class="completed-date">Completed: <span class="date"></span></div>
+
+            <button class="delete">x</button>
+            <button class="complete">&#10004</button>
+
+            <div class="completed-date"></div>
             <p class="notes">{{notes}}</p>
             
             {{#if loggingEnabled}}
@@ -189,9 +215,6 @@
             <div class="logging">
             </div>
             {{/if}}
-
-            <button class="delete">x</button>
-            <button class="complete">&#10004</button>
         </div>
 
     </script>

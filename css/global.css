@@ -29,42 +29,44 @@
    Master Base Template - Structure
    ========================================================================== */
 body {
-  background-color: #fefefe;
-  font-family: sans-serif;
+  background-color: #077269;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.65em;
   margin: 0; }
 
 .site-header {
-  margin-bottom: 20px;
-  margin-top: 80px; }
+  background-color: #deddbf;
+  padding: 20px; }
 
 .site-nav {
-  float: right;
-  margin: 0; }
+  margin: 0 0 20px; }
   .site-nav ul {
     margin: 0;
-    padding: 10px 20px 5px; }
+    padding: 0 5px 10px; }
   .site-nav li {
     display: inline;
     list-style-type: none;
     padding-right: 20px; }
   .site-nav a {
-    color: #000;
-    text-decoration: none; }
+    color: #000; }
+
+footer {
+  padding: 20px; }
 
 /* ==========================================================================
    Typography
    ========================================================================== */
 h1, h2, h3 {
-  font-family: Arial, sans-serif;
+  font-family: Fenix, Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 10px 0; }
 
 .site-title {
   font-size: 72px;
   line-height: 1em;
-  padding: 20px 0 40px; }
+  padding: 20px 0 40px;
+  text-align: center; }
 
 h1 a {
   color: #000;
@@ -72,6 +74,9 @@ h1 a {
 
 h2 {
   font-size: 30px; }
+
+h2#review-theme {
+  text-align: center; }
 
 h3 {
   font-size: 24px; }
@@ -86,7 +91,7 @@ h3 {
    Links
    ========================================================================== */
 a {
-  color: #4682B4; }
+  color: #000; }
 
 /* ==========================================================================
    Forms
@@ -100,40 +105,16 @@ input {
 input[type='submit'] {
   margin-top: 15px; }
 
-.button {
-  -moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
-  -webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
-  box-shadow: inset 0px 1px 0px 0px #ffffff;
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #decea5), color-stop(1, #d4c7a5));
-  background: -moz-linear-gradient(center top, #decea5 5%, #d4c7a5 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#decea5', endColorstr='#d4c7a5');
-  background-color: #decea5;
-  border: 1px solid #decfa6;
-  border-radius: 2px 2px 2px 2px;
-  color: #000;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 15px;
-  font-weight: bold;
-  height: 35px;
-  text-shadow: 1px 0 0 #ccc; }
-
-.button:hover {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #d4c7a5), color-stop(1, #decea5));
-  background: -moz-linear-gradient(center top, #d4c7a5 5%, #decea5 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d4c7a5', endColorstr='#decea5');
-  background-color: #d4c7a5; }
-
-.button:active {
-  position: relative;
-  top: 1px; }
-
 /* ==========================================================================
    Containers & Holders
    ========================================================================== */
 .full-container {
-  background-color: #fefefe;
+  margin: 0; }
+
+.container {
+  background-color: #efefef;
+  border: 1px solid #666;
   margin: 0 auto;
   max-width: 800px;
   overflow: auto;
-  padding: 20px;
   width: 85%; }
