@@ -1,9 +1,25 @@
+@import "variables"; // Global variables
+@import "mixins";
+
 .ui-dialog {
     background-color: #efefef;
     border: 1px solid #000;
+    padding: $default-spacing;
 }
 
 .ui-widget-header {
 	font-size: 18px;
+	font-weight: bold;
+}
+
+.ui-dialog-titlebar-close {
+	@include button(#000, #cdcdcd, 3px 0, 0);
+	float: right;
+	font-weight: bold;
+	width: 30px;
+}
+
+.ui-button-text-only {
+	@include button(#000, $light-blue-green, 5px 15px, 0 5px 0 0);
 	font-weight: bold;
 }

@@ -260,12 +260,92 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
+/* ==========================================================================
+   Global Variables
+   ========================================================================== */
+/**
+ * ## Global Spaces
+ */
+/**
+ * ## Global Widths
+ */
+/**
+ * ## Global Colors
+ */
+/* ==========================================================================
+   Global Variables
+   ========================================================================== */
+/**
+ * ## Global Spaces
+ */
+/**
+ * ## Global Widths
+ */
+/**
+ * ## Global Colors
+ */
+/* ==========================================================================
+   Global Mixins
+   ========================================================================== */
 .ui-dialog {
   background-color: #efefef;
-  border: 1px solid #000; }
+  border: 1px solid #000;
+  padding: 20px; }
 
 .ui-widget-header {
   font-size: 18px;
+  font-weight: bold; }
+
+.ui-dialog-titlebar-close {
+  background-color: #cdcdcd;
+  border: none;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  color: black;
+  margin: 0;
+  padding: 3px 0;
+  text-shadow: none;
+  -webkit-transition-property: background;
+  -moz-transition-property: background;
+  -o-transition-property: background;
+  transition-property: background;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  float: right;
+  font-weight: bold;
+  width: 30px; }
+
+.ui-button-text-only {
+  background-color: #14a588;
+  border: none;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  color: black;
+  margin: 0 5px 0 0;
+  padding: 5px 15px;
+  text-shadow: none;
+  -webkit-transition-property: background;
+  -moz-transition-property: background;
+  -o-transition-property: background;
+  transition-property: background;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
   font-weight: bold; }
 
 /* ==========================================================================

@@ -385,8 +385,7 @@ $(document).ready(function(){
 			function(){
 		var newVal = $(this).val(),
 			inputID = $(this).attr('id'),
-			parentGoal = $(this).parent(),
-			parentGoalID = parentGoal.attr('id');
+			parentGoal = $(this).parent();
 
 		// replace input/textarea with the original html
 		if (inputID === 'new-deadline'){
@@ -398,20 +397,25 @@ $(document).ready(function(){
 		}
 
 		localStorage.setItem(GOALS_KEY, JSON.stringify(setGoals()));
+		updateLogGoalTitle(parentGoal);
+	});
+
+
+	function updateLogGoalTitle(parentGoal){
+		var parentGoalID = parentGoal.attr('id');
+			loggingEnabled = $('.add-log-entry', parentGoal);
 
 		// update log entry if logging enabled
-		var loggingEnabled = $('.add-log-entry', parentGoal);
 		if (loggingEnabled){
-			var logGoalID = '#log-' + parentGoalID;
 
+			var logGoalID = '#log-' + parentGoalID;
 			if ($(logGoalID)){
 				$('h3', logGoalID).text(newVal);
 
 				localStorage.setItem(LOG_KEY, $('#log-entries').html());
 			}
 		}
-	});
-
+	}
 
 /* GOAL LOGGING ------------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
@@ -706,7 +710,10 @@ $(document).ready(function(){
 	 * clear review action.
 	 */
 	$(function() {
-  		$("#dialog").dialog({autoOpen : false, modal : true, 
+  		$("#dialog").dialog({
+  			autoOpen : false,
+  			closeText: 'x',
+  			modal : true, 
   			buttons: [ 
   				{ text: "Yes", click: function() { 
   						$(this).dialog("close");
