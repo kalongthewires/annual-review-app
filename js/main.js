@@ -384,7 +384,9 @@ $(document).ready(function(){
 	$(document).on('blur', '#new-deadline, #new-goal-title, #new-notes', 
 			function(){
 		var newVal = $(this).val(),
-			inputID = $(this).attr('id');
+			inputID = $(this).attr('id'),
+			parentGoal = $(this).parent(),
+			parentGoalID = parentGoal.attr('id');
 
 		// replace input/textarea with the original html
 		if (inputID === 'new-deadline'){
@@ -396,6 +398,18 @@ $(document).ready(function(){
 		}
 
 		localStorage.setItem(GOALS_KEY, JSON.stringify(setGoals()));
+
+		// update log entry if logging enabled
+		var loggingEnabled = $('.add-log-entry', parentGoal);
+		if (loggingEnabled){
+			var logGoalID = '#log-' + parentGoalID;
+
+			if ($(logGoalID)){
+				$('h3', logGoalID).text(newVal);
+
+				localStorage.setItem(LOG_KEY, $('#log-entries').html());
+			}
+		}
 	});
 
 
