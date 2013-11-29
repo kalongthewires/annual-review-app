@@ -39,7 +39,35 @@ body {
   background-color: #deddbf;
   padding: 20px; }
 
+#clear-review {
+  background-color: #efefef;
+  border: none;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  color: black;
+  margin: 0;
+  padding: 5px 15px;
+  text-shadow: none;
+  -webkit-transition-property: background;
+  -moz-transition-property: background;
+  -o-transition-property: background;
+  transition-property: background;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  border: 1px solid #ccc;
+  float: right;
+  font-weight: bold; }
+
 .site-nav {
+  float: left;
   margin: 0 0 20px; }
   .site-nav ul {
     margin: 0;
@@ -63,6 +91,7 @@ h1, h2, h3 {
   padding: 10px 0; }
 
 .site-title {
+  clear: both;
   font-size: 72px;
   line-height: 1em;
   padding: 20px 0 40px;

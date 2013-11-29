@@ -609,6 +609,30 @@ $(document).ready(function(){
 		localStorage.setItem(GOALS_KEY, JSON.stringify(setGoals()));
 	});
 
+/* CLEAR/SAVE REVIEW -------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+
+	/* CLEAR ANNUAL REVIEW
+	 * Deletes all saved data.
+	 */
+	$(function() {
+  		$("#dialog").dialog({autoOpen : false, modal : true, 
+  			buttons: [ 
+  				{ text: "Yes", click: function() { 
+  						$( this ).dialog( "close" );
+  						localStorage.clear();
+  						location.reload(true);
+  					} },
+  				{ text: "No", click: function() { $(this).dialog( "close" ); } }
+			] 
+		});
+
+  		$("#clear-review").click(function() {
+			$("#dialog").dialog("open");
+    		return false;
+  		});
+	});
+
 /* HELPER METHODS ----------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
 	function isBlank(str) {

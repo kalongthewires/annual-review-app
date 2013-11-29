@@ -17,7 +17,15 @@
             padding: $default-spacing;
         }
 
+        #clear-review {
+            @include button(#000, #efefef, 5px 15px, 0);
+            border: 1px solid #ccc;
+            float: right;
+            font-weight: bold;
+        }
+
         .site-nav {
+            float: left;
             margin: 0 0 $default-spacing;
 
             ul {
@@ -50,6 +58,7 @@
         }
 
         .site-title {
+            clear: both;
             font-size: 72px;
             line-height: 1em;
             padding: $default-spacing 0 $default-spacing*2;
