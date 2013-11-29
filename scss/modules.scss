@@ -165,6 +165,16 @@
             }
         }
 
+        #new-log-item {
+            display: inline;
+            width: 250px;
+        }
+
+        #new-log-date {
+            float: right;
+            width: 100px;
+        }
+
         h3 {
             float: left;
         }

@@ -584,6 +584,12 @@ input[type='submit'] {
     margin: 20px 0; }
     #log-section .log-goal div {
       clear: both; }
+  #log-section #new-log-item {
+    display: inline;
+    width: 250px; }
+  #log-section #new-log-date {
+    float: right;
+    width: 100px; }
   #log-section h3 {
     float: left; }
   #log-section .log-date {

@@ -9,6 +9,8 @@ $(document).ready(function(){
 	var goalTemplate = Handlebars.compile($('#goal-template').html()),
 		logEntryTemplate = Handlebars.compile($('#log-entry-template').html()),
 		logGoalTemplate = Handlebars.compile($('#log-goal-template').html()),
+		logListEntryTemplate = 
+			Handlebars.compile($('#log-list-entry-template').html()),
 		categoryInputTemplate = 
 			Handlebars.compile($('#category-input-template').html()),
 		categoryTemplate = Handlebars.compile($('#category-template').html());
@@ -438,9 +440,13 @@ $(document).ready(function(){
 			unit = !isBlank(dataUnit) ? dataUnit : "";
 
 		if (!isBlank(logEntryText)){
-			$('#log-goal-' + parentGoalIndex + ' .log-list').append('<li>' + 
-				logEntryText + ' ' + unit + ' ' + 
-				'<span class="log-date">' + entryDate + '</span></li>');
+			$('#log-goal-' + parentGoalIndex + ' .log-list')
+				.append(logListEntryTemplate({
+						logEntryText: logEntryText,
+						entryDate: entryDate,
+						unit: unit
+					})
+				);
 
 			// save the log
 			localStorage.setItem(LOG_KEY, $('#log-entries').html());
@@ -619,6 +625,55 @@ $(document).ready(function(){
 
 		localStorage.setItem(LOG_KEY, $('#log-entries').html());
 		localStorage.setItem(GOALS_KEY, JSON.stringify(setGoals()));
+	});
+
+	/* EDIT LOG ENTRY DATE
+	 * When a line in the log is clicked, display an input box 
+	 */
+	$(document).on('click', '.log-date', function(){
+		var currentLogDate = $(this).text();
+
+		$(this).replaceWith('<input type="text" name="new-log-date"' +
+			'id="new-log-date" value="' + currentLogDate + '" autofocus/>');	
+	});
+
+	/* EDIT LOG ENTRY ITEM 
+	 * 
+	 */
+	$(document).on('click', '.log-item', function(){
+		var currentLogItem = $('.log-entry-text', this).text();
+
+		$('.log-entry-text', this).replaceWith('<input type="text"' + 
+			'name="new-log-item" id="new-log-item" value="' + currentLogItem + 
+			'" autofocus/>');
+	});
+
+	/* SAVE EDITED LOG DATE
+	 *
+	 */
+	$(document).on('focusout', '#new-log-date', function(){
+		var newDate = $(this).val();
+
+		if (!isBlank(newDate)){
+			$(this).replaceWith('<span class="log-date">' + newDate + '</span>');
+		}
+
+		localStorage.setItem(LOG_KEY, $('#log-entries').html());
+	});
+
+	/* SAVE EDITED LOG ITEM
+	 *
+	 */
+	$(document).on('focusout', '#new-log-item', function(){
+		var newLogItem = $(this).val();
+
+		if (!isBlank(newLogItem)){
+			$(this).replaceWith('<span class="log-entry-text">' + 
+				newLogItem + '</span>');
+		}
+
+		localStorage.setItem(LOG_KEY, $('#log-entries').html());
+		displaySums();
 	});
 
 /* CLEAR/SAVE REVIEW -------------------------------------------------------- */
