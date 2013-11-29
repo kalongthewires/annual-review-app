@@ -392,12 +392,12 @@ $(document).ready(function(){
 			$(this).replaceWith('<div class="deadline">' + newVal + '</div>');
 		} else if (inputID === 'new-goal-title'){
 			$(this).replaceWith('<h3 class="goal-title">' + newVal + '</h3>');
+			updateLogGoalTitle(parentGoal, newVal);
 		} else if (inputID === 'new-notes'){
 			$(this).replaceWith('<p class="notes">' + newVal + '</p>');
 		}
 
 		localStorage.setItem(GOALS_KEY, JSON.stringify(setGoals()));
-		updateLogGoalTitle(parentGoal, newVal);
 	});
 
 
