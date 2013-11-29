@@ -1,10 +1,16 @@
- $(document).ready(function(){
-	var STORAGE_KEY = 'goalslist',
-		LOG_KEY = 'log';
+$(document).ready(function(){
+	"use strict";
 
+	var GOALS_KEY = 'goals',
+		LOG_KEY = 'log',
+		SETTINGS_KEY = 'settings';
+
+	// COMPILE HANDLEBARS HTML TEMPLATES
 	var goalTemplate = Handlebars.compile($('#goal-template').html()),
 		logEntryTemplate = Handlebars.compile($('#log-entry-template').html()),
 		logGoalTemplate = Handlebars.compile($('#log-goal-template').html()),
+		categoryInputTemplate = 
+			Handlebars.compile($('#category-input-template').html()),
 		categoryTemplate = Handlebars.compile($('#category-template').html());
 
 	var goalsIndex = 0,
@@ -13,39 +19,75 @@
 		startingCatCount = 4;
 
 
-	/* INIT ----------------------------------------------------*/
-
-	setCategoryCount();
-	createDefaultCategories();
+/* INIT -------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */	
+	
 	displaySettings();
 	displayStoredGoals();
 	displayLog();
 
-	// set categoryCount to saved count
-	function setCategoryCount(){
-		if (localStorage && 'settings' in localStorage){
-			var settings = JSON.parse(localStorage.getItem('settings'));
-			if (settings && settings['categoryCount'] !== undefined){
-				startingCatCount = settings['categoryCount'];
-			}
-		}	
+	/* DISPLAY SETTINGS
+	 * Get the settings from local storage and display them.
+	 */
+	function displaySettings(){
+		var settings;
+		if (localStorage && SETTINGS_KEY in localStorage){
+			settings = JSON.parse(localStorage.getItem(SETTINGS_KEY));		
+
+			setCategoryCount(settings);
+		}
+
+		// on webpage reload, create starting categories
+		// avoid creating extra categories when settings form is submitted, etc.
+		if (categoryCount === 0){
+			createStartingCategories();
+		}
+		
+		renderSavedSettings(settings);
+		populateFormValues();
 	}
 
-	function createDefaultCategories(){
-		for (var i = 1; i <= startingCatCount; i++){
-			categoryCount++;
-			addCategoryFormField();
-			addCategory();
+	/* SET CATEGORY COUNT
+	 * If a total number of goal categories is stored in local storage,
+	 * sets the startingCatCount variable to the saved value.
+	 */
+	function setCategoryCount(settings){
+		if (settings && settings['categoryCount'] !== undefined){
+			startingCatCount = settings['categoryCount'];
 		}
 	}
 
-	function addCategoryFormField(){
-		// add category input field to settings form
-		$('#form-categories').append('<label for="cat-' + categoryCount + '"">Goal Category ' + categoryCount + '</label>' + 
-                '<input type="text" name="cat-' + categoryCount + '" id="cat-' + categoryCount + '" placeholder="e.g. Health, Career, Finances" />');
+	/* CREATE STARTING CATEGORIES
+	 * Create the number of goal categories specified by the startingCatCount
+	 * variable.
+	 */
+	function createStartingCategories(){
+		for (var i = 1; i <= startingCatCount; i++){
+			createNewCategory();
+		}
 	}
 
-	function addCategory(){
+	/* CREATE NEW CATEGORY
+	 * Generates a single new goal category and increments the categoryCount.
+ 	 */
+	function createNewCategory(){
+		categoryCount++;
+		addCategoryFormField();
+		renderCategory();
+	}
+
+	/* ADD CATEGORY FORM FIELD
+	 * Create a category input field in the settings form.
+	 */	 
+	function addCategoryFormField(){
+        $('#form-categories')
+        	.append(categoryInputTemplate({ categoryCount: categoryCount }));
+	}
+
+	/* RENDER CATEGORY
+	 * Render a new category in the #categories section.
+	 */
+	function renderCategory(){
 		$('#categories').append(categoryTemplate({
 			sectionID: 'cat-section-' + categoryCount,
 			titleID: 'cat-title-' + categoryCount,
@@ -53,59 +95,82 @@
 		}));
 	}
 
-	function displaySettings(){
-		// get settings from local storage and display
-		if (localStorage && 'settings' in localStorage){
-			var settings = JSON.parse(localStorage.getItem('settings'));
+	/* RENDER SAVED SETTINGS
+	 * Display the theme, annual review year, category names, etc. saved in
+	 * the settings form in their corresponding locations on the webpage.
+	 */
+	function renderSavedSettings(settings){
+		if (settings){
+			var value;
 
-			if (settings){
-				var i = 0;
-				for (key in settings){
-					if (settings[key] && !isBlank(settings[key]) && settings[key] !== "undefined"){
-						$('#' + key).text(settings[key]);
+			for (var key in settings){
+				value = settings[key];
+				if (value && !isBlank(value) && value !== "undefined"){
+					$('#' + key).text(value);
+				}
+			}
+		}
+	}
+
+	/* POPULATE FORM VALUES
+	 * Add category names to the goals form category select menu, and set the
+	 * values for each input field in the settings form.
+	 */
+	function populateFormValues(){
+		// clear categories in the category select menu
+		$('#category-select').html("");
+		
+		for (var i = 1; i <= categoryCount; i++){
+			var catTitle = $('#cat-title-' + i).text();
+
+			// add each category to the goals form category select menu
+			$('#category-select').append('<option value="cat-section-' + 
+				i + '">' + catTitle + '</option>');
+			
+			// populate the settings form input field for the category with
+			// the category name
+			$('#cat-' + i).val(catTitle);
+		}
+		
+		// populate the remaining settings form input fields with saved values
+		$('#year').val($('#review-year').text());
+		$('#theme').val($('#review-theme').text());
+	}
+
+	/* DISPLAY STORED GOALS
+	 * Show each goal saved in local storage in its corresponding goal section.
+	 * Set numCompleted to the saved number of completed goals and goalsIndex
+	 * to the saved total number of goals.
+	 */
+	function displayStoredGoals(){
+		if (localStorage && GOALS_KEY in localStorage){
+			var storedGoals = JSON.parse(localStorage.getItem(GOALS_KEY));
+			
+			if (storedGoals){
+				for (var key in storedGoals){
+					var value = storedGoals[key];
+
+					if (value && !isBlank(value) && value !== "undefined"){
+						if (key === 'index'){
+							goalsIndex = value;
+						} else if (key === 'numCompleted'){
+							goalsCompleted = value;
+						} else { // add goal to its corresponding goal section
+							$('#' + key + ' .goals').html(value);
+						}
 					}
 				}
 			}
-			
-			// clear goals category select menu
-			$('#category-select').html("");
-
-			for (var i = 1; i <= categoryCount; i++){
-				var catTitle = $('#cat-title-' + i).text();
-
-				// add category to the goals category select menu
-				$('#category-select').append('<option value="cat-section-' + i + '">' + catTitle + '</option>');
-				// populate the settings form input field for the category with the category name
-				$('#cat-' + i).val(catTitle);
-			}
-			// populate the remaining settings form input fields with stored data
-			$('#year').val(settings['review-year']);
-			$('#theme').val(settings['review-theme']);
 		}
 	}
 
-	function displayStoredGoals(){
-		if (localStorage && STORAGE_KEY in localStorage){
-			var storedGoals = JSON.parse(localStorage.getItem(STORAGE_KEY));
-			
-			if (storedGoals){
-				for (key in storedGoals){
-					(storedGoals[key] && !isBlank(storedGoals[key]) && storedGoals[key] !== "undefined") ? $('#' + key + ' .goals').html(storedGoals[key]) : "";
-				}
-				if (!isBlank(storedGoals['index'])){
-					goalsIndex = storedGoals['index'];
-				}
-				if (!isBlank(storedGoals['numCompleted'])){
-					goalsCompleted = storedGoals['numCompleted'];
-				}
-			}
-		}
-	}
-
+	/* DISPLAY LOG
+	 * Show saved log entries and statistics (e.g. total # goals completed).
+	 */
 	function displayLog(){
 		// display saved log entries
 		if (localStorage && LOG_KEY in localStorage){
-			$('#log-content').html(localStorage.getItem(LOG_KEY));
+			$('#log-entries').html(localStorage.getItem(LOG_KEY));
 		}
 
 		// show total # goals completed
@@ -116,10 +181,15 @@
 		displaySums();
 	}
 
+	/* DISPLAY LOG ENTRY COUNTS
+	 * Counts the number of log entries for each log goal and displays the total
+	 * count at the top of the corresponding log goal.
+	 */
 	function displayLogEntryCounts(){
 		$('.log-goal').each(function(){
 			var numEntries = 0;
 
+			// count the number of log entries
 			$('li', this).each(function(){
 				numEntries++;
 			});
@@ -128,13 +198,18 @@
 		});
 	}
 
+	/* DISPLAY SUMS
+	 * Sums the numeric log entries for log goals with "sum entries" enabled.
+	 * Shows the sum at the top of the log goals.
+	 */
 	function displaySums(){
 		$('.log-goal').each(function(){
 			var sum = 0;
 
 			// calculate the sum
 			$('li', this).each(function(){
-				sum += parseFloat($(this).text());
+				// TODO what if enter a float?
+				sum += parseInt($(this).text(), 10);
 			});
 
 			// display the sum with correct units
@@ -143,123 +218,172 @@
 		});
 	}
 
-	/* ADD/REMOVE GOALS -----------------------------------------------*/
+/* ADD/REMOVE GOALS -------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */	
 
-	// show-hide settings form
+	/* TOGGLE GOALS FORM */
 	$('.goals-toggle').click(function(){
 		$('#goal-form').toggle("slow");
 	});
 
+	/* HIDE GOALS FORM ON CANCEL
+	 * When the cancel button is clicked, hide the goals form.
+	 */
 	$('#goal-form .cancel').click(function(){
 		$('#goal-form').hide("slow");
 	})
 
-	// show the units input if Sum Log Entries is checked
+	/* SHOW UNITS INPUT FIELD
+	 * Display the units input field if "Sum Log Entries" is checked
+	 */
 	$('#sum-entries').change(function(){
 		$('#unit-container').toggle();
 	});
 
-	// add a new goal to a category
+	/* DISPLAY AND SAVE SUBMITTED GOALS FORM DATA
+	 * Create the new goal and, if logging is enabled, add it to the log section.
+	 */
 	$('#goal-form').submit(function(){
 		var newGoal = $('#new-goal').val(),
 			deadline = 'Deadline: ' + $('#deadline-input').val(),
 			notes = $('#goal-notes').val(),
-			categorySection = $('#category-select option:selected').val();
+			categorySection = $('#category-select option:selected').val(),
+			loggingEnabled = $('#enable-logging').prop('checked'),
+			sumEntriesEnabled= $('#sum-entries').prop('checked'),
+			unit = sumEntriesEnabled ? $('#unit').val() : "";
 
-		var loggingEnabled = $('#enable-logging').prop('checked'),
-			sumEntriesEnabled= $('#sum-entries').prop('checked');
+		// TODO perform error checking, make a hasErrors function ?
+		if (!isBlank(newGoal)){ 
+			createNewGoal(newGoal, deadline, notes, categorySection, 
+				loggingEnabled, unit);
 
-		sumEntriesEnabled ? (unit = $('#unit').val()) : "";
+			// add the goal title to the log section, if logging enabled
+			if (loggingEnabled){
+				addGoalToLog(newGoal, sumEntriesEnabled, unit);
+			}
 
-		if (!isBlank(newGoal)){ //TODO error checking for blank category and blank new goals on submit
-			goalsIndex++;
+			// clear all form fields and checkboxes 
+			$('input[type="text"], textarea', this).each(function(){
+				$(this).val("");
+			});
 
-			// append goal to selected category
-			var goalsContainer = $('#' + categorySection + ' .goals')
+			$('input[type="checkbox"]', this).each(function(){
+				$(this).prop("checked", false);
+			})
 
-			goalsContainer.append(goalTemplate({
-												goal: newGoal,
-												deadline: deadline,
-												notes: notes,
-												loggingEnabled: loggingEnabled,
-												index: goalsIndex,
-												unit: unit
-											}));
-
-			// clear the text input boxes
-			$('#new-goal').val("");
-			$('#deadline-input').val("");
-			$('#goal-notes').val("");
-
-			localStorage.setItem(STORAGE_KEY, JSON.stringify(setGoals()));
-			
 			$('#goal-form').hide("slow");
 		}
-
-		// add the goal title to the log section, if logging enabled
-		if (loggingEnabled){
-			$('#log-content').append(logGoalTemplate({
-														goal: newGoal,
-														index: goalsIndex,
-														sumEntriesEnabled: sumEntriesEnabled,
-														unit: unit
-													}));
-
-			// save the log
-			localStorage.setItem(LOG_KEY, $('#log-content').html());
-
-			// display initial logged entries count
-			displayLogEntryCounts();
-
-			// display initial sum of entered log values
-			if (sumEntriesEnabled){
-				displaySums();
-			}
-		}
-
 		return false;
 	});
 
+	/* CREATE NEW GOAL
+	 * Renders a new goal with the specified parameters to the page and saves
+	 * the goal to local storage.
+	 */
+	function createNewGoal(newGoal, deadline, notes, categorySection, 
+		loggingEnabled, unit){
+		goalsIndex++;
+
+		// append goal to selected category
+		var goalsContainer = $('#' + categorySection + ' .goals')
+
+		goalsContainer
+			.append(goalTemplate({
+				goal: newGoal,
+				deadline: deadline,
+				notes: notes,
+				loggingEnabled: loggingEnabled,
+				index: goalsIndex,
+				unit: unit
+			}));
+
+		localStorage.setItem(GOALS_KEY, JSON.stringify(setGoals()));
+	}
+
+	/* SET GOALS
+	 * Sets the goals object to be saved for local storage. Adds all goals to 
+	 * the object, as well as, the current goalsIndex and goalsCompleted values.
+	 */
 	function setGoals(){
 		var goals = {};
+
+		// add the goals section html for each category to the goals object
 		for (var i = 1; i <= categoryCount; i++){
-			goals['cat-section-' + i] = $('#cat-section-' + i + ' .goals').html();
+			goals['cat-section-' + i] = 
+				$('#cat-section-' + i + ' .goals').html();
 		}
+
 		goals['index'] = goalsIndex;
 		goals['numCompleted'] = goalsCompleted;
 		return goals;
 	}
 
-	// delete goal
+	/* ADD GOAL TO LOG
+	 * Displays the new goal title with corresponding log entry count and sum
+	 * if sum entries is enabled.
+	 */
+	function addGoalToLog(newGoal, sumEntriesEnabled, unit){
+		$('#log-entries').append(logGoalTemplate({
+			goal: newGoal,
+			index: goalsIndex,
+			sumEntriesEnabled: sumEntriesEnabled,
+			unit: unit
+		}));
+
+		// save the log
+		localStorage.setItem(LOG_KEY, $('#log-entries').html());
+
+		// display initial logged entries count
+		displayLogEntryCounts();
+
+		// display initial sum of entered log values
+		if (sumEntriesEnabled){
+			displaySums();
+		}
+	}
+
+ 	/* DELETE GOAL ON DELETE
+ 	 * Delete goal when the delete button is pushed and save the changes.
+ 	 */
 	$(document).on('click', '.delete', function(){
 		$(this).parent().remove();
-		localStorage.setItem(STORAGE_KEY, JSON.stringify(setGoals()));
+		localStorage.setItem(GOALS_KEY, JSON.stringify(setGoals()));
 	});
 
-	// click to edit goal information
+	/* EDIT GOAL INFO
+	 * When a goal's deadline, title, or notes are clicked, display an input
+	 * field or textarea that allows the user to edit the clicked info.
+	 */
 	$(document).on('click', '.deadline, .goal-title, .notes', function(){
-		var fieldClass = $(this).attr('class');
-		var currentValue = $(this).text();
+		var fieldClass = $(this).attr('class'),
+			currentValue = $(this).text();
 
 		// prevent completed goals from being edited
-		if ($('.goal-title').css('text-decoration') === 'line-through'){
+		if ($('.goal-title', $(this).parent())
+				.css('text-decoration') === 'line-through'){
 			return;
 		}
 
 		if (fieldClass === 'notes'){
-			$(this).replaceWith('<textarea id="new-' + fieldClass + '" autofocus>' + currentValue + '</textarea>');
+			$(this).replaceWith('<textarea id="new-' + fieldClass + 
+				'" autofocus>' + currentValue + '</textarea>');
 		} else {
-			$(this).replaceWith("<input type='text' name='new-" + fieldClass + "' id='new-" + fieldClass + "' value='" + currentValue + "' autofocus/>");
+			$(this).replaceWith("<input type='text' name='new-" + fieldClass + 
+				"' id='new-" + fieldClass + "' value='" + currentValue + 
+				"' autofocus/>");
 		}
 	});
 
-	// save goal information
-	$(document).on('blur', '#new-deadline, #new-goal-title, #new-notes', function(){
+	/* SAVE UPDATED GOAL INFORMATION
+	 * On blur, display and save the edited goal information.
+	 */
+	$(document).on('blur', '#new-deadline, #new-goal-title, #new-notes', 
+			function(){
 		var newVal = $(this).val(),
 			inputID = $(this).attr('id');
 
+		// replace input/textarea with the original html
 		if (inputID === 'new-deadline'){
-			// replace with the original html
 			$(this).replaceWith('<div class="deadline">' + newVal + '</div>');
 		} else if (inputID === 'new-goal-title'){
 			$(this).replaceWith('<h3 class="goal-title">' + newVal + '</h3>');
@@ -267,50 +391,109 @@
 			$(this).replaceWith('<p class="notes">' + newVal + '</p>');
 		}
 
-		// save edits
-		localStorage.setItem(STORAGE_KEY, JSON.stringify(setGoals()));
+		localStorage.setItem(GOALS_KEY, JSON.stringify(setGoals()));
 	});
 
-	/* SETTINGS FORM ------------------------------------------*/
 
-	// show-hide settings form
+/* GOAL LOGGING ------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+
+	/* ADD GOAL LOG ENTRY */
+	$(document).on('click', '.add-log-entry', function(){
+		var parentGoal = $(this).parent();
+
+		// prevent add-log-entry actions from occurring twice
+		if(!$.trim( $('.logging', parentGoal).html()).length){
+			var unit = parentGoal.attr('data-unit');
+
+			// create input box and save button
+			$('.logging', parentGoal).append(logEntryTemplate({unit: unit}));
+		}
+	});
+
+	/* CANCEL LOG ENTRY */
+	$(document).on('click', '.logging .cancel', function(){
+		removeLogInputField($(this).parent());
+	});
+
+	/* SAVE LOG ENTRY */
+	$(document).on('click', '.save-log-entry', function(){
+		var parent = $(this).parent(),
+			parentGoalID = parent.parent().attr('id'),
+			parentGoalIndex = parentGoalID.substring(5),
+			logEntryText = $('.log-input', parent).val();
+
+		var dataUnit = $('#' + parentGoalID).attr('data-unit'),
+			unit = !isBlank(dataUnit) ? dataUnit : "";
+
+		if (!isBlank(logEntryText)){
+			$('#log-goal-' + parentGoalIndex + ' .log-list').append('<li>' + 
+				logEntryText + ' ' + unit + '</li>');
+
+			// save the log
+			localStorage.setItem(LOG_KEY, $('#log-entries').html());
+		}
+
+		// update log entry count for the goal
+		displayLogEntryCounts();
+
+		// update log entry sum if "Sum Log Entries" is enabled
+		if ($('#log-goal-' + parentGoalIndex).hasClass("sum-entries")){
+			displaySums();
+		}
+
+		removeLogInputField(parent);
+	});
+
+	/* REMOVE LOG ENTRY INPUT FIELD
+	 * Remove add log entry input field and associated save button, etc.
+	 */
+	function removeLogInputField(parent){
+		$(parent).children().each(function(){
+			$(this).remove();
+		});
+	}
+
+/* SETTINGS FORM ------------------------------------------------------------ */
+/* -------------------------------------------------------------------------- */
+
+	/* TOGGLE SETTINGS FORM */
 	$('.settings-toggle').click(function(){
 		$('#settings-form').toggle("slow");
 	});
 
+	/* HIDE SETTINGS FORM ON CANCEL
+	 * When the cancel button is clicked, hide the settings form.
+	 */
 	$('#settings-form .cancel').click(function(){
 		$('#settings-form').hide("slow");
 	});
 
-	// Add category to settings form
+	/* ADD NEW CATEGORY INPUT TO SETTINGS FORM */
 	$('#add-cat').click(function(){
 		categoryCount++;
 		addCategoryFormField();
 	});
 
-	// submit settings form changes
+	/* DISPLAY SUBMITTED SETTINGS FORM CHANGES
+	 *
+	 */
 	$('#settings-form').submit(function(){
-		settings = {
-						'review-year': $('#year').val(),
-						'review-theme': $('#theme').val()
-					}
+		var settings = {
+							'review-year': $('#year').val(),
+							'review-theme': $('#theme').val(),
+							'categoryCount' : categoryCount
+						}
 		
-		// create any added categories
-		for (var i = startingCatCount; i < categoryCount; i++){
-			addCategory();
-			startingCatCount = categoryCount;
-		}
+		renderAddedCategories();
 
 		// add all categories to settings object
 		for (var i = 1; i <= categoryCount; i++){
 			settings['cat-title-' + i] = $('#cat-' + i).val();
 		}
 
-		// add total number of categories to settings object
-		settings['categoryCount'] = categoryCount;
-
-		// save settings object
-		localStorage.setItem('settings', JSON.stringify(settings));
+		// save and display
+		localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
 		displaySettings();
 
 		$('#settings-form').hide("slow");
@@ -318,22 +501,39 @@
 		return false;
 	});
 
-	// complete a goal
+	/* RENDER ADDED CATEGORIES
+	 * Create a category in the #categories section for each added category
+	 * input field on the settings form.
+	 */
+	function renderAddedCategories(){
+		for (var i = startingCatCount; i < categoryCount; i++){
+			renderCategory();
+			startingCatCount = categoryCount;
+		}
+	}
+
+	/* COMPLETE A GOAL
+	 * When completed button clicked, show the current date for the completed
+	 * goal and mark it as completed. Increment goalsCompleted and save all the
+	 * changes.
+	 */
 	$(document).on('click', '.complete', function(){
 		// get current date to display
-		var currentDate = new Date();
-		var dd = currentDate.getDate();
-		var mm = currentDate.getMonth()+1;
-		var yyyy = currentDate.getFullYear();
+		var currentDate = new Date(),
+			dd = currentDate.getDate(),
+			mm = currentDate.getMonth()+1,
+			yyyy = currentDate.getFullYear();
 
 		var parentGoal = $(this).parent();
 
 		// strike out the goal title
 		$('.goal-title', parentGoal).css('text-decoration', 'line-through');
 		
-		// display date completed
+		// avoid displaying the date of completion twice
 		if (isBlank($('.completed-date', parentGoal).text())){
-			$('.completed-date', parentGoal).text('Completed: ' + mm + '/' + dd + '/' + yyyy);
+			// display date completed
+			$('.completed-date', parentGoal).text('Completed: ' + mm + '/' + 
+				dd + '/' + yyyy);
 		}
 
 		// change the button class
@@ -346,10 +546,13 @@
 		$('#total-completed').html(goalsCompleted);
 
 		// save changes
-		localStorage.setItem(STORAGE_KEY, JSON.stringify(setGoals()));
+		localStorage.setItem(GOALS_KEY, JSON.stringify(setGoals()));
 	});
 
-	// undo goal completion
+	/* UNDO GOAL COMPLETION
+	 * If the completed button is clicked a second time, undo goal completion
+	 * and save the changes.
+	 */
 	$(document).on('click', '.undo-complete', function(){
 		var parentGoal = $(this).parent();
 
@@ -364,72 +567,28 @@
 		$(this).addClass('complete');
 
 		goalsCompleted--;
+
 		// display new total completed in log panel
 		$('#total-completed').html(goalsCompleted);
 
-		// save changes
-		localStorage.setItem(STORAGE_KEY, JSON.stringify(setGoals()));
+		localStorage.setItem(GOALS_KEY, JSON.stringify(setGoals()));
 	});
 
-	/* GOAL LOGGING ---------------------------------------------*/
+/* LOG SECTION -------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
 
-	$(document).on('click', '.add-log-entry', function(){
-		var parentGoal = $(this).parent();
-
-		// prevent actions from occurring twice
-		if(!$.trim( $('.logging', parentGoal).html()).length){
-			var unit = parentGoal.attr('data-unit');
-			// create input box and save button
-			$('.logging', parentGoal).append(logEntryTemplate({unit: unit}));
-		}
-	});
-
-	$(document).on('click', '.logging .cancel', function(){
-		removeLogInputField($(this).parent());
-	});
-
-	$(document).on('click', '.save-log-entry', function(){
-		var parent = $(this).parent();
-		var parentGoalID = parent.parent().attr('id');
-		var parentGoalIndex = parentGoalID.substring(5);
-		var text = $('.log-input', parent).val();
-
-		var dataUnit = $('#' + parentGoalID).attr('data-unit');
-		var unit = !isBlank(dataUnit) ? dataUnit : "";
-
-		if (!isBlank(text)){
-			$('#log-goal-' + parentGoalIndex + ' .log-list').append('<li>' + text + ' ' + unit + '</li>');
-
-			// save the log
-			localStorage.setItem(LOG_KEY, $('#log-content').html());
-		}
-
-
-		// display initial logged entries count
-		displayLogEntryCounts();
-
-		// display initial sum if sum entries is enabled
-		if ($('#log-goal-' + parentGoalIndex).hasClass("sum-entries")){
-			displaySums();
-		}
-
-		removeLogInputField(parent);
-	});
-
-	function removeLogInputField(parent){
-		$(parent).children().each(function(){
-			$(this).remove();
-		});
-	}
-
-	/* DISPLAY LOG ---------------------------------------------*/
-
+	/* TOGGLE LOG */
 	$('.log-toggle').click(function(){
 		$('#log-content').toggle("slow");
 	});
 
-	/* HELPER METHODS ---------------------------------------------*/
+	/* CLOSE LOG */
+	$('#log-content .cancel').click(function(){
+		$('#log-content').hide("slow");
+	});
 
+/* HELPER METHODS ----------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
 	function isBlank(str) {
 	    return (!str || /^\s*$/.test(str));
 	}

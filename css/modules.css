@@ -162,6 +162,8 @@
     padding: 10px;
     border-radius: 2px;
     margin: 20px 0; }
+  #log-section .cancel {
+    color: #fefefe; }
 
 #categories {
   padding: 20px; }
