@@ -397,12 +397,12 @@ $(document).ready(function(){
 		}
 
 		localStorage.setItem(GOALS_KEY, JSON.stringify(setGoals()));
-		updateLogGoalTitle(parentGoal);
+		updateLogGoalTitle(parentGoal, newVal);
 	});
 
 
-	function updateLogGoalTitle(parentGoal){
-		var parentGoalID = parentGoal.attr('id');
+	function updateLogGoalTitle(parentGoal, newGoalTitle){
+		var parentGoalID = parentGoal.attr('id'),
 			loggingEnabled = $('.add-log-entry', parentGoal);
 
 		// update log entry if logging enabled
@@ -410,7 +410,7 @@ $(document).ready(function(){
 
 			var logGoalID = '#log-' + parentGoalID;
 			if ($(logGoalID)){
-				$('h3', logGoalID).text(newVal);
+				$('h3', logGoalID).text(newGoalTitle);
 
 				localStorage.setItem(LOG_KEY, $('#log-entries').html());
 			}

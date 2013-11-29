@@ -284,6 +284,9 @@
     float: left;
     margin-right: 20px;
     margin-top: 10px; }
+  #categories #new-deadline {
+    float: left;
+    margin-top: 10px; }
   #categories .add-log-entry {
     font-size: .95em; }
 
