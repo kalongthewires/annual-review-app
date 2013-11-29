@@ -201,6 +201,7 @@
     <script id="log-goal-template" type="text/x-handlebars-template">
         <div class="log-goal {{#if sumEntriesEnabled}}sum-entries{{/if}}" id="log-goal-{{index}}" data-unit="{{unit}}">
             <h3>{{goal}}</h3>
+            <button class="remove-log-goal">x</button>
             <div class="total-logged"></div>
             <div class="sum"></div>
             <ul class="log-list"></ul>

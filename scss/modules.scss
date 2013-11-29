@@ -159,6 +159,21 @@
             padding: 10px;
             border-radius: 2px;
             margin: 20px 0;
+
+            div {
+                clear: both;
+            }
+        }
+
+        h3 {
+            float: left;
+        }
+
+        .remove-log-goal {
+            @include button(#000, $orange, 3px 0, 0);
+            float: right;
+            font-weight: bold;
+            width: 30px;
         }
 
         .cancel {

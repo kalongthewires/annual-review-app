@@ -587,6 +587,28 @@ $(document).ready(function(){
 		$('#log-content').hide("slow");
 	});
 
+	/* REMOVE LOG GOAL
+	 * Delete a goal from the log. If the goal hasn't been deleted from the
+	 * #categories section, then removes logging ability from the goal. Saves 
+	 * the changes to the log and the goal.
+	 */
+	$(document).on('click', '.remove-log-goal', function(){
+		var logGoal = $(this).parent(),
+			logID = logGoal.attr('id'),
+			goalID = '#' + logID.substring(4); // remove the "log-" prefix
+
+		logGoal.remove();
+
+		// if goal still exists, disable logging
+		if ($(goalID)){
+			$('.add-log-entry', $(goalID)).remove();
+			$('.logging', $(goalID)).remove();
+		}
+
+		localStorage.setItem(LOG_KEY, $('#log-entries').html());
+		localStorage.setItem(GOALS_KEY, JSON.stringify(setGoals()));
+	});
+
 /* HELPER METHODS ----------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
 	function isBlank(str) {
