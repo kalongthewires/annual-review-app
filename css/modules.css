@@ -164,12 +164,40 @@
     margin: 20px 0; }
     #log-section .log-goal div {
       clear: both; }
+  #log-section li {
+    margin: 10px 0; }
   #log-section #new-log-item {
     display: inline;
     width: 250px; }
   #log-section #new-log-date {
     float: right;
     width: 100px; }
+  #log-section .delete {
+    background-color: #cbcbcb;
+    border: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    color: black;
+    margin: 0;
+    padding: 3px 0;
+    text-shadow: none;
+    -webkit-transition-property: background;
+    -moz-transition-property: background;
+    -o-transition-property: background;
+    transition-property: background;
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    float: right;
+    font-weight: bold;
+    width: 30px; }
   #log-section h3 {
     float: left; }
   #log-section .log-date {

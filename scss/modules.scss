@@ -165,6 +165,10 @@
             }
         }
 
+        li {
+            margin: 10px 0;
+        }
+
         #new-log-item {
             display: inline;
             width: 250px;
@@ -173,6 +177,13 @@
         #new-log-date {
             float: right;
             width: 100px;
+        }
+
+        .delete {
+            @include button(#000, #cbcbcb, 3px 0, 0);
+            float: right;
+            font-weight: bold;
+            width: 30px;
         }
 
         h3 {

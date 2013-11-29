@@ -628,7 +628,7 @@ $(document).ready(function(){
 	});
 
 	/* EDIT LOG ENTRY DATE
-	 * When a line in the log is clicked, display an input box 
+	 * Click a log entry date to edit it.
 	 */
 	$(document).on('click', '.log-date', function(){
 		var currentLogDate = $(this).text();
@@ -638,7 +638,7 @@ $(document).ready(function(){
 	});
 
 	/* EDIT LOG ENTRY ITEM 
-	 * 
+	 * Click a log entry to edit it.
 	 */
 	$(document).on('click', '.log-item', function(){
 		var currentLogItem = $('.log-entry-text', this).text();
@@ -648,9 +648,7 @@ $(document).ready(function(){
 			'" autofocus/>');
 	});
 
-	/* SAVE EDITED LOG DATE
-	 *
-	 */
+	/* SAVE EDITED LOG DATE */
 	$(document).on('focusout', '#new-log-date', function(){
 		var newDate = $(this).val();
 
@@ -662,7 +660,7 @@ $(document).ready(function(){
 	});
 
 	/* SAVE EDITED LOG ITEM
-	 *
+	 * Save the edited log item and update the entry sum if sum entries enabled.
 	 */
 	$(document).on('focusout', '#new-log-item', function(){
 		var newLogItem = $(this).val();
@@ -674,6 +672,15 @@ $(document).ready(function(){
 
 		localStorage.setItem(LOG_KEY, $('#log-entries').html());
 		displaySums();
+	});
+
+	$(document).on('click', '.log-goal .delete', function(){
+		var logEntry = $(this).parent();
+		logEntry.remove();
+
+		localStorage.setItem(LOG_KEY, $('#log-entries').html());
+		displaySums();
+		displayLogEntryCounts();
 	});
 
 /* CLEAR/SAVE REVIEW -------------------------------------------------------- */
