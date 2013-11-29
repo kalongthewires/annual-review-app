@@ -204,17 +204,19 @@ $(document).ready(function(){
 	 */
 	function displaySums(){
 		$('.log-goal').each(function(){
-			var sum = 0;
+			if ($(this).hasClass('sum-entries')){
+				var sum = 0;
 
-			// calculate the sum
-			$('li', this).each(function(){
-				// TODO what if enter a float?
-				sum += parseInt($(this).text(), 10);
-			});
+				// calculate the sum
+				$('li', this).each(function(){
+					// TODO what if enter a float?
+					sum += parseInt($(this).text(), 10);
+				});
 
-			// display the sum with correct units
-			var unit = $(this).attr('data-unit');
-			$('.sum', this).text('Total ' + unit + ' completed: ' + sum);
+				// display the sum with correct units
+				var unit = $(this).attr('data-unit');
+				$('.sum', this).text('Total ' + unit + ' completed: ' + sum);
+			}
 		});
 	}
 
