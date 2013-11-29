@@ -402,12 +402,20 @@ $(document).ready(function(){
 	$(document).on('click', '.add-log-entry', function(){
 		var parentGoal = $(this).parent();
 
+		var currentDate = new Date(),
+			dd = currentDate.getDate(),
+			mm = currentDate.getMonth()+1,
+			yyyy = currentDate.getFullYear();
+
 		// prevent add-log-entry actions from occurring twice
 		if(!$.trim( $('.logging', parentGoal).html()).length){
 			var unit = parentGoal.attr('data-unit');
 
 			// create input box and save button
 			$('.logging', parentGoal).append(logEntryTemplate({unit: unit}));
+
+			// set today's date as default
+			$('.entry-date', parentGoal).val(mm + '/' + dd + '/' + yyyy);
 		}
 	});
 
@@ -421,14 +429,16 @@ $(document).ready(function(){
 		var parent = $(this).parent(),
 			parentGoalID = parent.parent().attr('id'),
 			parentGoalIndex = parentGoalID.substring(5),
-			logEntryText = $('.log-input', parent).val();
+			logEntryText = $('.log-input', parent).val(),
+			entryDate = $('.entry-date', parent).val();
 
 		var dataUnit = $('#' + parentGoalID).attr('data-unit'),
 			unit = !isBlank(dataUnit) ? dataUnit : "";
 
 		if (!isBlank(logEntryText)){
 			$('#log-goal-' + parentGoalIndex + ' .log-list').append('<li>' + 
-				logEntryText + ' ' + unit + '</li>');
+				logEntryText + ' ' + unit + ' ' + 
+				'<span class="log-date">' + entryDate + '</span></li>');
 
 			// save the log
 			localStorage.setItem(LOG_KEY, $('#log-entries').html());
@@ -613,17 +623,19 @@ $(document).ready(function(){
 /* -------------------------------------------------------------------------- */
 
 	/* CLEAR ANNUAL REVIEW
-	 * Deletes all saved data.
+	 * Deletes all saved data and clears the Annual Review template.
+	 * Displays a dialog box to ensure the user definitely wants to complete the
+	 * clear review action.
 	 */
 	$(function() {
   		$("#dialog").dialog({autoOpen : false, modal : true, 
   			buttons: [ 
   				{ text: "Yes", click: function() { 
-  						$( this ).dialog( "close" );
+  						$(this).dialog("close");
   						localStorage.clear();
   						location.reload(true);
   					} },
-  				{ text: "No", click: function() { $(this).dialog( "close" ); } }
+  				{ text: "No", click: function() { $(this).dialog("close"); } }
 			] 
 		});
 

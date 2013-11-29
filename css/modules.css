@@ -166,6 +166,10 @@
       clear: both; }
   #log-section h3 {
     float: left; }
+  #log-section .log-date {
+    float: right;
+    font-style: italic;
+    margin-right: 1em; }
   #log-section .remove-log-goal {
     background-color: #d76623;
     border: none;
@@ -244,45 +248,50 @@
     clear: both; }
   #categories .add-log-entry {
     font-size: .95em; }
-  #categories .logging {
-    clear: both;
-    font-size: .95em;
-    overflow: auto; }
-    #categories .logging label, #categories .logging .log-input, #categories .logging .unit {
-      float: left;
-      margin-right: 10px;
-      margin-top: 5px; }
-    #categories .logging label {
-      font-weight: bold; }
-    #categories .logging .log-input {
-      margin-right: 5px; }
-    #categories .logging .save-log-entry, #categories .logging .cancel {
-      float: right;
-      margin-top: 5px; }
-    #categories .logging .save-log-entry {
-      background-color: #d76623;
-      border: none;
-      -webkit-border-radius: 3px;
-      -moz-border-radius: 3px;
-      -ms-border-radius: 3px;
-      -o-border-radius: 3px;
-      border-radius: 3px;
-      -webkit-box-shadow: none;
-      -moz-box-shadow: none;
-      box-shadow: none;
-      color: #fefefe;
-      margin: 3px 0 0;
-      padding: 5px 15px;
-      text-shadow: none;
-      -webkit-transition-property: background;
-      -moz-transition-property: background;
-      -o-transition-property: background;
-      transition-property: background;
-      -webkit-transition-duration: 0.3s;
-      -moz-transition-duration: 0.3s;
-      -o-transition-duration: 0.3s;
-      transition-duration: 0.3s; }
-    #categories .logging .save-log-entry:hover {
-      background: rgba(20, 165, 136, 0.9); }
-    #categories .logging .cancel {
-      margin-right: 5px; }
+
+.logging {
+  clear: both;
+  font-size: .95em;
+  overflow: auto; }
+  .logging label, .logging .log-input, .logging .unit {
+    float: left;
+    margin-right: 10px;
+    margin-top: 5px; }
+  .logging label {
+    font-weight: bold; }
+  .logging .log-input {
+    margin-right: 5px; }
+  .logging .save-log-entry, .logging .cancel {
+    float: right;
+    margin-top: 5px; }
+  .logging .save-log-entry {
+    background-color: #d76623;
+    border: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    color: #fefefe;
+    margin: 3px 0 0;
+    padding: 5px 15px;
+    text-shadow: none;
+    -webkit-transition-property: background;
+    -moz-transition-property: background;
+    -o-transition-property: background;
+    transition-property: background;
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s; }
+  .logging .entry-date-label {
+    display: inline; }
+  .logging .entry-date {
+    width: 100px;
+    display: inline;
+    margin-top: 5px; }
+  .logging .cancel {
+    margin-right: 5px; }
