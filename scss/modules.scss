@@ -70,6 +70,11 @@
 
         #goal-form {
             display: none;
+            margin-top: $default-spacing;
+
+            h3 {
+                border-bottom: 1px dashed #888;
+            }
         }
 
         label {
@@ -88,10 +93,6 @@
         div {
             clear: both;
             overflow: auto;
-        }
-
-        #goal-form {
-            margin-top: $default-spacing;
         }
 
         label[for="new-goal"],
@@ -130,7 +131,7 @@
         }
 
         #add-goal {
-            @include button(#000, $light-blue-green, 5px 15px, 15px 0 3px);
+            @include button(#000, $light-blue-green, 5px 15px, 20px 0 3px);
             font-weight: bold;
         }
     }
@@ -235,6 +236,10 @@
             width: 30px;
         }
 
+        .undo-complete {
+            background-color: darkkhaki;
+        }
+
         .deadline, .completed-date {
             float: left;
             font-size: .95em;
@@ -260,6 +265,13 @@
         #new-deadline {
             float: left;
             margin-top: 10px;
+        }
+
+        #new-notes {
+            clear: both;
+            display: block;
+            height: 100px;
+            width: 100%;
         }
 
         .add-log-entry {

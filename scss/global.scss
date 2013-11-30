@@ -4,13 +4,13 @@
 /* ==========================================================================
    Master Base Template - Structure
    ========================================================================== */
-		body {
-			background-color: $blue-green;
+        body {
+            background-color: $blue-green;
             font-family: Roboto, Helvetica, Arial, sans-serif;
             font-size: 16px;
             line-height: 1.65em;
             margin: 0;
-		}
+        }
 
         .site-header {
             background-color: $gray;
@@ -63,7 +63,7 @@
             line-height: 1em;
             padding: $default-spacing 0 $default-spacing*2;
             text-align: center;
-		}
+        }
 
         h1 a {
             color: #000;
@@ -94,11 +94,11 @@
 /* ==========================================================================
    Links
    ========================================================================== */
-		a {
+        a {
             color: #000;
-			&:hover {
-			}
-		}
+            &:hover {
+            }
+        }
 
 /* ==========================================================================
    Forms
@@ -119,8 +119,8 @@
    Containers & Holders
    ========================================================================== */
         .full-container {
-		    margin: 0;
-		}
+            margin: 0;
+        }
 
         .container {
             background-color: $white-gray;

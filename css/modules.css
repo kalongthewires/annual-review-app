@@ -86,7 +86,10 @@
   #goals-section .goals-toggle {
     cursor: pointer; }
   #goals-section #goal-form {
-    display: none; }
+    display: none;
+    margin-top: 20px; }
+    #goals-section #goal-form h3 {
+      border-bottom: 1px dashed #888; }
   #goals-section label {
     font-weight: bold; }
   #goals-section input[type="text"], #goals-section select, #goals-section textarea {
@@ -97,8 +100,6 @@
   #goals-section div {
     clear: both;
     overflow: auto; }
-  #goals-section #goal-form {
-    margin-top: 20px; }
   #goals-section label[for="new-goal"],
   #goals-section label[for="deadline-input"],
   #goals-section #new-goal, #goals-section #deadline-input {
@@ -132,7 +133,7 @@
     -moz-box-shadow: none;
     box-shadow: none;
     color: black;
-    margin: 15px 0 3px;
+    margin: 20px 0 3px;
     padding: 5px 15px;
     text-shadow: none;
     -webkit-transition-property: background;
@@ -270,6 +271,8 @@
     transition-duration: 0.3s;
     float: right;
     width: 30px; }
+  #categories .undo-complete {
+    background-color: darkkhaki; }
   #categories .deadline, #categories .completed-date {
     float: left;
     font-size: .95em;
@@ -287,6 +290,11 @@
   #categories #new-deadline {
     float: left;
     margin-top: 10px; }
+  #categories #new-notes {
+    clear: both;
+    display: block;
+    height: 100px;
+    width: 100%; }
   #categories .add-log-entry {
     font-size: .95em; }
 
