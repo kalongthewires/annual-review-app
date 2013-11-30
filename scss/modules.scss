@@ -134,6 +134,10 @@
             @include button(#000, $light-blue-green, 5px 15px, 20px 0 3px);
             font-weight: bold;
         }
+
+        span.error {
+            margin-left: 10px;
+        }
     }
 
     #log-section {
@@ -230,7 +234,7 @@
             font-weight: bold;
         }
 
-        button {
+        .delete, .complete, .undo-complete {
             @include button(#000, $light-blue-green, 3px 7px, 10px 0 0 5px);
             float: right;
             width: 30px;

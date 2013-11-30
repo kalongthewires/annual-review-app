@@ -645,6 +645,8 @@ input[type='submit'] {
     -o-transition-duration: 0.3s;
     transition-duration: 0.3s;
     font-weight: bold; }
+  #goals-section span.error {
+    margin-left: 10px; }
 
 #log-section {
   background-color: #4a586b;
@@ -746,7 +748,7 @@ input[type='submit'] {
     padding: 10px 0; }
   #categories .delete {
     font-weight: bold; }
-  #categories button {
+  #categories .delete, #categories .complete, #categories .undo-complete {
     background-color: #14a588;
     border: none;
     -webkit-border-radius: 3px;

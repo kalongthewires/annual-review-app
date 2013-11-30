@@ -242,6 +242,12 @@ $(document).ready(function(){
      */
     $('#sum-entries').change(function(){
         $('#unit-container').toggle();
+
+        if ($(this).prop('checked')){
+            // enable logging is automatically checked because it is required 
+            // to use sum entries tracking
+            $('#enable-logging').prop('checked', true);
+        }
     });
 
     /* DISPLAY AND SAVE SUBMITTED GOALS FORM DATA
@@ -256,8 +262,12 @@ $(document).ready(function(){
             sumEntriesEnabled= $('#sum-entries').prop('checked'),
             unit = sumEntriesEnabled ? stripHTML($('#unit').val()) : "";
 
-        // TODO perform error checking, make a hasErrors function ?
-        if (!isBlank(newGoal)){
+        clearErrors('#goal-form');
+
+        var hasErrors = checkGoalFormInputs(newGoal, sumEntriesEnabled,
+                            loggingEnabled, unit);
+
+        if (!hasErrors){
             createNewGoal(newGoal, deadline, notes, categorySection,
                 loggingEnabled, unit);
 
@@ -278,8 +288,39 @@ $(document).ready(function(){
             $('#unit-container').hide();
             $('#goal-form').hide("slow");
         }
+
         return false;
     });
+
+    /* CHECK GOAL FORM INPUTS
+     * Tests for goal form input errors and return true if errors are found.
+     * Otherwise returns false.
+     */
+    function checkGoalFormInputs(newGoal, sumEntriesEnabled,
+            loggingEnabled, unit){
+        var goalTitleError = $('.error', $('#new-goal').parent('div')),
+            sumEntriesError = $('#additional-tracking > .error'),
+            unitError = $('.error', $('#unit-container')),
+            hasErrors = false;
+
+        if (isBlank(newGoal)){
+            goalTitleError.text("You must enter a goal!");
+            hasErrors = true;
+        }
+
+        if (sumEntriesEnabled && !loggingEnabled){
+            sumEntriesError.text('Enable Logging must be checked to enable ' +
+                'Sum Entries.');
+            hasErrors = true;
+        }
+
+        if (sumEntriesEnabled && isBlank(unit)){
+            unitError.text('A measurement unit is required.');
+            hasErrors = true;
+        }
+
+        return hasErrors;
+    }
 
     /* CREATE NEW GOAL
      * Renders a new goal with the specified parameters to the page and saves
@@ -456,12 +497,14 @@ $(document).ready(function(){
             parentGoalID = parent.parent().attr('id'),
             parentGoalIndex = parentGoalID.substring(5),
             logEntryText = stripHTML($('.log-input', parent).val()),
-            entryDate = stripHTML($('.entry-date', parent).val());
-
-        var dataUnit = $('#' + parentGoalID).attr('data-unit'),
+            entryDate = stripHTML($('.entry-date', parent).val()),
+            dataUnit = $('#' + parentGoalID).attr('data-unit'),
             unit = !isBlank(dataUnit) ? dataUnit : "";
 
-        if (!isBlank(logEntryText)){
+        clearErrors('#' + parentGoalID);
+        var hasErrors = checkSaveLogInputs(parent, logEntryText, entryDate, unit);
+
+        if (!hasErrors){
             $('#log-goal-' + parentGoalIndex + ' .log-list')
                 .append(logListEntryTemplate({
                         logEntryText: logEntryText,
@@ -472,18 +515,34 @@ $(document).ready(function(){
 
             // save the log
             localStorage.setItem(LOG_KEY, $('#log-entries').html());
+            removeLogInputField(parent);
+
+            // update log entry count for the goal
+            displayLogEntryCounts();
+
+            // update log entry sum if "Sum Log Entries" is enabled
+            if ($('#log-goal-' + parentGoalIndex).hasClass("sum-entries")){
+                displaySums();
+            }
         }
-
-        // update log entry count for the goal
-        displayLogEntryCounts();
-
-        // update log entry sum if "Sum Log Entries" is enabled
-        if ($('#log-goal-' + parentGoalIndex).hasClass("sum-entries")){
-            displaySums();
-        }
-
-        removeLogInputField(parent);
     });
+
+    function checkSaveLogInputs(parentGoal, logEntryText, entryDate, unit){
+        var hasErrors = false;
+
+        if (isBlank(logEntryText) || isBlank(entryDate)){
+            $('.error', parentGoal).text("All fields are required!");
+            hasErrors = true;
+        }
+
+        if (!isBlank(unit) && !$.isNumeric(logEntryText)){
+            $('.error', parentGoal).text('You chose to enable sum entries so ' +
+                'your log entry must be a number.');
+            hasErrors = true;
+        }
+
+        return hasErrors;
+    }
 
     /* REMOVE LOG ENTRY INPUT FIELD
      * Remove add log entry input field and associated save button, etc.
@@ -677,9 +736,8 @@ $(document).ready(function(){
 
         if (!isBlank(newDate)){
             $(this).replaceWith('<span class="log-date">' + newDate + '</span>');
+            localStorage.setItem(LOG_KEY, $('#log-entries').html());
         }
-
-        localStorage.setItem(LOG_KEY, $('#log-entries').html());
     });
 
     /* SAVE EDITED LOG ITEM
@@ -691,10 +749,10 @@ $(document).ready(function(){
         if (!isBlank(newLogItem)){
             $(this).replaceWith('<span class="log-entry-text">' +
                 newLogItem + '</span>');
-        }
 
-        localStorage.setItem(LOG_KEY, $('#log-entries').html());
-        displaySums();
+            localStorage.setItem(LOG_KEY, $('#log-entries').html());
+            displaySums();
+        }
     });
 
     $(document).on('click', '.log-goal .delete', function(){
@@ -737,6 +795,11 @@ $(document).ready(function(){
 
 /* HELPER METHODS ----------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
+    
+    /* CHECK IF STRING IS BLANK
+     * Regex source: 
+     * http://stackoverflow.com/questions/154059/how-do-you-check-for-an-empty-string-in-javascript
+     */
     function isBlank(str){
         return (!str || /^\s*$/.test(str));
     }
@@ -747,5 +810,12 @@ $(document).ready(function(){
      */
     function stripHTML(str){
         return str.replace(/(<([^>]+)>)/ig,"");
+    }
+
+    /* CLEAR ERRORS
+     * Clears all errors contained within the selector.
+     */
+    function clearErrors(selector){
+        $('.error', $(selector)).text("");
     }
 });

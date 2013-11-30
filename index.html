@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     
-    <link href='http://fonts.googleapis.com/css?family=Fenix|Roboto:400,700,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fenix|Roboto:400,700,400italic' rel='stylesheet' type='text/css'>    
 
     <link rel="stylesheet" href="/css/styles.css" />
                     
@@ -95,6 +95,8 @@
                         <label for="new-goal">Goal:</label>
 
                         <input type="text" name="new-goal" id="new-goal" placeholder="Enter a measurable goal" />
+                        
+                        <span class="error"></span>
 
                     </div>
 
@@ -116,33 +118,41 @@
 
                     </select>
 
-                    <h3>Optional Additional Tracking</h3>
+                    <div id="additional-tracking">
 
-                    <p class="instructions">
-                        <strong>Enable Logging</strong> if you'd like to keep track of your steps towards goal completion. 
-                        For example, you could log the book titles of every book you read. 
-                    </p>
+                        <h3>Optional Additional Tracking</h3>
 
-                    <p class="instructions">
-                        Also choose <strong>Sum Log Entries</strong> for numeric goals, such as walking a set number of miles, 
-                        to keep a running total of the number of miles you've walked so far.
-                    </p>
+                        <p class="instructions">
+                            <strong>Enable Logging</strong> if you'd like to keep track of your steps towards goal completion. 
+                            For example, you could log the book titles of every book you read. 
+                        </p>
 
-                    <label for="enable-logging">Enable Logging</label>
+                        <p class="instructions">
+                            Also choose <strong>Sum Log Entries</strong> for numeric goals, such as walking a set number of miles, 
+                            to keep a running total of the number of miles you've walked so far.
+                        </p>
 
-                    <input type="checkbox" name="enable-logging" id="enable-logging" />
+                        <label for="enable-logging">Enable Logging</label>
 
-                    <label for="sum-entries">Sum Log Entries</label>
+                        <input type="checkbox" name="enable-logging" id="enable-logging" />
 
-                    <input type="checkbox" name="sum-entries" id="sum-entries" />
+                        <label for="sum-entries">Sum Log Entries</label>
 
-                    <div id="unit-container">
+                        <input type="checkbox" name="sum-entries" id="sum-entries" />
 
-                        <label for="unit">Unit of Measurement:</label>
+                        <div class="error"></div>
 
-                        <input type="text" name="unit" id="unit" placeholder="e.g. miles, books, etc."/>
+                        <div id="unit-container">
 
-                    </div>
+                            <label for="unit">Unit of Measurement:</label>
+
+                            <input type="text" name="unit" id="unit" placeholder="e.g. miles, books, etc."/>
+
+                            <div class="error"></div>
+
+                        </div>
+
+                    </div><!-- end additional-tracking -->
 
                     <input type="submit" value="Add Goal" name="add-goal" id="add-goal" />
 
@@ -186,6 +196,9 @@
 
     </div><!-- end full-container -->
 
+
+    <!-- HANDLEBARS TEMPLATES -->
+
     <script id="category-input-template" type="text/x-handlebars-template">
 
         <label for="cat-{{categoryCount}}">Goal Category {{categoryCount}}</label> 
@@ -211,8 +224,10 @@
         <label class="entry-date-label">Date:</label>
         <input type="text" name="entry-date" class="entry-date" placeholder="mm/dd/yyyy" />
         
-        <input type="submit" value="Save" name="save-log-entry" class="save-log-entry" />
+        <button class="save-log-entry">Save</button>
         <a href="#" class="cancel">Cancel</a>
+
+        <div class="error"></div>
 
     </script>
 
