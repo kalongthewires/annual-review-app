@@ -6,6 +6,10 @@
    Examples: "About Page Only" CSS or a non-reusable component
    ========================================================================== */
 
+   .icon-arrow-up, .icon-arrow-down {
+        float: right;
+   }
+
     #settings-section {
         background-color: $orange;
         border-bottom: 1px solid #ddd;

@@ -228,6 +228,8 @@ $(document).ready(function(){
     /* TOGGLE GOALS FORM */
     $('.goals-toggle').click(function(){
         $('#goal-form').toggle("slow");
+        $('span', this).toggleClass('icon-arrow-up');
+        $('span', this).toggleClass('icon-arrow-down');
     });
 
     /* HIDE GOALS FORM ON CANCEL
@@ -559,6 +561,8 @@ $(document).ready(function(){
     /* TOGGLE SETTINGS FORM */
     $('.settings-toggle').click(function(){
         $('#settings-form').toggle("slow");
+        $('span', this).toggleClass('icon-arrow-up');
+        $('span', this).toggleClass('icon-arrow-down');
     });
 
     /* HIDE SETTINGS FORM ON CANCEL
@@ -680,6 +684,8 @@ $(document).ready(function(){
     /* TOGGLE LOG */
     $('.log-toggle').click(function(){
         $('#log-content').toggle("slow");
+        $('span', this).toggleClass('icon-arrow-up');
+        $('span', this).toggleClass('icon-arrow-down');
     });
 
     /* CLOSE LOG */

@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     
-    <link href='http://fonts.googleapis.com/css?family=Fenix|Roboto:400,700,400italic' rel='stylesheet' type='text/css'>    
+    <link href='http://fonts.googleapis.com/css?family=Fenix|Roboto:400,700,400italic' rel='stylesheet' type='text/css'>
 
     <link rel="stylesheet" href="/css/styles.css" />
                     
@@ -38,10 +38,12 @@
 
                 <button id="clear-review">Clear Review</button>
                 <div id="dialog" title="Clear Review">
+
                     <p>This will completely wipe all your data - including your
                         goals and settings.</p>
                     <p><strong>Are you sure you want to clear your Annual 
                         Review?</strong></p>
+
                 </div>
 
                 <hgroup>
@@ -55,20 +57,24 @@
 
             <section id="settings-section">
 
-                <h2 class="settings-toggle">Settings</h2>
+                <h2 class="settings-toggle">Settings<span class="icon-arrow-down"></span></h2>
 
                 <form method="post" id="settings-form">
 
                     <p class="instructions">Fill in the information below to get started tracking your goals!</p>
 
                     <div>
+
                         <label for="year">Year: </label>
                         <input type="text" name="year" id="year" />
+
                     </div>
 
                     <div>
+
                         <label for="theme">Theme</label>
                         <input type="text" name="theme" id="theme" placeholder="2013 is the year of the [insert text].  This time next year, [most important outcome]."/>
+
                     </div>
 
                     <div id="form-categories">
@@ -86,7 +92,7 @@
 
             <section id="goals-section">
 
-                <h2 class="goals-toggle">Add Goal</h2>
+                <h2 class="goals-toggle">Add Goal<span class="icon-arrow-down"></span></h2>
 
                 <form method="post" id="goal-form">
 
@@ -164,12 +170,14 @@
 
             <section id="log-section">
 
-                <h2 class="log-toggle">View Log and Statistics</h2>
+                <h2 class="log-toggle">View Log and Statistics<span class="icon-arrow-down"></span></h2>
 
                 <div id="log-content">
 
                     <ul id="stats">
+
                         <li># Goals Completed: <span id="total-completed"></span></li>
+
                     </ul>
 
                     <div id="log-entries">
@@ -209,8 +217,10 @@
     <script id="category-template" type="text/x-handlebars-template">
 
         <section id="{{sectionID}}">
+
             <h2 id="{{titleID}}">{{categoryName}}</h2>
             <div class="goals"></div>
+
         </section>
 
     </script>
@@ -247,19 +257,24 @@
 
     <script id="log-list-entry-template" type="text-x-handlebars-template">
         <li>
+
             <span class="log-item">
+
                 <span class="log-entry-text">{{logEntryText}}</span>
                 <span class="log-unit">{{unit}}</span>
+
             </span>
             
             <button class="delete">x</button>
             <span class="log-date">{{entryDate}}</span>
+
         </li>
     </script>
 
     <script id="goal-template" type="text/x-handlebars-template">
 
         <div class="goal" id="goal-{{index}}" data-unit="{{unit}}">
+
             <h3 class="goal-title">{{goal}}</h3>
             <div class="deadline">{{deadline}}</div>
 
@@ -272,9 +287,9 @@
             {{#if loggingEnabled}}
             <a class="add-log-entry" href="#">Add Log Entry</a>
             <div class="logging">
-
             </div>
             {{/if}}
+        
         </div>
 
     </script>

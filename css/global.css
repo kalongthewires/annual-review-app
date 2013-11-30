@@ -1,149 +1,63 @@
-/* ==========================================================================
-   Global Variables
-   ========================================================================== */
-/**
- * ## Global Spaces
- */
-/**
- * ## Global Widths
- */
-/**
- * ## Global Colors
- */
-/* ==========================================================================
-   Global Mixins
-   ========================================================================== */
-/* ==========================================================================
-   Global Variables
-   ========================================================================== */
-/**
- * ## Global Spaces
- */
-/**
- * ## Global Widths
- */
-/**
- * ## Global Colors
- */
-/* ==========================================================================
-   Master Base Template - Structure
-   ========================================================================== */
-body {
-  background-color: #077269;
-  font-family: Roboto, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.65em;
-  margin: 0; }
+/*
+Syntax error: Undefined mixin 'button'.
+        on line 31 of scss/global.scss, in `button'
+        from line 31 of scss/global.scss
 
-.site-header {
-  background-color: #deddbf;
-  padding: 20px; }
+26:             background-color: $gray;
+27:             padding: $default-spacing;
+28:         }
+29: 
+30:         #clear-review {
+31:             @include button(#000, #efefef, 5px 15px, 0);
+32:             border: 1px solid #ccc;
+33:             float: right;
+34:             font-weight: bold;
+35:         }
+36: 
 
-#clear-review {
-  background-color: #efefef;
-  border: none;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  color: black;
-  margin: 0;
-  padding: 5px 15px;
-  text-shadow: none;
-  -webkit-transition-property: background;
-  -moz-transition-property: background;
-  -o-transition-property: background;
-  transition-property: background;
-  -webkit-transition-duration: 0.3s;
-  -moz-transition-duration: 0.3s;
-  -o-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  border: 1px solid #ccc;
-  float: right;
-  font-weight: bold; }
-
-.site-nav {
-  float: left;
-  margin: 0 0 20px; }
-  .site-nav ul {
-    margin: 0;
-    padding: 0 5px 10px; }
-  .site-nav li {
-    display: inline;
-    list-style-type: none;
-    padding-right: 20px; }
-  .site-nav a {
-    color: #000; }
-
-footer {
-  padding: 20px; }
-
-/* ==========================================================================
-   Typography
-   ========================================================================== */
-h1, h2, h3 {
-  font-family: Fenix, Helvetica, Arial, sans-serif;
-  margin: 0;
-  padding: 10px 0; }
-
-.site-title {
-  clear: both;
-  font-size: 72px;
-  line-height: 1em;
-  padding: 20px 0 40px;
-  text-align: center; }
-
-h1 a {
-  color: #000;
-  text-decoration: none; }
-
-h2 {
-  font-size: 30px; }
-
-h2#review-theme {
-  text-align: center; }
-
-h3 {
-  font-size: 24px; }
-
-/* ==========================================================================
-   Global Classes
-   ========================================================================== */
-.error {
-  color: red; }
-
-/* ==========================================================================
-   Links
-   ========================================================================== */
-a {
-  color: #000; }
-
-/* ==========================================================================
-   Forms
-   ========================================================================== */
-input, label {
-  display: block; }
-
-input {
-  margin-bottom: 5px; }
-
-input[type='submit'] {
-  margin-top: 15px; }
-
-/* ==========================================================================
-   Containers & Holders
-   ========================================================================== */
-.full-container {
-  margin: 0; }
-
-.container {
-  background-color: #efefef;
-  border: 1px solid #666;
-  margin: 0 auto;
-  max-width: 800px;
-  overflow: auto;
-  width: 85%; }
+Backtrace:
+scss/global.scss:31:in `button'
+scss/global.scss:31
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:253:in `visit_mixin'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:37:in `visit'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:100:in `visit'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:53:in `map'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:320:in `visit_rule'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:37:in `visit'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:100:in `visit'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:53:in `map'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:128:in `visit_root'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:37:in `visit'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:100:in `visit'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:7:in `visit'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/root_node.rb:20:in `render'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/engine.rb:315:in `_render'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/engine.rb:262:in `render'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/plugin/compiler.rb:362:in `update_stylesheet'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/plugin/compiler.rb:203:in `block in update_stylesheets'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/plugin/compiler.rb:201:in `each'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/plugin/compiler.rb:201:in `update_stylesheets'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/plugin/compiler.rb:283:in `block in watch'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/vendor/listen/lib/listen/multi_listener.rb:108:in `call'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/vendor/listen/lib/listen/multi_listener.rb:108:in `on_change'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/vendor/listen/lib/listen/multi_listener.rb:117:in `block in initialize_adapter'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/vendor/listen/lib/listen/adapters/polling.rb:56:in `call'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/vendor/listen/lib/listen/adapters/polling.rb:56:in `poll'
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/vendor/listen/lib/listen/adapters/polling.rb:32:in `block in start'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: Undefined mixin 'button'.\A         on line 31 of scss/global.scss, in `button'\A         from line 31 of scss/global.scss\A \A 26:             background-color: $gray;\A 27:             padding: $default-spacing;\A 28:         }\A 29: \A 30:         #clear-review {\A 31:             @include button(#000, #efefef, 5px 15px, 0);\A 32:             border: 1px solid #ccc;\A 33:             float: right;\A 34:             font-weight: bold;\A 35:         }\A 36: "; }

@@ -10,6 +10,46 @@
 /**
  * ## Global Colors
  */
+@font-face {
+  font-family: 'icomoon';
+  src: url("../fonts/icomoon.eot");
+  src: url("../fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("../fonts/icomoon.ttf") format("truetype"), url("../fonts/icomoon.woff") format("woff"), url("../fonts/icomoon.svg#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.icon-arrow-down:before {
+  content: "\e600"; }
+
+.icon-arrow-up:before {
+  content: "\e601"; }
+
+.icon-help:before {
+  content: "\e602"; }
+
+.icon-cross:before {
+  content: "\e603"; }
+
+.icon-cross2:before {
+  content: "\e604"; }
+
+.icon-plus:before {
+  content: "\e605"; }
+
+.icon-minus:before {
+  content: "\e606"; }
+
 /* ==========================================================================
    Global Mixins
    ========================================================================== */
@@ -29,6 +69,9 @@
    Module/Page Specific CSS: Contains CSS that is not global
    Examples: "About Page Only" CSS or a non-reusable component
    ========================================================================== */
+.icon-arrow-up, .icon-arrow-down {
+  float: right; }
+
 #settings-section {
   background-color: #d76623;
   border-bottom: 1px solid #ddd;
