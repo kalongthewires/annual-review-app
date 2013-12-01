@@ -475,8 +475,9 @@ $(document).ready(function(){
     });
 
     /* CANCEL LOG ENTRY */
-    $(document).on('click', '.logging .cancel', function(){
+    $(document).on('click', '#cancel-logging', function(){
         removeLogInputField($(this).parent());
+        return false;
     });
 
     /* SAVE LOG ENTRY */
