@@ -31,7 +31,7 @@
             }
 
             div {
-                margin: 10px 0;
+                margin: 5px 0;
             }
 
             #form-categories {
@@ -40,7 +40,7 @@
                 }
 
                 input {
-                    margin-bottom: 20px;
+                    margin-bottom: 10px;
                     width: 230px;
                 }
             }
@@ -55,7 +55,7 @@
             }
 
             #save {
-                @include button(#000, $purple-gray, 5px 15px, 20px 0 3px);
+                @include button(#000, $purple-gray, 3px 10px, 20px 0 3px);
                 display: block;
                 font-weight: bold;
             }
@@ -86,7 +86,7 @@
         }
 
         input[type="text"], select, textarea {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             width: 250px;
         }
 
@@ -135,7 +135,7 @@
         }
 
         #add-goal {
-            @include button(#000, $light-blue-green, 5px 15px, 20px 0 3px);
+            @include button(#000, $light-blue-green, 3px 10px, 20px 0 3px);
             font-weight: bold;
         }
 
@@ -312,7 +312,7 @@
         }
 
         .save-log-entry {
-            @include button(#fefefe, $orange, 5px 15px, 3px 0 0);
+            @include button(#fefefe, $orange, 3px 10px, 3px 0 0);
         }
 
         .entry-date-label {

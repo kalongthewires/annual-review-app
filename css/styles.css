@@ -434,7 +434,7 @@ body {
   box-shadow: none;
   color: black;
   margin: 0;
-  padding: 5px 15px;
+  padding: 3px 10px;
   text-shadow: none;
   -webkit-transition-property: background;
   -moz-transition-property: background;
@@ -470,11 +470,11 @@ footer {
 h1, h2, h3 {
   font-family: Fenix, Helvetica, Arial, sans-serif;
   margin: 0;
-  padding: 10px 0; }
+  padding: 5px 0; }
 
 .site-title {
   clear: both;
-  font-size: 72px;
+  font-size: 65px;
   line-height: 1em;
   padding: 20px 0 40px;
   text-align: center; }
@@ -484,13 +484,13 @@ h1 a {
   text-decoration: none; }
 
 h2 {
-  font-size: 30px; }
+  font-size: 28px; }
 
 h2#review-theme {
   text-align: center; }
 
 h3 {
-  font-size: 24px; }
+  font-size: 22px; }
 
 /* ==========================================================================
    Global Classes
@@ -617,11 +617,11 @@ input[type='submit'] {
     #settings-section #settings-form label {
       font-weight: bold; }
     #settings-section #settings-form div {
-      margin: 10px 0; }
+      margin: 5px 0; }
     #settings-section #settings-form #form-categories label, #settings-section #settings-form #form-categories input {
       display: block; }
     #settings-section #settings-form #form-categories input {
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       width: 230px; }
     #settings-section #settings-form #theme {
       width: 100%; }
@@ -641,7 +641,7 @@ input[type='submit'] {
       box-shadow: none;
       color: black;
       margin: 20px 0 3px;
-      padding: 5px 15px;
+      padding: 3px 10px;
       text-shadow: none;
       -webkit-transition-property: background;
       -moz-transition-property: background;
@@ -668,7 +668,7 @@ input[type='submit'] {
   #goals-section label {
     font-weight: bold; }
   #goals-section input[type="text"], #goals-section select, #goals-section textarea {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     width: 250px; }
   #goals-section textarea {
     height: 100px; }
@@ -709,7 +709,7 @@ input[type='submit'] {
     box-shadow: none;
     color: black;
     margin: 20px 0 3px;
-    padding: 5px 15px;
+    padding: 3px 10px;
     text-shadow: none;
     -webkit-transition-property: background;
     -moz-transition-property: background;
@@ -903,7 +903,7 @@ input[type='submit'] {
     box-shadow: none;
     color: #fefefe;
     margin: 3px 0 0;
-    padding: 5px 15px;
+    padding: 3px 10px;
     text-shadow: none;
     -webkit-transition-property: background;
     -moz-transition-property: background;

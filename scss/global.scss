@@ -28,7 +28,7 @@
         }
 
         #clear-review {
-            @include button(#000, #efefef, 5px 15px, 0);
+            @include button(#000, #efefef, 3px 10px, 0);
             border: 1px solid #ccc;
             float: right;
             font-weight: bold;
@@ -64,12 +64,12 @@
         h1, h2, h3 {
             font-family: Fenix, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: $default-spacing/2 0;
+            padding: 5px 0;
         }
 
         .site-title {
             clear: both;
-            font-size: 72px;
+            font-size: 65px;
             line-height: 1em;
             padding: $default-spacing 0 $default-spacing*2;
             text-align: center;
@@ -81,7 +81,7 @@
         }
 
         h2 {
-            font-size: 30px;
+            font-size: 28px;
         }
 
         h2#review-theme {
@@ -89,7 +89,7 @@
         }
 
         h3 {
-            font-size: 24px;
+            font-size: 22px;
         }
 
 
