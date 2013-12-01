@@ -286,8 +286,8 @@ table {
  */
 @font-face {
   font-family: 'icomoon';
-  src: url("../fonts/icomoon.eot");
-  src: url("../fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("../fonts/icomoon.ttf") format("truetype"), url("../fonts/icomoon.woff") format("woff"), url("../fonts/icomoon.svg#icomoon") format("svg");
+  src: url("fonts/icomoon.eot");
+  src: url("fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("fonts/icomoon.ttf") format("truetype"), url("fonts/icomoon.woff") format("woff"), url("fonts/icomoon.svg#icomoon") format("svg");
   font-weight: normal;
   font-style: normal; }
 
@@ -544,8 +544,8 @@ input[type='submit'] {
  */
 @font-face {
   font-family: 'icomoon';
-  src: url("../fonts/icomoon.eot");
-  src: url("../fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("../fonts/icomoon.ttf") format("truetype"), url("../fonts/icomoon.woff") format("woff"), url("../fonts/icomoon.svg#icomoon") format("svg");
+  src: url("fonts/icomoon.eot");
+  src: url("fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("fonts/icomoon.ttf") format("truetype"), url("fonts/icomoon.woff") format("woff"), url("fonts/icomoon.svg#icomoon") format("svg");
   font-weight: normal;
   font-style: normal; }
 
@@ -608,7 +608,7 @@ input[type='submit'] {
   background-color: #d76623;
   border-bottom: 1px solid #ddd;
   padding: 10px 20px; }
-  #settings-section .settings-toggle {
+  #settings-section #settings-toggle {
     cursor: pointer; }
   #settings-section #settings-form {
     display: none; }
@@ -658,7 +658,7 @@ input[type='submit'] {
   background-color: #cbcbcb;
   border-bottom: 1px solid #ddd;
   padding: 10px 20px; }
-  #goals-section .goals-toggle {
+  #goals-section #goals-toggle {
     cursor: pointer; }
   #goals-section #goal-form {
     display: none;
@@ -727,7 +727,7 @@ input[type='submit'] {
   background-color: #4a586b;
   border-bottom: 1px solid #ddd;
   padding: 10px 20px; }
-  #log-section .log-toggle {
+  #log-section #log-toggle {
     cursor: pointer; }
   #log-section #log-content {
     display: none; }

@@ -23,15 +23,11 @@ $(document).ready(function(){
 
 /* INIT -------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------- */
-    
-    displaySettings();
-    displayStoredGoals();
-    displayLog();
 
     /* DISPLAY SETTINGS
      * Get the settings from local storage and display them.
      */
-    function displaySettings(){
+    (function displaySettings(){
         var settings;
         if (localStorage && SETTINGS_KEY in localStorage){
             settings = JSON.parse(localStorage.getItem(SETTINGS_KEY));
@@ -47,7 +43,7 @@ $(document).ready(function(){
         
         renderSavedSettings(settings);
         populateFormValues();
-    }
+    })();
 
     /* SET CATEGORY COUNT
      * If a total number of goal categories is stored in local storage,
@@ -119,15 +115,18 @@ $(document).ready(function(){
      * values for each input field in the settings form.
      */
     function populateFormValues(){
+        var $selectMenu = $('#category-select'),
+            catTitle;
+        
         // clear categories in the category select menu
-        $('#category-select').html("");
+        $selectMenu.html("");
         
         for (var i = 1; i <= categoryCount; i++){
-            var catTitle = $('#cat-title-' + i).text();
+            catTitle = $('#cat-title-' + i).text();
 
             // add each category to the goals form category select menu
-            $('#category-select').append('<option value="cat-section-' +
-                i + '">' + catTitle + '</option>');
+            $selectMenu.append('<option value="cat-section-' + i + '">' +
+                catTitle + '</option>');
             
             // populate the settings form input field for the category with
             // the category name
@@ -144,13 +143,14 @@ $(document).ready(function(){
      * Set numCompleted to the saved number of completed goals and goalsIndex
      * to the saved total number of goals.
      */
-    function displayStoredGoals(){
+    (function displayStoredGoals(){
         if (localStorage && GOALS_KEY in localStorage){
-            var storedGoals = JSON.parse(localStorage.getItem(GOALS_KEY));
+            var storedGoals = JSON.parse(localStorage.getItem(GOALS_KEY)),
+                value;
             
             if (storedGoals){
                 for (var key in storedGoals){
-                    var value = storedGoals[key];
+                    value = storedGoals[key];
 
                     if (value && !isBlank(value) && value !== "undefined"){
                         if (key === 'index'){
@@ -164,12 +164,12 @@ $(document).ready(function(){
                 }
             }
         }
-    }
+    })();
 
     /* DISPLAY LOG
      * Show saved log entries and statistics (e.g. total # goals completed).
      */
-    function displayLog(){
+    (function displayLog(){
         // display saved log entries
         if (localStorage && LOG_KEY in localStorage){
             $('#log-entries').html(localStorage.getItem(LOG_KEY));
@@ -181,7 +181,7 @@ $(document).ready(function(){
         // show log entry counts for each goal with logging enabled
         displayLogEntryCounts();
         displaySums();
-    }
+    })();
 
     /* DISPLAY LOG ENTRY COUNTS
      * Counts the number of log entries for each log goal and displays the total
@@ -207,16 +207,16 @@ $(document).ready(function(){
     function displaySums(){
         $('.log-goal').each(function(){
             if ($(this).hasClass('sum-entries')){
-                var sum = 0;
+                var sum = 0,
+                    unit;
 
                 // calculate the sum
                 $('li', this).each(function(){
-                    // TODO what if enter a float?
                     sum += parseInt($(this).text(), 10);
                 });
 
                 // display the sum with correct units
-                var unit = $(this).attr('data-unit');
+                unit = $(this).attr('data-unit');
                 $('.sum', this).text('Total ' + unit + ' completed: ' + sum);
             }
         });
@@ -224,20 +224,6 @@ $(document).ready(function(){
 
 /* ADD/REMOVE GOALS -------------------------------------------------------- */
 /* ------------------------------------------------------------------------- */
-
-    /* TOGGLE GOALS FORM */
-    $('.goals-toggle').click(function(){
-        $('#goal-form').toggle("slow");
-        $('span', this).toggleClass('icon-arrow-up');
-        $('span', this).toggleClass('icon-arrow-down');
-    });
-
-    /* HIDE GOALS FORM ON CANCEL
-     * When the cancel button is clicked, hide the goals form.
-     */
-    $('#goal-form .cancel').click(function(){
-        $('#goal-form').hide("slow");
-    });
 
     /* SHOW UNITS INPUT FIELD
      * Display the units input field if "Sum Log Entries" is checked
@@ -262,11 +248,11 @@ $(document).ready(function(){
             categorySection = $('#category-select option:selected').val(),
             loggingEnabled = $('#enable-logging').prop('checked'),
             sumEntriesEnabled= $('#sum-entries').prop('checked'),
-            unit = sumEntriesEnabled ? stripHTML($('#unit').val()) : "";
+            unit = sumEntriesEnabled ? stripHTML($('#unit').val()) : "",
+            hasErrors = false;
 
         clearErrors('#goal-form');
-
-        var hasErrors = checkGoalFormInputs(newGoal, sumEntriesEnabled,
+        hasErrors = checkGoalFormInputs(newGoal, sumEntriesEnabled,
                             loggingEnabled, unit);
 
         if (!hasErrors){
@@ -288,7 +274,7 @@ $(document).ready(function(){
             });
 
             $('#unit-container').hide();
-            $('#goal-form').hide("slow");
+            $(this).hide("slow");
         }
 
         return false;
@@ -299,25 +285,25 @@ $(document).ready(function(){
      * Otherwise returns false.
      */
     function checkGoalFormInputs(newGoal, sumEntriesEnabled,
-            loggingEnabled, unit){
-        var goalTitleError = $('.error', $('#new-goal').parent('div')),
-            sumEntriesError = $('#additional-tracking > .error'),
-            unitError = $('.error', $('#unit-container')),
+                loggingEnabled, unit){
+        var $goalTitleError = $('.error', $('#new-goal').parent('div')),
+            $sumEntriesError = $('#additional-tracking > .error'),
+            $unitError = $('.error', $('#unit-container')),
             hasErrors = false;
 
         if (isBlank(newGoal)){
-            goalTitleError.text("You must enter a goal!");
+            $goalTitleError.text("You must enter a goal!");
             hasErrors = true;
         }
 
         if (sumEntriesEnabled && !loggingEnabled){
-            sumEntriesError.text('Enable Logging must be checked to enable ' +
+            $sumEntriesError.text('Enable Logging must be checked to enable ' +
                 'Sum Entries.');
             hasErrors = true;
         }
 
         if (sumEntriesEnabled && isBlank(unit)){
-            unitError.text('A measurement unit is required.');
+            $unitError.text('A measurement unit is required.');
             hasErrors = true;
         }
 
@@ -329,13 +315,13 @@ $(document).ready(function(){
      * the goal to local storage.
      */
     function createNewGoal(newGoal, deadline, notes, categorySection,
-        loggingEnabled, unit){
+            loggingEnabled, unit){
         goalsIndex++;
 
         // append goal to selected category
-        var goalsContainer = $('#' + categorySection + ' .goals');
+        var $goalsContainer = $('#' + categorySection + ' .goals');
 
-        goalsContainer
+        $goalsContainer
             .append(goalTemplate({
                 goal: newGoal,
                 deadline: deadline,
@@ -404,11 +390,11 @@ $(document).ready(function(){
      */
     $(document).on('click', '.deadline, .goal-title, .notes', function(){
         var fieldClass = $(this).attr('class'),
-            currentValue = $(this).text();
+            currentValue = $(this).text(),
+            $goalTitle = $(this).parent().find('.goal-title');
 
         // prevent completed goals from being edited
-        if ($('.goal-title', $(this).parent())
-                .css('text-decoration') === 'line-through'){
+        if ($goalTitle.css('text-decoration') === 'line-through'){
             return;
         }
 
@@ -429,14 +415,14 @@ $(document).ready(function(){
             function(){
         var newVal = stripHTML($(this).val()),
             inputID = $(this).attr('id'),
-            parentGoal = $(this).parent();
+            $parentGoal = $(this).parent();
 
         // replace input/textarea with the original html
         if (inputID === 'new-deadline'){
             $(this).replaceWith('<div class="deadline">' + newVal + '</div>');
         } else if (inputID === 'new-goal-title'){
             $(this).replaceWith('<h3 class="goal-title">' + newVal + '</h3>');
-            updateLogGoalTitle(parentGoal, newVal);
+            updateLogGoalTitle($parentGoal, newVal);
         } else if (inputID === 'new-notes'){
             $(this).replaceWith('<p class="notes">' + newVal + '</p>');
         }
@@ -448,16 +434,15 @@ $(document).ready(function(){
      * Updates the log when a goal is edited so that the log also reflects the
      * updated goal title.
      */
-    function updateLogGoalTitle(parentGoal, newGoalTitle){
-        var parentGoalID = parentGoal.attr('id'),
-            loggingEnabled = $('.add-log-entry', parentGoal);
+    function updateLogGoalTitle($parentGoal, newGoalTitle){
+        var parentGoalID = $parentGoal.attr('id'),
+            $loggingEnabled = $parentGoal.find('.add-log-entry'),
+            $logGoal = $('#log-' + parentGoalID);
 
         // update log entry if logging enabled
-        if (loggingEnabled){
-
-            var logGoalID = '#log-' + parentGoalID;
-            if ($(logGoalID)){
-                $('h3', logGoalID).text(newGoalTitle);
+        if ($loggingEnabled){
+            if ($logGoal){
+                $logGoal.find('h3').text(newGoalTitle);
 
                 localStorage.setItem(LOG_KEY, $('#log-entries').html());
             }
@@ -469,22 +454,23 @@ $(document).ready(function(){
 
     /* ADD GOAL LOG ENTRY */
     $(document).on('click', '.add-log-entry', function(){
-        var parentGoal = $(this).parent();
-
-        var currentDate = new Date(),
+        var $parentGoal = $(this).parent(),
+            currentDate = new Date(),
             dd = currentDate.getDate(),
             mm = currentDate.getMonth()+1,
-            yyyy = currentDate.getFullYear();
+            yyyy = currentDate.getFullYear(),
+            $loggingSection = $parentGoal.find('.logging'),
+            unit;
 
         // prevent add-log-entry actions from occurring twice
-        if(!$.trim( $('.logging', parentGoal).html()).length){
-            var unit = parentGoal.attr('data-unit');
+        if(!$.trim($loggingSection.html()).length){
+            unit = $parentGoal.attr('data-unit');
 
             // create input box and save button
-            $('.logging', parentGoal).append(logEntryTemplate({unit: unit}));
+            $loggingSection.append(logEntryTemplate({unit: unit}));
 
             // set today's date as default
-            $('.entry-date', parentGoal).val(mm + '/' + dd + '/' + yyyy);
+            $parentGoal.find('.entry-date').val(mm + '/' + dd + '/' + yyyy);
         }
     });
 
@@ -495,50 +481,53 @@ $(document).ready(function(){
 
     /* SAVE LOG ENTRY */
     $(document).on('click', '.save-log-entry', function(){
-        var parent = $(this).parent(),
-            parentGoalID = parent.parent().attr('id'),
+        var $loggingSection = $(this).parent(),
+            parentGoalID = $loggingSection.parent().attr('id'),
             parentGoalIndex = parentGoalID.substring(5),
-            logEntryText = stripHTML($('.log-input', parent).val()),
-            entryDate = stripHTML($('.entry-date', parent).val()),
+            $logGoal = $('#log-goal-' + parentGoalIndex),
+            logEntryText = stripHTML($loggingSection.find('.log-input').val()),
+            entryDate = stripHTML($loggingSection.find('.entry-date').val()),
             dataUnit = $('#' + parentGoalID).attr('data-unit'),
-            unit = !isBlank(dataUnit) ? dataUnit : "";
+            unit = !isBlank(dataUnit) ? dataUnit : "",
+            hasErrors = false;
 
         clearErrors('#' + parentGoalID);
-        var hasErrors = checkSaveLogInputs(parent, logEntryText, entryDate, unit);
+        hasErrors = checkSaveLogInputs($loggingSection, logEntryText,
+                            entryDate, unit);
 
         if (!hasErrors){
-            $('#log-goal-' + parentGoalIndex + ' .log-list')
-                .append(logListEntryTemplate({
-                        logEntryText: logEntryText,
+            $logGoal.find('.log-list').append(logListEntryTemplate({
+                    logEntryText: logEntryText,
                         entryDate: entryDate,
                         unit: unit
-                    })
-                );
+                })
+            );
 
             // save the log
             localStorage.setItem(LOG_KEY, $('#log-entries').html());
-            removeLogInputField(parent);
+            removeLogInputField($loggingSection);
 
             // update log entry count for the goal
             displayLogEntryCounts();
 
             // update log entry sum if "Sum Log Entries" is enabled
-            if ($('#log-goal-' + parentGoalIndex).hasClass("sum-entries")){
+            if ($logGoal.hasClass("sum-entries")){
                 displaySums();
             }
         }
     });
 
-    function checkSaveLogInputs(parentGoal, logEntryText, entryDate, unit){
-        var hasErrors = false;
+    function checkSaveLogInputs($loggingSection, logEntryText, entryDate, unit){
+        var hasErrors = false,
+            $errorSection = $loggingSection.find('.error');
 
         if (isBlank(logEntryText) || isBlank(entryDate)){
-            $('.error', parentGoal).text("All fields are required!");
+            $errorSection.text("All fields are required!");
             hasErrors = true;
         }
 
         if (!isBlank(unit) && !$.isNumeric(logEntryText)){
-            $('.error', parentGoal).text('You chose to enable sum entries so ' +
+            $errorSection.text('You chose to enable sum entries so ' +
                 'your log entry must be a number.');
             hasErrors = true;
         }
@@ -557,20 +546,6 @@ $(document).ready(function(){
 
 /* SETTINGS FORM ------------------------------------------------------------ */
 /* -------------------------------------------------------------------------- */
-
-    /* TOGGLE SETTINGS FORM */
-    $('.settings-toggle').click(function(){
-        $('#settings-form').toggle("slow");
-        $('span', this).toggleClass('icon-arrow-up');
-        $('span', this).toggleClass('icon-arrow-down');
-    });
-
-    /* HIDE SETTINGS FORM ON CANCEL
-     * When the cancel button is clicked, hide the settings form.
-     */
-    $('#settings-form .cancel').click(function(){
-        $('#settings-form').hide("slow");
-    });
 
     /* ADD NEW CATEGORY INPUT TO SETTINGS FORM */
     $('#add-cat').click(function(){
@@ -626,27 +601,25 @@ $(document).ready(function(){
         var currentDate = new Date(),
             dd = currentDate.getDate(),
             mm = currentDate.getMonth()+1,
-            yyyy = currentDate.getFullYear();
-
-        var parentGoal = $(this).parent();
+            yyyy = currentDate.getFullYear(),
+            $parentGoal = $(this).parent(),
+            $completedDate = $parentGoal.find('.completed-date');
 
         // strike out the goal title
-        $('.goal-title', parentGoal).css('text-decoration', 'line-through');
+        $parentGoal.find('.goal-title').css('text-decoration', 'line-through');
         
         // avoid displaying the date of completion twice
-        if (isBlank($('.completed-date', parentGoal).text())){
+        if (isBlank($completedDate.text())){
             // display date completed
-            $('.completed-date', parentGoal).text('Completed: ' + mm + '/' +
-                dd + '/' + yyyy);
+            $completedDate.text('Completed: ' + mm + '/' + dd + '/' + yyyy);
         }
 
         // change the button class
         $(this).addClass('undo-complete');
         $(this).removeClass('complete');
 
-        goalsCompleted++;
-
         // display new total completed in log panel
+        goalsCompleted++;
         $('#total-completed').html(goalsCompleted);
 
         // save changes
@@ -658,21 +631,20 @@ $(document).ready(function(){
      * and save the changes.
      */
     $(document).on('click', '.undo-complete', function(){
-        var parentGoal = $(this).parent();
+        var $parentGoal = $(this).parent();
 
         // remove strikethrough line
-        $('.goal-title', parentGoal).css('text-decoration', 'none');
+        $parentGoal.find('.goal-title').css('text-decoration', 'none');
 
         // remove date completed
-        $('.completed-date', parentGoal).text("");
+        $parentGoal.find('.completed-date').text("");
 
         // change the button class
         $(this).removeClass('undo-complete');
         $(this).addClass('complete');
 
-        goalsCompleted--;
-
         // display new total completed in log panel
+        goalsCompleted--;
         $('#total-completed').html(goalsCompleted);
 
         localStorage.setItem(GOALS_KEY, JSON.stringify(setGoals()));
@@ -681,29 +653,17 @@ $(document).ready(function(){
 /* LOG SECTION -------------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
 
-    /* TOGGLE LOG */
-    $('.log-toggle').click(function(){
-        $('#log-content').toggle("slow");
-        $('span', this).toggleClass('icon-arrow-up');
-        $('span', this).toggleClass('icon-arrow-down');
-    });
-
-    /* CLOSE LOG */
-    $('#log-content .cancel').click(function(){
-        $('#log-content').hide("slow");
-    });
-
     /* REMOVE LOG GOAL
      * Delete a goal from the log. If the goal hasn't been deleted from the
      * #categories section, then removes logging ability from the goal. Saves 
      * the changes to the log and the goal.
      */
     $(document).on('click', '.remove-log-goal', function(){
-        var logGoal = $(this).parent(),
-            logID = logGoal.attr('id'),
+        var $logGoal = $(this).parent(),
+            logID = $logGoal.attr('id'),
             goalID = '#' + logID.substring(4); // remove the "log-" prefix
 
-        logGoal.remove();
+        $logGoal.remove();
 
         // if goal still exists, disable logging
         if ($(goalID)){
@@ -731,7 +691,7 @@ $(document).ready(function(){
     $(document).on('click', '.log-item', function(){
         var currentLogItem = $('.log-entry-text', this).text();
 
-        $('.log-entry-text', this).replaceWith('<input type="text"' +
+        $(this).find('.log-entry-text').replaceWith('<input type="text"' +
             'name="new-log-item" id="new-log-item" value="' + currentLogItem +
             '" autofocus/>');
     });
@@ -762,8 +722,8 @@ $(document).ready(function(){
     });
 
     $(document).on('click', '.log-goal .delete', function(){
-        var logEntry = $(this).parent();
-        logEntry.remove();
+        var $logEntry = $(this).parent();
+        $logEntry.remove();
 
         localStorage.setItem(LOG_KEY, $('#log-entries').html());
         displaySums();
@@ -779,24 +739,54 @@ $(document).ready(function(){
      * clear review action.
      */
     $(function(){
-        $("#dialog").dialog({
+        var $dialog = $('#dialog');
+        $dialog.dialog({
             autoOpen : false,
             closeText: 'x',
             modal : true,
             buttons: [
-                { text: "Yes", click: function() {
-                        $(this).dialog("close");
+                { text: 'Yes', click: function() {
+                        $(this).dialog('close');
                         localStorage.clear();
                         location.reload(true);
                     } },
-                { text: "No", click: function() { $(this).dialog("close"); } }
+                { text: 'No', click: function() { $(this).dialog('close'); } }
             ]
         });
 
-        $("#clear-review").click(function() {
-            $("#dialog").dialog("open");
+        $('#clear-review').click(function() {
+            $dialog.dialog('open');
             return false;
         });
+    });
+
+/* GENERAL LISTENERS -------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+
+    /* TOGGLE PANNEL */
+    $('#log-toggle, #goals-toggle, #settings-toggle').click(function(){
+        togglePanel($(this));
+    });
+
+    /* NAV TOGGLE PANEL */
+    $('#nav-log-toggle, #nav-goals-toggle, #nav-settings-toggle').click(function(){
+        var selector = $(this).attr('id').substring(4);
+        $('#' + selector).trigger('click');
+    });
+
+    function togglePanel($toggleClicked){
+        var $iconSpan = $toggleClicked.find('span'),
+            $contentToToggle = $toggleClicked.next();
+
+        $contentToToggle.toggle("slow");
+        $iconSpan.toggleClass('icon-arrow-up');
+        $iconSpan.toggleClass('icon-arrow-down');
+    }
+
+    /* CLOSE PANEL */
+    $(document).on('click', '#log-cancel, #goals-cancel, #settings-cancel',
+            function(){
+        $(this).parent().hide('slow');
     });
 
 /* HELPER METHODS ----------------------------------------------------------- */

@@ -22,9 +22,9 @@
 
                     <ul>
 
-                        <li><a href="#" class="settings-toggle">Settings</a></li>
-                        <li><a href="#" class="goals-toggle">Add Goal</a></li>
-                        <li><a href="#" class="log-toggle">View Log and Statistics</a></li>
+                        <li><a href="#" id="nav-settings-toggle">Settings</a></li>
+                        <li><a href="#" id="nav-goals-toggle">Add Goal</a></li>
+                        <li><a href="#" id="nav-log-toggle">View Log and Statistics</a></li>
 
                     </ul>
 
@@ -48,7 +48,7 @@
 
             <section id="settings-section">
 
-                <h2 class="settings-toggle">Settings<span class="icon-arrow-down"></span></h2>
+                <h2 id="settings-toggle">Settings<span class="icon-arrow-down"></span></h2>
 
                 <form method="post" id="settings-form">
 
@@ -75,7 +75,7 @@
 
                     <input type="submit" value="Save" name="save" id="save" />
 
-                    <a href="#" class="cancel">Cancel</a>
+                    <a href="#" id="settings-cancel" class="cancel">Cancel</a>
 
                 </form>
 
@@ -83,7 +83,7 @@
 
             <section id="goals-section">
 
-                <h2 class="goals-toggle">Add Goal<span class="icon-arrow-down"></span></h2>
+                <h2 id="goals-toggle">Add Goal<span class="icon-arrow-down"></span></h2>
 
                 <form method="post" id="goal-form">
 
@@ -153,7 +153,7 @@
 
                     <input type="submit" value="Add Goal" name="add-goal" id="add-goal" />
 
-                    <a href="#" class="cancel">Cancel</a>
+                    <a href="#" id="goals-cancel" class="cancel">Cancel</a>
 
                 </form>
 
@@ -161,7 +161,7 @@
 
             <section id="log-section">
 
-                <h2 class="log-toggle">View Log and Statistics<span class="icon-arrow-down"></span></h2>
+                <h2 id="log-toggle">View Log and Statistics<span class="icon-arrow-down"></span></h2>
 
                 <div id="log-content">
 
@@ -175,7 +175,7 @@
 
                     </div>
 
-                    <a href="#" class="cancel">Close</a>
+                    <a href="#" id="log-cancel" class="cancel">Close</a>
 
                 </div>
 
