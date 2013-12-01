@@ -472,6 +472,8 @@ $(document).ready(function(){
             // set today's date as default
             $parentGoal.find('.entry-date').val(mm + '/' + dd + '/' + yyyy);
         }
+
+        return false;
     });
 
     /* CANCEL LOG ENTRY */
@@ -525,9 +527,7 @@ $(document).ready(function(){
         if (isBlank(logEntryText) || isBlank(entryDate)){
             $errorSection.text("All fields are required!");
             hasErrors = true;
-        }
-
-        if (!isBlank(unit) && !$.isNumeric(logEntryText)){
+        } else if (!isBlank(unit) && !$.isNumeric(logEntryText)){
             $errorSection.text('You chose to enable sum entries so ' +
                 'your log entry must be a number.');
             hasErrors = true;
@@ -663,14 +663,15 @@ $(document).ready(function(){
     $(document).on('click', '.remove-log-goal', function(){
         var $logGoal = $(this).parent(),
             logID = $logGoal.attr('id'),
-            goalID = '#' + logID.substring(4); // remove the "log-" prefix
-
+            goalID = '#' + logID.substring(4), // remove the "log-" prefix
+            $goal = $(goalID);
+        
         $logGoal.remove();
 
         // if goal still exists, disable logging
-        if ($(goalID)){
-            $('.add-log-entry', $(goalID)).remove();
-            $('.logging', $(goalID)).remove();
+        if ($goal){
+            $('.add-log-entry', $goal).remove();
+            $('.logging', $goal).remove();
         }
 
         localStorage.setItem(LOG_KEY, $('#log-entries').html());
