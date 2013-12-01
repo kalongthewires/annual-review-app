@@ -549,9 +549,10 @@ $(document).ready(function(){
 /* -------------------------------------------------------------------------- */
 
     /* ADD NEW CATEGORY INPUT TO SETTINGS FORM */
-    $('#add-cat').click(function(){
+    $(document).on('click', '#add-cat', function(){
         categoryCount++;
         addCategoryFormField();
+        return false;
     });
 
     /* DISPLAY SUBMITTED SETTINGS FORM CHANGES
