@@ -423,7 +423,7 @@ table {
    Master Base Template - Structure
    ========================================================================== */
 body {
-  background: #077269 url("patterns/dots.png");
+  background: #077269;
   font-family: Roboto, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.65em;
