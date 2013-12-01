@@ -23,24 +23,36 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-arrow-down:before {
+.icon-cog:before {
     content: "\e600";
 }
-.icon-arrow-up:before {
+.icon-plus:before {
+    content: "\e605";
+}
+.icon-eye:before {
     content: "\e601";
 }
-.icon-help:before {
+.icon-checkmark:before {
     content: "\e602";
 }
 .icon-cross:before {
     content: "\e603";
 }
-.icon-cross2:before {
-    content: "\e604";
-}
-.icon-plus:before {
-    content: "\e605";
-}
 .icon-minus:before {
     content: "\e606";
+}
+.icon-help:before {
+    content: "\e607";
+}
+.icon-solid-arrow-right:before {
+    content: "\e608";
+}
+.icon-solid-arrow-down:before {
+    content: "\e609";
+}
+.icon-arrow-down:before {
+    content: "\e60a";
+}
+.icon-arrow-up:before {
+    content: "\e60b";
 }

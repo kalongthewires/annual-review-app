@@ -10,6 +10,16 @@
         float: right;
    }
 
+   .icon-cog, .icon-eye, .icon-plus {
+        color: $purple-gray;
+        float: left;
+        margin-right: $default-spacing;
+   }
+
+   .icon-plus {
+        color: #666;
+   }
+
     #settings-section {
         background-color: $orange;
         border-bottom: 1px solid #ddd;
@@ -145,7 +155,7 @@
     }
 
     #log-section {
-        background-color: $gray-blue;
+        background-color: $warm-purple;
         border-bottom: 1px solid #ddd;
         padding: 10px $default-spacing;
 
@@ -245,7 +255,7 @@
         }
 
         .undo-complete {
-            background-color: darkkhaki;
+            background-color: $dark-khaki;
         }
 
         .deadline, .completed-date {

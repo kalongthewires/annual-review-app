@@ -1,23 +1,23 @@
 /*
 Syntax error: Undefined mixin 'button'.
-        on line 31 of scss/global.scss, in `button'
-        from line 31 of scss/global.scss
+        on line 33 of scss/global.scss, in `button'
+        from line 33 of scss/global.scss
 
-26:             background-color: $gray;
-27:             padding: $default-spacing;
-28:         }
-29: 
-30:         #clear-review {
-31:             @include button(#000, #efefef, 3px 10px, 0);
-32:             border: 1px solid #ccc;
-33:             float: right;
-34:             font-weight: bold;
-35:         }
-36: 
+28:             padding: $default-spacing;
+29:             margin: 10px;
+30:         }
+31: 
+32:         #clear-review {
+33:             @include button(#fefefe, $warm-purple, 3px 10px, 0);
+34:             border: 1px solid #555;
+35:             float: right;
+36:         }
+37: 
+38:         .site-nav {
 
 Backtrace:
-scss/global.scss:31:in `button'
-scss/global.scss:31
+scss/global.scss:33:in `button'
+scss/global.scss:33
 C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:253:in `visit_mixin'
 C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:37:in `visit'
 C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:100:in `visit'
@@ -60,4 +60,4 @@ C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/sass-3.2.12/vendor/listen/l
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'button'.\A         on line 31 of scss/global.scss, in `button'\A         from line 31 of scss/global.scss\A \A 26:             background-color: $gray;\A 27:             padding: $default-spacing;\A 28:         }\A 29: \A 30:         #clear-review {\A 31:             @include button(#000, #efefef, 3px 10px, 0);\A 32:             border: 1px solid #ccc;\A 33:             float: right;\A 34:             font-weight: bold;\A 35:         }\A 36: "; }
+  content: "Syntax error: Undefined mixin 'button'.\A         on line 33 of scss/global.scss, in `button'\A         from line 33 of scss/global.scss\A \A 28:             padding: $default-spacing;\A 29:             margin: 10px;\A 30:         }\A 31: \A 32:         #clear-review {\A 33:             @include button(#fefefe, $warm-purple, 3px 10px, 0);\A 34:             border: 1px solid #555;\A 35:             float: right;\A 36:         }\A 37: \A 38:         .site-nav {"; }

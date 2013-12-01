@@ -778,7 +778,7 @@ $(document).ready(function(){
     });
 
     function togglePanel($toggleClicked){
-        var $iconSpan = $toggleClicked.find('span'),
+        var $iconSpan = $toggleClicked.find('.icon-arrow'),
             $contentToToggle = $toggleClicked.next();
 
         $contentToToggle.toggle("slow");

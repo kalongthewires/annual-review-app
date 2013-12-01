@@ -303,26 +303,38 @@ table {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-.icon-arrow-down:before {
+.icon-cog:before {
   content: "\e600"; }
 
-.icon-arrow-up:before {
+.icon-plus:before {
+  content: "\e605"; }
+
+.icon-eye:before {
   content: "\e601"; }
 
-.icon-help:before {
+.icon-checkmark:before {
   content: "\e602"; }
 
 .icon-cross:before {
   content: "\e603"; }
 
-.icon-cross2:before {
-  content: "\e604"; }
-
-.icon-plus:before {
-  content: "\e605"; }
-
 .icon-minus:before {
   content: "\e606"; }
+
+.icon-help:before {
+  content: "\e607"; }
+
+.icon-solid-arrow-right:before {
+  content: "\e608"; }
+
+.icon-solid-arrow-down:before {
+  content: "\e609"; }
+
+.icon-arrow-down:before {
+  content: "\e60a"; }
+
+.icon-arrow-up:before {
+  content: "\e60b"; }
 
 /* ==========================================================================
    Global Mixins
@@ -411,7 +423,7 @@ table {
    Master Base Template - Structure
    ========================================================================== */
 body {
-  background-color: #077269;
+  background: #077269 url("patterns/dots.png");
   font-family: Roboto, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.65em;
@@ -419,10 +431,12 @@ body {
 
 .site-header {
   background-color: #deddbf;
-  padding: 20px; }
+  border: 1px dashed #077269;
+  padding: 20px;
+  margin: 10px; }
 
 #clear-review {
-  background-color: #efefef;
+  background-color: rgba(148, 62, 88, 0.9);
   border: none;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -432,7 +446,7 @@ body {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
-  color: black;
+  color: #fefefe;
   margin: 0;
   padding: 3px 10px;
   text-shadow: none;
@@ -444,9 +458,8 @@ body {
   -moz-transition-duration: 0.3s;
   -o-transition-duration: 0.3s;
   transition-duration: 0.3s;
-  border: 1px solid #ccc;
-  float: right;
-  font-weight: bold; }
+  border: 1px solid #555;
+  float: right; }
 
 .site-nav {
   float: left;
@@ -520,6 +533,7 @@ input[type='submit'] {
    Containers & Holders
    ========================================================================== */
 .full-container {
+  padding: 10px 0;
   margin: 0; }
 
 .container {
@@ -561,26 +575,38 @@ input[type='submit'] {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-.icon-arrow-down:before {
+.icon-cog:before {
   content: "\e600"; }
 
-.icon-arrow-up:before {
+.icon-plus:before {
+  content: "\e605"; }
+
+.icon-eye:before {
   content: "\e601"; }
 
-.icon-help:before {
+.icon-checkmark:before {
   content: "\e602"; }
 
 .icon-cross:before {
   content: "\e603"; }
 
-.icon-cross2:before {
-  content: "\e604"; }
-
-.icon-plus:before {
-  content: "\e605"; }
-
 .icon-minus:before {
   content: "\e606"; }
+
+.icon-help:before {
+  content: "\e607"; }
+
+.icon-solid-arrow-right:before {
+  content: "\e608"; }
+
+.icon-solid-arrow-down:before {
+  content: "\e609"; }
+
+.icon-arrow-down:before {
+  content: "\e60a"; }
+
+.icon-arrow-up:before {
+  content: "\e60b"; }
 
 /* ==========================================================================
    Global Mixins
@@ -603,6 +629,14 @@ input[type='submit'] {
    ========================================================================== */
 .icon-arrow-up, .icon-arrow-down {
   float: right; }
+
+.icon-cog, .icon-eye, .icon-plus {
+  color: #cbcbcb;
+  float: left;
+  margin-right: 20px; }
+
+.icon-plus {
+  color: #666; }
 
 #settings-section {
   background-color: #d76623;
@@ -724,7 +758,7 @@ input[type='submit'] {
     margin-left: 10px; }
 
 #log-section {
-  background-color: #4a586b;
+  background-color: rgba(148, 62, 88, 0.9);
   border-bottom: 1px solid #ddd;
   padding: 10px 20px; }
   #log-section #log-toggle {

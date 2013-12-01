@@ -15,7 +15,7 @@
    Master Base Template - Structure
    ========================================================================== */
         body {
-            background-color: $blue-green;
+            background: $blue-green url('patterns/dots.png');
             font-family: Roboto, Helvetica, Arial, sans-serif;
             font-size: 16px;
             line-height: 1.65em;
@@ -24,14 +24,15 @@
 
         .site-header {
             background-color: $gray;
+            border: 1px dashed $blue-green;
             padding: $default-spacing;
+            margin: 10px;
         }
 
         #clear-review {
-            @include button(#000, #efefef, 3px 10px, 0);
-            border: 1px solid #ccc;
+            @include button(#fefefe, $warm-purple, 3px 10px, 0);
+            border: 1px solid #555;
             float: right;
-            font-weight: bold;
         }
 
         .site-nav {
@@ -129,6 +130,7 @@
    Containers & Holders
    ========================================================================== */
         .full-container {
+            padding: 10px 0;
             margin: 0;
         }
 
