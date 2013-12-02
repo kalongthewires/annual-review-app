@@ -436,7 +436,7 @@ body {
   margin: 10px; }
 
 #clear-review {
-  background-color: rgba(148, 62, 88, 0.9);
+  background-color: #9c4e66;
   border: none;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -758,7 +758,7 @@ input[type='submit'] {
     margin-left: 10px; }
 
 #log-section {
-  background-color: rgba(148, 62, 88, 0.9);
+  background-color: rgba(148, 62, 88, 0.85);
   border-bottom: 1px solid #ddd;
   padding: 10px 20px; }
   #log-section #log-toggle {

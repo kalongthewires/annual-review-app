@@ -212,7 +212,7 @@
     margin-left: 10px; }
 
 #log-section {
-  background-color: rgba(148, 62, 88, 0.9);
+  background-color: rgba(148, 62, 88, 0.85);
   border-bottom: 1px solid #ddd;
   padding: 10px 20px; }
   #log-section #log-toggle {
