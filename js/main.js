@@ -376,6 +376,27 @@ $(document).ready(function(){
         }
     }
 
+    /* TOGGLE NOTES
+     * Show/hide goal notes when the View Notes link is clicked.
+     */
+    $(document).on('click', '.view-notes, .hide-notes', function(){
+        var actionClass = $(this).attr('class'),
+            $parentGoal = $(this).parent().parent(),
+            $notes = $parentGoal.find('.notes');
+
+        $notes.toggleClass("hidden");
+
+        if (actionClass === 'view-notes'){
+            $(this).text('Hide Notes');
+        } else if (actionClass === 'hide-notes'){
+            $(this).text('View Notes');
+        }
+
+        $(this).toggleClass("view-notes");
+        $(this).toggleClass("hide-notes");
+        return false;
+    });
+
     /* DELETE GOAL ON DELETE
      * Delete goal when the delete button is pushed and save the changes.
      */
@@ -456,8 +477,8 @@ $(document).ready(function(){
 /* -------------------------------------------------------------------------- */
 
     /* ADD GOAL LOG ENTRY */
-    $(document).on('click', '.add-log-entry', function(){
-        var $parentGoal = $(this).parent(),
+    $(document).on('click', '.add-log-entry', function(e){
+        var $parentGoal = $(this).parent().parent(),
             currentDate = new Date(),
             dd = currentDate.getDate(),
             mm = currentDate.getMonth()+1,

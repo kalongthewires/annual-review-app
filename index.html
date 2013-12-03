@@ -286,12 +286,19 @@
             <button class="delete">x</button>
             <button class="complete">&#10004</button>
 
-            <div class="completed-date"></div>
-            <a href="#" class="view-notes">View Notes</a>
-            <p class="notes">{{notes}}</p>
-            
+            <p class="notes hidden">{{notes}}</p>
+
+            <div class="actions">
+
+                <div class="completed-date"></div>
+                <a href="#" class="view-notes">View Notes</a>
+                {{#if loggingEnabled}}
+                <a class="add-log-entry" href="#">Add Log Entry</a>
+                {{/if}}
+
+            </div>
+
             {{#if loggingEnabled}}
-            <a class="add-log-entry" href="#">Add Log Entry</a>
             <div class="logging">
             </div>
             {{/if}}

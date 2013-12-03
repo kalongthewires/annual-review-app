@@ -511,6 +511,9 @@ h3 {
 .error {
   color: red; }
 
+.hidden {
+  display: none; }
+
 /* ==========================================================================
    Links
    ========================================================================== */
@@ -854,6 +857,7 @@ input[type='submit'] {
     margin-right: 20px; }
   #categories .goal {
     margin-bottom: 5px;
+    overflow: auto;
     padding: 10px 0; }
   #categories .delete {
     font-weight: bold; }
@@ -892,7 +896,7 @@ input[type='submit'] {
   #categories .completed-date {
     clear: both;
     margin-top: 0; }
-  #categories .view-notes {
+  #categories .view-notes, #categories .hide-notes {
     display: block;
     clear: both; }
   #categories .notes {
@@ -912,8 +916,12 @@ input[type='submit'] {
     display: block;
     height: 100px;
     width: 100%; }
-  #categories .add-log-entry {
-    font-size: .95em; }
+  #categories .add-log-entry,
+  #categories .view-notes,
+  #categories .hide-notes {
+    font-size: .95em;
+    float: left;
+    margin-right: 20px; }
 
 .logging {
   clear: both;
