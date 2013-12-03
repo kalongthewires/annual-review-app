@@ -903,7 +903,8 @@ input[type='submit'] {
     clear: both;
     margin-bottom: 5px;
     margin-top: 0;
-    padding-top: 5px; }
+    padding-top: 5px;
+    white-space: pre-wrap; }
   #categories #new-goal-title {
     float: left;
     margin-right: 20px;
