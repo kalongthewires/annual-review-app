@@ -243,8 +243,8 @@ $(document).ready(function(){
      */
     $('#goal-form').submit(function(){
         var newGoal = stripHTML($('#new-goal').val()),
-            deadline = 'Deadline: ' + stripHTML($('#deadline-input').val()),
-            notes = stripHTML($('#goal-notes').val()),
+            deadline = stripHTML($('#deadline-input').val()),
+            notes = stripHTML($('#goal-notes').val()) || "Click to add notes",
             categorySection = $('#category-select option:selected').val(),
             loggingEnabled = $('#enable-logging').prop('checked'),
             sumEntriesEnabled= $('#sum-entries').prop('checked'),
@@ -390,7 +390,9 @@ $(document).ready(function(){
      */
     $(document).on('click', '.deadline, .goal-title, .notes', function(){
         var fieldClass = $(this).attr('class'),
-            currentValue = $(this).text(),
+            $fieldToReplace = fieldClass === 'deadline' ?
+                $('.deadline-time', this) : $(this),
+            currentValue = $fieldToReplace.text(),
             $goalTitle = $(this).parent().find('.goal-title');
 
         // prevent completed goals from being edited
@@ -402,9 +404,9 @@ $(document).ready(function(){
             $(this).replaceWith('<textarea id="new-' + fieldClass +
                 '" autofocus>' + currentValue + '</textarea>');
         } else {
-            $(this).replaceWith("<input type='text' name='new-" + fieldClass +
-                "' id='new-" + fieldClass + "' value='" + currentValue +
-                "' autofocus/>");
+            $fieldToReplace.replaceWith("<input type='text' name='new-" +
+                fieldClass + "' id='new-" + fieldClass + "' value='" +
+                currentValue + "' autofocus/>");
         }
     });
 
@@ -419,7 +421,8 @@ $(document).ready(function(){
 
         // replace input/textarea with the original html
         if (inputID === 'new-deadline'){
-            $(this).replaceWith('<div class="deadline">' + newVal + '</div>');
+            $(this).replaceWith('<span class="deadline-time">' + newVal +
+                '</span>');
         } else if (inputID === 'new-goal-title'){
             $(this).replaceWith('<h3 class="goal-title">' + newVal + '</h3>');
             updateLogGoalTitle($parentGoal, newVal);

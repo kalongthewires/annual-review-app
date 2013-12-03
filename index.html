@@ -279,12 +279,15 @@
         <div class="goal" id="goal-{{index}}" data-unit="{{unit}}">
 
             <h3 class="goal-title">{{goal}}</h3>
-            <div class="deadline">{{deadline}}</div>
+            <div class="deadline">Deadline: 
+                <span class="deadline-time">{{deadline}}</span>
+            </div>
 
             <button class="delete">x</button>
             <button class="complete">&#10004</button>
 
             <div class="completed-date"></div>
+            <a href="#" class="view-notes">View Notes</a>
             <p class="notes">{{notes}}</p>
             
             {{#if loggingEnabled}}

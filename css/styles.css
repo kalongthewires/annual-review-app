@@ -892,6 +892,9 @@ input[type='submit'] {
   #categories .completed-date {
     clear: both;
     margin-top: 0; }
+  #categories .view-notes {
+    display: block;
+    clear: both; }
   #categories .notes {
     clear: both;
     margin-bottom: 5px;
