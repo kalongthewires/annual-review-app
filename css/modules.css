@@ -83,6 +83,9 @@
    ========================================================================== */
 .icon-arrow-up, .icon-arrow-down {
   float: right; }
+  @media screen and (max-width: 500px) {
+    .icon-arrow-up, .icon-arrow-down {
+      display: none; } }
 
 .icon-cog, .icon-eye, .icon-plus {
   color: #cbcbcb;
@@ -91,6 +94,13 @@
 
 .icon-plus {
   color: #666; }
+
+@media screen and (max-width: 600px) {
+  #settings-toggle, #log-toggle, #goals-toggle {
+    font-size: 24px; } }
+@media screen and (max-width: 380px) {
+  #settings-toggle, #log-toggle, #goals-toggle {
+    font-size: 20px; } }
 
 #settings-section {
   background-color: #d76623;
@@ -281,7 +291,11 @@
     font-weight: bold;
     width: 30px; }
   #log-section h3 {
-    float: left; }
+    float: left;
+    max-width: 90%; }
+    @media screen and (max-width: 450px) {
+      #log-section h3 {
+        max-width: 80%; } }
   #log-section .log-date {
     float: right;
     font-style: italic;
@@ -321,7 +335,10 @@
     border-bottom: 1px dashed #888; }
   #categories h3 {
     float: left;
-    margin-right: 20px; }
+    max-width: 80%; }
+    @media screen and (max-width: 450px) {
+      #categories h3 {
+        max-width: 70%; } }
   #categories .goal {
     margin-bottom: 5px;
     overflow: auto;
@@ -377,7 +394,6 @@
     margin-right: 20px;
     margin-top: 10px; }
   #categories #new-deadline {
-    float: left;
     margin-top: 10px; }
   #categories #new-notes {
     clear: both;
