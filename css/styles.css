@@ -789,6 +789,9 @@ input[type='submit'] {
       #goals-section #unit {
         display: block;
         margin-left: 0; } }
+    @media screen and (max-width: 450px) {
+      #goals-section #unit {
+        display: none; } }
   #goals-section #add-goal {
     background-color: #14a588;
     border: none;
