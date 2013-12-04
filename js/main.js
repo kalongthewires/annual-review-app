@@ -382,7 +382,7 @@ $(document).ready(function(){
      */
     $(document).on('click', '.view-notes, .hide-notes', function(){
         var actionClass = $(this).attr('class'),
-            $parentGoal = $(this).parent().parent(),
+            $parentGoal = $(this).closest('.goal'),
             $notes = $parentGoal.find('.notes');
 
         $notes.toggleClass("hidden");
@@ -402,7 +402,7 @@ $(document).ready(function(){
      * Delete goal when the delete button is pushed and save the changes.
      */
     $(document).on('click', '.delete', function(){
-        $(this).parent().remove();
+        $(this).closest('.goal').remove();
         localStorage.setItem(GOALS_KEY, JSON.stringify(setGoals()));
     });
 
@@ -415,7 +415,7 @@ $(document).ready(function(){
             $fieldToReplace = fieldClass === 'deadline' ?
                 $('.deadline-time', this) : $(this),
             currentValue = $fieldToReplace.text(),
-            $goalTitle = $(this).parent().find('.goal-title');
+            $goalTitle = $(this).closest('.goal').find('.goal-title');
 
         // prevent completed goals from being edited
         if ($goalTitle.css('text-decoration') === 'line-through'){
@@ -439,7 +439,7 @@ $(document).ready(function(){
             function(){
         var newVal = stripHTML($(this).val()),
             inputID = $(this).attr('id'),
-            $parentGoal = $(this).parent();
+            $parentGoal = $(this).closest('.goal');
 
         // replace input/textarea with the original html
         if (inputID === 'new-deadline'){
@@ -479,7 +479,7 @@ $(document).ready(function(){
 
     /* ADD GOAL LOG ENTRY */
     $(document).on('click', '.add-log-entry', function(e){
-        var $parentGoal = $(this).parent().parent(),
+        var $parentGoal = $(this).closest('.goal'),
             currentDate = new Date(),
             dd = currentDate.getDate(),
             mm = currentDate.getMonth()+1,
@@ -503,14 +503,14 @@ $(document).ready(function(){
 
     /* CANCEL LOG ENTRY */
     $(document).on('click', '#cancel-logging', function(){
-        removeLogInputField($(this).parent().parent());
+        removeLogInputField($(this).closest('.logging'));
         return false;
     });
 
     /* SAVE LOG ENTRY */
     $(document).on('click', '.save-log-entry', function(){
-        var $loggingSection = $(this).parent().parent(),
-            parentGoalID = $loggingSection.parent().attr('id'),
+        var $loggingSection = $(this).closest('.logging'),
+            parentGoalID = $loggingSection.closest('.goal').attr('id'),
             parentGoalIndex = parentGoalID.substring(5),
             $logGoal = $('#log-goal-' + parentGoalIndex),
             logEntryText = stripHTML($loggingSection.find('.log-input').val()),
@@ -629,7 +629,7 @@ $(document).ready(function(){
             dd = currentDate.getDate(),
             mm = currentDate.getMonth()+1,
             yyyy = currentDate.getFullYear(),
-            $parentGoal = $(this).parent(),
+            $parentGoal = $(this).closest('.goal'),
             $completedDate = $parentGoal.find('.completed-date');
 
         // strike out the goal title
@@ -658,7 +658,7 @@ $(document).ready(function(){
      * and save the changes.
      */
     $(document).on('click', '.undo-complete', function(){
-        var $parentGoal = $(this).parent();
+        var $parentGoal = $(this).closest('.goal');
 
         // remove strikethrough line
         $parentGoal.find('.goal-title').css('text-decoration', 'none');
@@ -686,7 +686,7 @@ $(document).ready(function(){
      * the changes to the log and the goal.
      */
     $(document).on('click', '.remove-log-goal', function(){
-        var $logGoal = $(this).parent(),
+        var $logGoal = $(this).closest('.log-goal'),
             logID = $logGoal.attr('id'),
             goalID = '#' + logID.substring(4), // remove the "log-" prefix
             $goal = $(goalID);
@@ -750,7 +750,7 @@ $(document).ready(function(){
     });
 
     $(document).on('click', '.log-goal .delete', function(){
-        var $logEntry = $(this).parent();
+        var $logEntry = $(this).closest('.log-goal');
         $logEntry.remove();
 
         localStorage.setItem(LOG_KEY, $('#log-entries').html());
@@ -805,7 +805,7 @@ $(document).ready(function(){
     /* CLOSE PANEL */
     $(document).on('click', '#log-cancel, #goals-cancel, #settings-cancel',
             function(){
-        var $parentSection = $(this).parent().parent(),
+        var $parentSection = $(this).closest('section'),
             $parentToggle = $parentSection.find('h2');
         $parentToggle.trigger('click');
     });
