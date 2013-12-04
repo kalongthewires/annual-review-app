@@ -390,6 +390,8 @@
   .logging .save-log-entry, .logging .cancel {
     float: right;
     margin-top: 5px; }
+  .logging .cancel {
+    margin-right: 5px; }
   .logging .save-log-entry {
     background-color: #d76623;
     border: none;
@@ -419,5 +421,3 @@
     width: 100px;
     display: inline;
     margin-top: 5px; }
-  .logging .cancel {
-    margin-right: 5px; }

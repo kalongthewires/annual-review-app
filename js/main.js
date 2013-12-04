@@ -212,7 +212,8 @@ $(document).ready(function(){
 
                 // calculate the sum
                 $('li', this).each(function(){
-                    sum += parseInt($(this).text(), 10);
+                    console.log($(this).text());
+                    sum += parseFloat($(this).text());
                 });
 
                 // display the sum with correct units
