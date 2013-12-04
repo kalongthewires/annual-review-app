@@ -503,13 +503,13 @@ $(document).ready(function(){
 
     /* CANCEL LOG ENTRY */
     $(document).on('click', '#cancel-logging', function(){
-        removeLogInputField($(this).parent());
+        removeLogInputField($(this).parent().parent());
         return false;
     });
 
     /* SAVE LOG ENTRY */
     $(document).on('click', '.save-log-entry', function(){
-        var $loggingSection = $(this).parent(),
+        var $loggingSection = $(this).parent().parent(),
             parentGoalID = $loggingSection.parent().attr('id'),
             parentGoalIndex = parentGoalID.substring(5),
             $logGoal = $('#log-goal-' + parentGoalIndex),
@@ -539,7 +539,7 @@ $(document).ready(function(){
             displayLogEntryCounts();
 
             // update log entry sum if "Sum Log Entries" is enabled
-            if ($logGoal.hasClass("sum-entries")){
+            if ($logGoal.hasClass('sum-entries')){
                 displaySums();
             }
         }
@@ -550,7 +550,7 @@ $(document).ready(function(){
             $errorSection = $loggingSection.find('.error');
 
         if (isBlank(logEntryText) || isBlank(entryDate)){
-            $errorSection.text("All fields are required!");
+            $errorSection.text('All fields are required!');
             hasErrors = true;
         } else if (!isBlank(unit) && !$.isNumeric(logEntryText)){
             $errorSection.text('You chose to enable sum entries so ' +
@@ -802,6 +802,14 @@ $(document).ready(function(){
         $('#' + selector).trigger('click');
     });
 
+    /* CLOSE PANEL */
+    $(document).on('click', '#log-cancel, #goals-cancel, #settings-cancel',
+            function(){
+        var $parentSection = $(this).parent().parent(),
+            $parentToggle = $parentSection.find('h2');
+        $parentToggle.trigger('click');
+    });
+
     function togglePanel($toggleClicked){
         var $iconSpan = $toggleClicked.find('.icon-arrow'),
             $contentToToggle = $toggleClicked.next();
@@ -810,12 +818,6 @@ $(document).ready(function(){
         $iconSpan.toggleClass('icon-arrow-up');
         $iconSpan.toggleClass('icon-arrow-down');
     }
-
-    /* CLOSE PANEL */
-    $(document).on('click', '#log-cancel, #goals-cancel, #settings-cancel',
-            function(){
-        $(this).parent().hide('slow');
-    });
 
 /* HELPER METHODS ----------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */

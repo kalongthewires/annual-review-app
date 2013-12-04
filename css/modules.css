@@ -170,6 +170,9 @@
   #goals-section label[for="new-goal"],
   #goals-section label[for="deadline-input"] {
     width: 75px; }
+  @media screen and (max-width: 800px) {
+    #goals-section .new-goal {
+      margin-bottom: 5px; } }
   #goals-section .instructions {
     font-size: 15px; }
   #goals-section label[for="enable-logging"],
@@ -184,6 +187,13 @@
     margin-top: 20px; }
   #goals-section #unit {
     margin-left: 20px; }
+    @media screen and (max-width: 800px) {
+      #goals-section #unit {
+        margin-bottom: 5px; } }
+    @media screen and (max-width: 550px) {
+      #goals-section #unit {
+        display: block;
+        margin-left: 0; } }
   #goals-section #add-goal {
     background-color: #14a588;
     border: none;
@@ -210,6 +220,12 @@
     font-weight: bold; }
   #goals-section span.error {
     margin-left: 10px; }
+    @media screen and (max-width: 800px) {
+      #goals-section span.error {
+        clear: both;
+        display: block;
+        margin-bottom: 10px;
+        margin-left: 0; } }
 
 #log-section {
   background-color: rgba(148, 62, 88, 0.85);
@@ -340,20 +356,20 @@
   #categories .undo-complete {
     background-color: darkkhaki; }
   #categories .deadline, #categories .completed-date {
-    float: left;
-    font-size: .95em;
-    font-style: italic;
-    margin-top: 5px; }
-  #categories .completed-date {
     clear: both;
-    margin-top: 0; }
+    font-size: .95em;
+    font-style: italic; }
+  #categories .actions {
+    clear: both;
+    overflow: auto;
+    padding-top: 3px; }
   #categories .view-notes, #categories .hide-notes {
     display: block;
     clear: both; }
   #categories .notes {
     clear: both;
     margin-bottom: 5px;
-    margin-top: 0;
+    margin-top: 5px;
     padding-top: 5px;
     white-space: pre-wrap; }
   #categories #new-goal-title {
@@ -367,57 +383,82 @@
     clear: both;
     display: block;
     height: 100px;
-    width: 100%; }
+    width: 95%; }
   #categories .add-log-entry,
   #categories .view-notes,
   #categories .hide-notes {
     font-size: .95em;
     float: left;
     margin-right: 20px; }
-
-.logging {
-  clear: both;
-  font-size: .95em;
-  overflow: auto; }
-  .logging label, .logging .log-input, .logging .unit {
-    float: left;
-    margin-right: 10px;
-    margin-top: 5px; }
-  .logging label {
-    font-weight: bold; }
-  .logging .log-input {
-    margin-right: 5px; }
-  .logging .save-log-entry, .logging .cancel {
-    float: right;
-    margin-top: 5px; }
-  .logging .cancel {
-    margin-right: 5px; }
-  .logging .save-log-entry {
-    background-color: #d76623;
-    border: none;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
+  #categories .logging {
+    clear: both;
+    background: #deddbf;
     border-radius: 3px;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-    color: #fefefe;
-    margin: 3px 0 0;
-    padding: 3px 10px;
-    text-shadow: none;
-    -webkit-transition-property: background;
-    -moz-transition-property: background;
-    -o-transition-property: background;
-    transition-property: background;
-    -webkit-transition-duration: 0.3s;
-    -moz-transition-duration: 0.3s;
-    -o-transition-duration: 0.3s;
-    transition-duration: 0.3s; }
-  .logging .entry-date-label {
-    display: inline; }
-  .logging .entry-date {
-    width: 100px;
-    display: inline;
-    margin-top: 5px; }
+    font-size: .95em;
+    overflow: auto;
+    padding: 0 15px; }
+    #categories .logging .row {
+      float: left;
+      margin-top: 5px; }
+      @media screen and (max-width: 800px) {
+        #categories .logging .row {
+          margin-top: 10px; } }
+    #categories .logging .error {
+      clear: both; }
+      @media screen and (max-width: 800px) {
+        #categories .logging .error {
+          margin-bottom: 10px; } }
+    #categories .logging label, #categories .logging .log-input, #categories .logging .unit {
+      float: left;
+      margin-right: 10px;
+      margin-top: 5px; }
+    #categories .logging label {
+      font-weight: bold; }
+    #categories .logging .log-input {
+      margin-right: 5px; }
+    #categories .logging .actions {
+      clear: none;
+      margin-bottom: 10px;
+      margin-top: 5px;
+      overflow: auto;
+      padding-top: 0; }
+      @media screen and (max-width: 800px) {
+        #categories .logging .actions {
+          clear: both;
+          margin-bottom: 5px; } }
+    #categories .logging .save-log-entry, #categories .logging .cancel {
+      float: left;
+      margin-top: 5px; }
+    #categories .logging .save-log-entry {
+      background-color: #d76623;
+      border: none;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      -ms-border-radius: 3px;
+      -o-border-radius: 3px;
+      border-radius: 3px;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      color: #fefefe;
+      margin: 3px 0 0;
+      padding: 3px 10px;
+      text-shadow: none;
+      -webkit-transition-property: background;
+      -moz-transition-property: background;
+      -o-transition-property: background;
+      transition-property: background;
+      -webkit-transition-duration: 0.3s;
+      -moz-transition-duration: 0.3s;
+      -o-transition-duration: 0.3s;
+      transition-duration: 0.3s;
+      margin: 5px 5px 0 10px; }
+      @media screen and (max-width: 800px) {
+        #categories .logging .save-log-entry {
+          margin-left: 0; } }
+    #categories .logging .entry-date-label {
+      display: inline; }
+    #categories .logging .entry-date {
+      width: 100px;
+      display: inline;
+      margin-top: 5px; }

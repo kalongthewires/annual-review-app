@@ -120,6 +120,14 @@
             width: 75px;
         }
 
+        .new-goal {
+            @media screen and (max-width: 800px){
+                & {
+                    margin-bottom: 5px;
+                }
+            }
+        }
+
         .instructions {
             font-size: 15px;
         }
@@ -142,6 +150,19 @@
 
         #unit {
             margin-left: $default-spacing;
+
+            @media screen and (max-width: 800px){
+                & {
+                    margin-bottom: 5px;
+                }
+            }
+
+            @media screen and (max-width: 550px){
+                & {
+                    display: block;
+                    margin-left: 0;
+                }
+            }
         }
 
         #add-goal {
@@ -151,6 +172,15 @@
 
         span.error {
             margin-left: 10px;
+            
+            @media screen and (max-width: 800px){
+                & {
+                    clear: both;
+                    display: block;
+                    margin-bottom: 10px;
+                    margin-left: 0;
+                }
+            }   
         }
     }
 
@@ -260,15 +290,15 @@
         }
 
         .deadline, .completed-date {
-            float: left;
+            clear: both;
             font-size: .95em;
             font-style: italic;
-            margin-top: 5px;
         }
 
-        .completed-date {
-            clear: both;   
-            margin-top: 0;
+        .actions {
+            clear: both;
+            overflow: auto;
+            padding-top: 3px;
         }
 
         .view-notes, .hide-notes {
@@ -279,7 +309,7 @@
         .notes {
             clear: both;    
             margin-bottom: 5px;
-            margin-top: 0;
+            margin-top: 5px;
             padding-top: 5px;
             white-space: pre-wrap;
         }
@@ -299,7 +329,7 @@
             clear: both;
             display: block;
             height: 100px;
-            width: 100%;
+            width: 95%;
         }
 
         .add-log-entry, 
@@ -309,47 +339,89 @@
             float: left;
             margin-right: $default-spacing;
         }
-    }
 
-    .logging {
+        .logging {
         clear: both;
+        background: #deddbf;
+        border-radius: 3px;
         font-size: .95em;
         overflow: auto;
+        padding: 0 15px;
 
-        label, .log-input, .unit {
-            float: left;
-            margin-right: 10px;
-            margin-top: 5px;
-        }
+            .row {
+                float: left;
+                margin-top: 5px;
 
-        label {
-            font-weight: bold;
-        }
+                @media screen and (max-width: 800px){    
+                    & {
+                        margin-top: 10px;
+                    }
+                }
+            }
 
-        .log-input {
-            margin-right: 5px;
-        }
+            .error {
+                clear: both;
 
-        .save-log-entry, .cancel {
-            float: right;
-            margin-top: 5px;
-        }
+                @media screen and (max-width: 800px){    
+                    & {
+                        margin-bottom: 10px;
+                    }
+                }
+            }
 
-        .cancel {
-            margin-right: 5px;
-        }
+            label, .log-input, .unit {
+                float: left;
+                margin-right: 10px;
+                margin-top: 5px;
+            }
 
-        .save-log-entry {
-            @include button(#fefefe, $orange, 3px 10px, 3px 0 0);
-        }
+            label {
+                font-weight: bold;
+            }
 
-        .entry-date-label {
-            display: inline;
-        }
+            .log-input {
+                margin-right: 5px;
+            }
 
-        .entry-date {
-            width: 100px;
-            display: inline;
-            margin-top: 5px;
+            .actions {
+                clear: none;
+                margin-bottom: 10px;
+                margin-top: 5px;
+                overflow: auto;
+                padding-top: 0;
+
+                @media screen and (max-width: 800px){    
+                    & {
+                        clear: both;
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+
+            .save-log-entry, .cancel {
+                float: left;
+                margin-top: 5px;
+            }
+
+            .save-log-entry {
+                @include button(#fefefe, $orange, 3px 10px, 3px 0 0);
+                margin: 5px 5px 0 10px;
+                
+                @media screen and (max-width: 800px){    
+                    & {
+                        margin-left: 0;
+                    }
+                }
+            }
+
+            .entry-date-label {
+                display: inline;
+            }
+
+            .entry-date {
+                width: 100px;
+                display: inline;
+                margin-top: 5px;
+            }
         }
     }

@@ -193,8 +193,8 @@
 
             </section>
 
-            <div id="categories">
-            </div>
+            <section id="categories">
+            </section>
 
             <footer>
 
@@ -230,15 +230,21 @@
 
     <script id="log-entry-template" type="text/x-handlebars-template">
 
-        <label class="input-label">I completed:</label>
-        <input type="text" name="log-input" class="log-input" placeholder="e.g. Pride and Prejudice by Jane Austen" autofocus/>
-        <div class="unit">{{unit}}</div>
+        <div class="row">
+            <label class="input-label">I completed:</label>
+            <input type="text" name="log-input" class="log-input" placeholder="e.g. Pride and Prejudice by Jane Austen" autofocus/>
+            <div class="unit">{{unit}}</div>
+        </div>
 
-        <label class="entry-date-label">Date:</label>
-        <input type="text" name="entry-date" class="entry-date" placeholder="mm/dd/yyyy" />
+        <div class="row">
+            <label class="entry-date-label">Date:</label>
+            <input type="text" name="entry-date" class="entry-date" placeholder="mm/dd/yyyy" />
+        </div>
         
-        <button class="save-log-entry">Save</button>
-        <a href="#" id="cancel-logging" class="cancel">Cancel</a>
+        <div class="row actions">
+            <button class="save-log-entry">Save</button>
+            <a href="#" id="cancel-logging" class="cancel">Cancel</a>
+        </div>
 
         <div class="error"></div>
 
@@ -279,18 +285,18 @@
         <div class="goal" id="goal-{{index}}" data-unit="{{unit}}">
 
             <h3 class="goal-title">{{goal}}</h3>
+            <button class="delete">x</button>
+            <button class="complete">&#10004</button>
+            
             <div class="deadline">Deadline: 
                 <span class="deadline-time">{{deadline}}</span>
             </div>
-
-            <button class="delete">x</button>
-            <button class="complete">&#10004</button>
+            <div class="completed-date"></div>
 
             <p class="notes hidden">{{notes}}</p>
 
             <div class="actions">
 
-                <div class="completed-date"></div>
                 <a href="#" class="view-notes">View Notes</a>
                 {{#if loggingEnabled}}
                 <a class="add-log-entry" href="#">Add Log Entry</a>
